@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# agents and mcp
+CLAUDE.md
+.gng*
+.claude
+
+
+# content not to be pushed to github
+references/*
+
