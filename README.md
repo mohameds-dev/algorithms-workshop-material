@@ -1,20 +1,12 @@
 # algorithms-workshop-material
 
-Material for an algorithms & data structures workshop at the University of Houston (UH).
+Material for the algorithms & data structures workshop at the University of Houston (UH).
 
-## Structure
+## Navigating this repo
 
-```
-problems/
-  <problem-slug>/
-    README.md    # link to the problem, hints, summary, solution explanation, metadata
-    solution.*   # the solution file
+- **New here?** Start with [`weekly_material/`](weekly_material/): one file per workshop day,
+  in order, covering what we discussed that day.
+- **Looking for a practice problem?** Check [`problems/`](problems/): each problem has its own
+  folder with a README (link to the problem, hints, and a solution write-up) and a solution file.
 
-weekly_material/
-  week1_day1.md  # one file per workshop day
-  week1_day2.md
-  ...
-```
-
-Each problem lives in its own directory under `problems/`, named with a slug (e.g. `two-sum/`).
-Each workshop day gets a file under `weekly_material/`, named `week<N>_day<N>.md`.
+Full syllabus: https://uofh-my.sharepoint.com/:w:/g/personal/msabdelr_cougarnet_uh_edu/IQCVl-8XtdHvTro25geICGy7AVDzrhaCsOwLIWHBAvCUTB0?e=cENbUf
