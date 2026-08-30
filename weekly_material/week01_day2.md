@@ -82,6 +82,10 @@ to you first, no hints yet.
 2. Try tracking just the last two values in two variables, updating them as you count up from 0
    to n.
 
+Check the problem solution(s) here:
+[`iterative_solution.cpp`](../problem_solutions/fibonacci-number/iterative_solution.cpp),
+[`iterative_solution.py`](../problem_solutions/fibonacci-number/iterative_solution.py)
+
 **Now, try it recursively.** Once your iterative solution works, solve the same problem again
 using recursion.
 1. Look at the math definition again: `F(n) = F(n-1) + F(n-2)` already describes F in terms of
@@ -90,6 +94,13 @@ using recursion.
    anything?
 3. Write `fib(n)` so it returns immediately on the base cases, and otherwise returns
    `fib(n - 1) + fib(n - 2)`.
+
+Check the problem solution(s) here:
+[`recursive_solution.cpp`](../problem_solutions/fibonacci-number/recursive_solution.cpp),
+[`recursive_solution.py`](../problem_solutions/fibonacci-number/recursive_solution.py)
+
+Full write-up, including complexity discussion:
+[`problem_solutions/fibonacci-number/README.md`](../problem_solutions/fibonacci-number/README.md)
 
 </details>
 
@@ -106,6 +117,12 @@ Example: for `s = "YazaAay"`, `"aAa"` is nice, and it's the longest one in `s`.
 **Try it yourself.** If a character in the string shows up in only one case, no letter, upper or
 lower, matching it in the other case, no nice substring can contain that character at all. What
 does that tell you about where you could split the string, and about what to do with each half?
+
+Check the problem solution(s) here:
+[`solution.cpp`](../problem_solutions/longest-nice-substring/solution.cpp)
+
+Full write-up, including complexity discussion:
+[`problem_solutions/longest-nice-substring/README.md`](../problem_solutions/longest-nice-substring/README.md)
 
 </details>
 
