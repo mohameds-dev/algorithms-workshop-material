@@ -18,7 +18,9 @@ Full syllabus: https://uofh-my.sharepoint.com/:w:/g/personal/msabdelr_cougarnet_
 ## Usage notes for instructors / repo users
 
 [`tests/`](tests/) is a standalone, uv-managed Python project that checks the solutions in
-[`algorithm_implementation/`](algorithm_implementation/) for correctness. To run it:
+[`algorithm_implementation/`](algorithm_implementation/) for correctness. It requires
+[uv](https://docs.astral.sh/uv/); if you don't have it, install it using this guide:
+https://docs.astral.sh/uv/getting-started/installation/. To run the tests:
 
 ```
 cd tests
