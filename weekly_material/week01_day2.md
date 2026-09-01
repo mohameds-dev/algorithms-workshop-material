@@ -119,7 +119,8 @@ lower, matching it in the other case, no nice substring can contain that charact
 does that tell you about where you could split the string, and about what to do with each half?
 
 Check the problem solution(s) here:
-[`solution.cpp`](../problem_solutions/longest-nice-substring/solution.cpp)
+[`solution.cpp`](../problem_solutions/longest-nice-substring/solution.cpp),
+[`solution.py`](../problem_solutions/longest-nice-substring/solution.py)
 
 Full write-up, including complexity discussion:
 [`problem_solutions/longest-nice-substring/README.md`](../problem_solutions/longest-nice-substring/README.md)
