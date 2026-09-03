@@ -36,5 +36,4 @@ uv run pytest -k reverse_sorted  # just one test case, across every algorithm
 uv run pytest -v                 # list every test that ran, by name
 ```
 
-See [`tests/README.md`](tests/README.md) for how to add a test case or register a new
-algorithm.
+See [`tests/README.md`](tests/README.md) for how to add a test case or add a new algorithm.

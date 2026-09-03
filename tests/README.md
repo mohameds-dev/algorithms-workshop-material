@@ -27,14 +27,35 @@ runs against every registered sorting algorithm automatically.
 
 ## Adding a new algorithm
 
-Sorting algorithms are registered in `sorting/test_sorting.py`'s `SORT_IMPLEMENTATIONS` dict:
-add one `"algorithm_name": path/to/solution.py` entry. The solution file must define a
-top-level `sort(a)` function that returns `a` sorted in nondecreasing order. Every existing
-case then runs against it automatically.
+Copy `sorting/test_merge_sort.py` to `sorting/test_<algorithm>.py`, and change `SOLUTION_PATH`
+to point at the new algorithm's solution file (and rename the test function, so failures are
+reported under the right name). That's the whole file:
+
+```python
+from pathlib import Path
+
+from sorting.harness import assert_sorts_correctly, load_sort_function, sort_cases
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SOLUTION_PATH = REPO_ROOT / "algorithm_implementation" / "<algorithm-slug>" / "solution.py"
+
+<algorithm> = load_sort_function(SOLUTION_PATH)
+
+
+@sort_cases
+def test_<algorithm>_correctness(case):
+    assert_sorts_correctly(<algorithm>, case)
+```
+
+The solution file must define a top-level `sort(a)` function that returns `a` sorted in
+nondecreasing order. Every case in `cases.py` runs against it automatically; nothing in
+`cases.py` or `harness.py` needs to change.
 
 ## Adding a new category (not sorting)
 
-Copy the shape of `sorting/`: a `cases.py` for reusable inputs/expectations, and a
-`test_<category>.py` with its own implementation registry and one generic test function. Keep
-the case data and the runner separate, the way `sorting/` does, so cases stay reusable if a
-second test function (e.g. a performance check) is added later.
+Copy the shape of `sorting/`: a `cases.py` for reusable inputs/expectations, a `harness.py`
+with the loading/assertion logic shared by every algorithm in the category, and one
+`test_<algorithm>.py` per algorithm that imports the harness and points it at that algorithm's
+solution file. Keep case data, harness, and per-algorithm files separate, the way `sorting/`
+does, so adding an algorithm never means editing an existing file, and adding a case or a
+second kind of check (e.g. a performance test) never means touching every algorithm's file.

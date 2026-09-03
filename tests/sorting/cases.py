@@ -1,17 +1,3 @@
-"""Reusable test cases for any sorting-algorithm implementation.
-
-Every case here only assumes the function under test takes a list of
-orderable elements and returns them sorted in nondecreasing order. Add a
-case once, here, and every algorithm registered in test_sorting.py picks it
-up automatically; no per-algorithm test code needed.
-
-To add a case: append a SortCase to SORT_CASES, with a descriptive
-snake_case name (it becomes part of the test ID, e.g.
-`test_sort_correctness[merge_sort-your_case_name]`).
-"""
-
-from __future__ import annotations
-
 import random
 from dataclasses import dataclass
 
@@ -23,7 +9,6 @@ class SortCase:
 
 
 def _random_list(seed: int, size: int, low: int = -1000, high: int = 1000) -> list[int]:
-    """A reproducible pseudo-random list; same seed always gives the same list."""
     rng = random.Random(seed)
     return [rng.randint(low, high) for _ in range(size)]
 

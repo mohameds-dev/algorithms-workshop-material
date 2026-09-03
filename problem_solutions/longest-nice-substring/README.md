@@ -38,6 +38,8 @@ up. Compared to tracking the best range seen so far with index bookkeeping, retu
 winning substring directly from each call keeps the recursion doing one job: answer the question
 for this piece of the string, and let the return value carry the answer back up.
 
-**Complexity:** each call scans its substring for a bad character and, in the worst case, builds
+### Complexity
+
+Each call scans its substring for a bad character and, in the worst case, builds
 two new substrings from it, both O(n) where n is the length of the piece being examined. Across
 the recursion this gives O(n^2) time in the worst case, with O(n) recursion depth.
