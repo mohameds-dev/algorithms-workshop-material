@@ -50,10 +50,16 @@ def both_cases_exist(c: str, s: str) -> bool:
     pass
 
 
+# the code below is for testing, don't change it
+def check(actual, expected): assert actual == expected, f"test failed: {expected} expected but found {actual}"
+
+
 def test_both_cases_exist():
-    print(f"both_cases_exist('a', 'YazaAay') --> {both_cases_exist('a', 'YazaAay')}")  # expect True
-    print(f"both_cases_exist('z', 'YazaAay') --> {both_cases_exist('z', 'YazaAay')}")  # expect False
-    print(f"both_cases_exist('Y', 'YazaAay') --> {both_cases_exist('Y', 'YazaAay')}")  # expect True
+    check(both_cases_exist('a', 'YazaAay'), True)
+    check(both_cases_exist('z', 'YazaAay'), False)
+    check(both_cases_exist('Z', 'YaZaAay'), False)
+    check(both_cases_exist('Y', 'YazaAay'), True)
+    check(both_cases_exist('x', 'YazaAay'), False)
 
 
 if __name__ == "__main__":
@@ -73,10 +79,15 @@ bool both_cases_exist(char c, const string &s) {
     // TODO: return true if both the uppercase and lowercase versions of c appear in s
 }
 
+// the code below is for testing, don't change it
+template <typename T> void check(const T &actual, const T &expected) { if (actual != expected) { cout << "test failed: " << expected << " expected but found " << actual << endl; exit(1); } }
+
 void test_both_cases_exist() {
-    cout << "both_cases_exist('a', \"YazaAay\") --> " << both_cases_exist('a', "YazaAay") << endl; // expect 1
-    cout << "both_cases_exist('z', \"YazaAay\") --> " << both_cases_exist('z', "YazaAay") << endl; // expect 0
-    cout << "both_cases_exist('Y', \"YazaAay\") --> " << both_cases_exist('Y', "YazaAay") << endl; // expect 1
+    check(both_cases_exist('a', "YazaAay"), true);
+    check(both_cases_exist('z', "YazaAay"), false);
+    check(both_cases_exist('Z', "YaZaAay"), false);
+    check(both_cases_exist('Y', "YazaAay"), true);
+    check(both_cases_exist('x', "YazaAay"), false);
 }
 
 int main() {
@@ -123,10 +134,16 @@ def first_single_case_char(s: str) -> int:
     pass
 
 
+# the code below is for testing, don't change it
+def check(actual, expected): assert actual == expected, f"test failed: {expected} expected but found {actual}"
+
+
 def test_first_single_case_char():
-    print(f"first_single_case_char('YazaAay') --> {first_single_case_char('YazaAay')}")  # expect 2
-    print(f"first_single_case_char('abc') --> {first_single_case_char('abc')}")  # expect 0
-    print(f"first_single_case_char('abAB') --> {first_single_case_char('abAB')}")  # expect -1
+    check(first_single_case_char('YazaAay'), 2)
+    check(first_single_case_char('abc'), 0)
+    check(first_single_case_char('abABc'), 4)
+    check(first_single_case_char('abAB'), -1)
+    check(first_single_case_char(''), -1)
 
 
 if __name__ == "__main__":
@@ -139,15 +156,28 @@ if __name__ == "__main__":
 <summary>Starting snippet (C++)</summary>
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
 int first_single_case_char(const string &s) {
     // TODO: return the index of the first character where both_cases_exist(s[i], s) is false,
     // or -1 if every character passes
 }
 
+// the code below is for testing, don't change it
+template <typename T> void check(const T &actual, const T &expected) { if (actual != expected) { cout << "test failed: " << expected << " expected but found " << actual << endl; exit(1); } }
+
 void test_first_single_case_char() {
-    cout << "first_single_case_char(\"YazaAay\") --> " << first_single_case_char("YazaAay") << endl; // expect 2
-    cout << "first_single_case_char(\"abc\") --> " << first_single_case_char("abc") << endl; // expect 0
-    cout << "first_single_case_char(\"abAB\") --> " << first_single_case_char("abAB") << endl; // expect -1
+    check(first_single_case_char("YazaAay"), 2);
+    check(first_single_case_char("abc"), 0);
+    check(first_single_case_char("abABc"), 4);
+    check(first_single_case_char("abAB"), -1);
+    check(first_single_case_char(""), -1);
+}
+
+int main() {
+    test_first_single_case_char();
+    return 0;
 }
 ```
 
@@ -189,9 +219,15 @@ def split_around_index(s: str, i: int) -> tuple[str, str]:
     pass
 
 
+# the code below is for testing, don't change it
+def check(actual, expected): assert actual == expected, f"test failed: {expected} expected but found {actual}"
+
+
 def test_split_around_index():
-    print(f"split_around_index('YazaAay', 2) --> {split_around_index('YazaAay', 2)}")  # expect ('Ya', 'aAay')
-    print(f"split_around_index('abc', 0) --> {split_around_index('abc', 0)}")  # expect ('', 'bc')
+    check(split_around_index('YazaAay', 2), ('Ya', 'aAay'))
+    check(split_around_index('abc', 0), ('', 'bc'))
+    check(split_around_index('abc', 2), ('ab', ''))
+    check(split_around_index('a', 0), ('', ''))
 
 
 if __name__ == "__main__":
@@ -204,13 +240,37 @@ if __name__ == "__main__":
 <summary>Starting snippet (C++)</summary>
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
 pair<string, string> split_around_index(const string &s, int i) {
     // TODO: return {left, right}, the pieces of s before and after index i, excluding s[i]
 }
 
+// the code below is for testing, don't change it
+template <typename T> void check(const T &actual, const T &expected) { if (actual != expected) { cout << "test failed: " << expected << " expected but found " << actual << endl; exit(1); } }
+
 void test_split_around_index() {
-    auto [left, right] = split_around_index("YazaAay", 2);
-    cout << "split_around_index(\"YazaAay\", 2) --> (" << left << ", " << right << ")" << endl; // expect (Ya, aAay)
+    auto [left1, right1] = split_around_index("YazaAay", 2);
+    check(left1, string("Ya"));
+    check(right1, string("aAay"));
+
+    auto [left2, right2] = split_around_index("abc", 0);
+    check(left2, string(""));
+    check(right2, string("bc"));
+
+    auto [left3, right3] = split_around_index("abc", 2);
+    check(left3, string("ab"));
+    check(right3, string(""));
+
+    auto [left4, right4] = split_around_index("a", 0);
+    check(left4, string(""));
+    check(right4, string(""));
+}
+
+int main() {
+    test_split_around_index();
+    return 0;
 }
 ```
 
@@ -251,10 +311,16 @@ def longest_nice_substring(s: str) -> str:
     pass
 
 
+# the code below is for testing, don't change it
+def check(actual, expected): assert actual == expected, f"test failed: {expected} expected but found {actual}"
+
+
 def test_longest_nice_substring():
-    print(f"longest_nice_substring('YazaAay') --> {longest_nice_substring('YazaAay')}")  # expect 'aAa'
-    print(f"longest_nice_substring('abc') --> {longest_nice_substring('abc')}")  # expect ''
-    print(f"longest_nice_substring('abAB') --> {longest_nice_substring('abAB')}")  # expect 'abAB'
+    check(longest_nice_substring('YazaAay'), 'aAa')
+    check(longest_nice_substring('abc'), '')
+    check(longest_nice_substring('abAB'), 'abAB')
+    check(longest_nice_substring(''), '')
+    check(longest_nice_substring('aAxBb'), 'aA')  # tie: prefer leftmost
 
 
 if __name__ == "__main__":
@@ -267,15 +333,28 @@ if __name__ == "__main__":
 <summary>Starting snippet (C++)</summary>
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
 string longest_nice_substring(const string &s) {
     // TODO: use first_single_case_char and split_around_index to recursively find and return
     // the longest nice substring of s
 }
 
+// the code below is for testing, don't change it
+template <typename T> void check(const T &actual, const T &expected) { if (actual != expected) { cout << "test failed: " << expected << " expected but found " << actual << endl; exit(1); } }
+
 void test_longest_nice_substring() {
-    cout << "longest_nice_substring(\"YazaAay\") --> " << longest_nice_substring("YazaAay") << endl; // expect aAa
-    cout << "longest_nice_substring(\"abc\") --> " << longest_nice_substring("abc") << endl; // expect (empty)
-    cout << "longest_nice_substring(\"abAB\") --> " << longest_nice_substring("abAB") << endl; // expect abAB
+    check(longest_nice_substring("YazaAay"), string("aAa"));
+    check(longest_nice_substring("abc"), string(""));
+    check(longest_nice_substring("abAB"), string("abAB"));
+    check(longest_nice_substring(""), string(""));
+    check(longest_nice_substring("aAxBb"), string("aA")); // tie: prefer leftmost
+}
+
+int main() {
+    test_longest_nice_substring();
+    return 0;
 }
 ```
 
