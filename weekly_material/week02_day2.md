@@ -36,8 +36,8 @@ uppercase and lowercase version of `c` appear somewhere in `s`.
    does the lowercase version of `c` appear in `s`? Use the syntax note above to get each case.
 2. Python has a built-in "does this string contain this character" check: `'a' in s`.
 3. C++ doesn't have `in`, but `s.find(c) != string::npos` asks the same question (`find` returns
-   `string::npos` when it doesn't find anything). If your compiler is recent enough, `s.contains(c)`
-   works too.
+   `string::npos` when it doesn't find anything). There is also `s.contains(c)`, but it only
+   exists from C++23 on, and we're on C++20, so use `find`.
 
 </details>
 

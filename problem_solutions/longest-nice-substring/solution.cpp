@@ -3,7 +3,9 @@ using namespace std;
 class Solution {
 public:
     bool char_exists_in_both_cases(char c, const string &s){
-        return s.contains(toupper(c)) and s.contains(tolower(c));
+        bool upper_exists = s.find((char)toupper(c)) != string::npos;
+        bool lower_exists = s.find((char)tolower(c)) != string::npos;
+        return upper_exists and lower_exists;
     }
 
     string solve(const string &s){

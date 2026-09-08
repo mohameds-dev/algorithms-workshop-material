@@ -2,15 +2,15 @@
 using namespace std;
 class Solution {
 public:
-    bool both_cases_exist(char c, const string &s){
-        bool upper_exists = s.find((char)toupper(c)) != string::npos;
-        bool lower_exists = s.find((char)tolower(c)) != string::npos;
-        return upper_exists and lower_exists;
+    bool both_cases_exist(char c, const unordered_set<char> &chars_in_s){
+        return chars_in_s.count(toupper(c)) and chars_in_s.count(tolower(c));
     }
 
     int first_single_case_char(const string &s){
+        // one pass up front, so every check in the loop below is a hash lookup instead of a scan
+        unordered_set<char> chars_in_s(s.begin(), s.end());
         for (int i = 0; i < (int)s.size(); i++){
-            if (not both_cases_exist(s[i], s)) return i;
+            if (not both_cases_exist(s[i], chars_in_s)) return i;
         }
         return -1;
     }
