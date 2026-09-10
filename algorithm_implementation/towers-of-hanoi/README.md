@@ -3,7 +3,7 @@
 The classic recursion exercise: move a stack of `n` disks from one pole to another, one disk at a
 time, never placing a disk on a smaller one.
 
-- Discussed: [Week 3, Day 1](../../weekly_material/week03_day1.md)
+- Discussed: [Week 3, Day 2](../../weekly_material/week03_day2.md)
 
 ## Summary
 
@@ -74,4 +74,4 @@ Further reading: Erickson, *Algorithms*, Ch. 1 "Recursion", §1.3 "Tower of Hano
 covers the same algorithm and argument with pictures. The exercises for that chapter (problems 4
 and 5, pp. 47-49) cover restricted variants where moves are only allowed between certain poles,
 which is the graph version discussed in
-[Week 3, Day 1](../../weekly_material/week03_day1.md).
+[Week 3, Day 2](../../weekly_material/week03_day2.md).
