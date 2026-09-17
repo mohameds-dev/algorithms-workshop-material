@@ -2,14 +2,14 @@
 
 ## Today
 
-Yesterday's binary search was recursive. Today we write the same idea as a loop, prove it correct
+Last session's binary search was recursive. Today we write the same idea as a loop, prove it correct
 with a different tool than induction, and then reuse it, unchanged, to solve a matrix search
 problem that turns out to be the same problem in disguise.
 
 <details>
 <summary>1. From recursion to a loop</summary>
 
-Yesterday's `search_recursive` narrowed a range `[left, right]` by comparing `target` against the
+Last session's `search_recursive` narrowed a range `[left, right]` by comparing `target` against the
 *value range* `nums[left]` through `nums[mid]`. There's a more common shape for binary search:
 compare `target` directly against `nums[mid]` and let that single comparison decide everything.
 
@@ -78,11 +78,11 @@ loop is correct by **Termination**. That's the whole proof.
 <summary>3. Complexity</summary>
 
 **Time.** Each iteration is `O(1)` work, and `right - left` shrinks by at least half every time
-(same argument as yesterday's recursive halving, just tracked with two variables instead of a
+(same argument as last session's recursive halving, just tracked with two variables instead of a
 stack of calls): `O(log n)` iterations, `O(log n)` time.
 
-**Space.** This is the difference from yesterday. `left`, `right`, and `mid` are the only extra
-memory, and they don't grow: `O(1)` space. Yesterday's recursive version was also `O(log n)` time,
+**Space.** This is the difference from last session. `left`, `right`, and `mid` are the only extra
+memory, and they don't grow: `O(1)` space. Last session's recursive version was also `O(log n)` time,
 but `O(log n)` space for the call stack, one frame per halving. Same time, less space: the usual
 reason an iterative rewrite is worth doing once a recursive solution is understood and proven
 correct.
@@ -209,7 +209,7 @@ a row at every step of the outer search.
 <details>
 <summary>5. Recap</summary>
 
-- The same binary search can be written recursively (yesterday) or iteratively (today). Iterative
+- The same binary search can be written recursively (last session) or iteratively (today). Iterative
   trades the recursion's call stack for a couple of loop variables: same `O(log n)` time, `O(1)`
   space instead of `O(log n)`.
 - **Loop invariants** are the correctness tool for loops, the way induction is the tool for
