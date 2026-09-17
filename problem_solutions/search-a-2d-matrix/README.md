@@ -15,28 +15,33 @@ anywhere in the matrix.
 ## Hints
 
 That second property, first integer of a row bigger than the last integer of the row before it,
-means something stronger than "each row is sorted": read the matrix left to right, top to
-bottom, and the values you see never go down. What does that make the matrix, if you squint?
+means the rows' own starting values are increasing too. Binary search over the rows for the last
+one whose first entry is `<= target`. Can any row after it contain `target`? Any row before it?
 
 ## Solution
 
-[`solution.py`](solution.py) / [`solution.cpp`](solution.cpp): the same iterative binary search
-from [Week 4, Day 2](../../weekly_material/week04_day2.md), run over a virtual index range
-`[0, rows * cols - 1]` instead of a real array. `mid` is turned into a cell with
-`matrix[mid // cols][mid % cols]`, reading row by row; everything else, the `left`/`right`
-narrowing and the three-way comparison against `target`, is unchanged.
+[`solution.py`](solution.py) / [`solution.cpp`](solution.cpp): two binary searches, one after the
+other.
+
+`find_row(matrix, target)` binary searches over the rows themselves, comparing only
+`matrix[mid][0]` against `target`, and keeps track of the largest row index seen whose first
+entry is `<= target`. That's the one and only row that could possibly contain `target`; every
+earlier row's values are all smaller, every later row's values are all bigger.
+
+`search_row(row, target)` is then a plain binary search inside that single row, exactly the
+iterative `binary_search` from [Week 4, Day 2](../../weekly_material/week04_day2.md).
 
 ## Correctness
 
-Follows directly from binary search's correctness, proved in
-[Week 4, Day 2](../../weekly_material/week04_day2.md). The only thing to add is that
-`value(0), value(1), ..., value(rows * cols - 1)`, where `value(idx)` reads
-`matrix[idx // cols][idx % cols]`, is nondecreasing: it's sorted within a row by the first part of
-the problem's guarantee, and it doesn't drop across a row boundary by the second part. That makes
-it exactly the sorted array binary search already runs on, just addressed through a row/column
-mapping instead of held in one contiguous list.
+Two things to establish, both in [Week 4, Day 2](../../weekly_material/week04_day2.md):
+
+1. `find_row` returns the unique row that could contain `target` (or `-1` if none does), by a
+   loop invariant on the sequence of row-starting values, the same shape as `binary_search`'s but
+   for "find the last index where a monotonic condition holds" instead of "find an equal value".
+2. `search_row` on that row is exactly `binary_search`, whose correctness is already proved.
 
 ## Complexity
 
-`O(log(rows * cols))`, i.e. `O(log(rows) + log(cols))` time, `O(1)` space: one binary search over
-`rows * cols` virtual elements, no extra memory beyond a few indices.
+`O(log(rows))` for `find_row`, plus `O(log(cols))` for `search_row`: `O(log(rows) + log(cols))`,
+i.e. `O(log(rows * cols))` time, `O(1)` space, two sequential binary searches, no extra memory
+beyond a few indices.

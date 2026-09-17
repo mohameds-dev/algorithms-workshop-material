@@ -96,29 +96,18 @@ correct.
 where every row is sorted ascending, and the first integer of each row is bigger than the last
 integer of the row before it. Given `target`, return whether it's anywhere in the matrix.
 
-**Question for the class:** that second property is stronger than "each row is sorted". Read the
-matrix left to right, top to bottom, row after row. What does that make it look like?
+**Question for the class:** that second property is stronger than "each row is sorted": it says
+something about the rows' own starting values, `matrix[0][0], matrix[1][0], ..., matrix[rows-1][0]`.
+What?
 
 <details>
 <summary>Answer</summary>
 
-A single sorted array of length `rows * cols`, just written on `rows` lines instead of one. Row 0
-sorted, then row 1 sorted and everything in it bigger than everything in row 0, then row 2 bigger
-than all of row 1, and so on. Reading in that order, values never go down.
-
-If it's a sorted array in disguise, binary search from today already solves it, provided we can
-turn a position in that imaginary array back into a `(row, col)` cell.
-
-</details>
-
-**Question for the class:** given an index `idx` counting through that imaginary flattened array,
-`0, 1, ..., rows * cols - 1`, which cell of the real matrix does it correspond to?
-
-<details>
-<summary>Answer</summary>
-
-Row `idx // cols`, column `idx % cols`. `cols` cells per row, so every `cols` steps of `idx` moves
-down one row, and the remainder is how far along that row you are.
+They're increasing too: `matrix[i+1][0] > matrix[i][last]`, and a row's last entry is `>=` its own
+first entry, so `matrix[i+1][0] > matrix[i][0]`. A sequence of increasing numbers is exactly what
+binary search needs. So: binary search over the rows for the *last* one whose first entry is
+`<= target`, then binary search inside that one row. Two binary searches, one after the other, no
+nesting.
 
 </details>
 
@@ -127,63 +116,91 @@ down one row, and the remainder is how far along that row you are.
 [`problem_solutions/search-a-2d-matrix/`](../problem_solutions/search-a-2d-matrix/).
 
 ```
-function search_matrix(matrix, target):
-    rows, cols = number of rows, number of columns in matrix
-    left, right = 0, rows * cols - 1
+function find_row(matrix, target):
+    left, right = 0, number of rows in matrix - 1
+    row = -1
 
     while left <= right:
         mid = (left + right) // 2
-        value = matrix[mid // cols][mid % cols]      // mid, read as a matrix cell
-
-        if value == target:
-            return True
-        elif value < target:
-            left = mid + 1
+        if matrix[mid][0] <= target:
+            row = mid              // best candidate so far
+            left = mid + 1         // a later row might be an even better candidate
         else:
             right = mid - 1
 
-    return False
+    return row
+
+function search_matrix(matrix, target):
+    row = find_row(matrix, target)
+    if row == -1:
+        return False
+
+    return search_row(matrix[row], target)   // section 1's binary_search, renamed, run on one row
 ```
 
-Section 1's `binary_search`, unchanged in every line that matters, `left`, `right`, `mid`, and the
-three-way branch, just reading `matrix[mid // cols][mid % cols]` wherever it used to read
-`nums[mid]`.
+`find_row` is a binary search over the row-starting values for the boundary between "row starts
+`<= target`" and "row starts `> target`", keeping the best (largest) index it's seen on the true
+side. `search_matrix` runs it once, then hands the one row it points to over to `search_row`,
+which is the exact `binary_search` from section 1, unchanged, just under a name that fits this
+problem.
 
 <details>
-<summary>Correctness and complexity</summary>
+<summary>Correctness</summary>
 
-**Correctness** needs nothing new. `value(idx) = matrix[idx // cols][idx % cols]` for
-`idx` from `0` to `rows * cols - 1` is nondecreasing, sorted within a row by the problem's first
-guarantee, and not dropping across a row boundary by its second guarantee. That makes
-`search_matrix` exactly `binary_search` run on the array `value(0), value(1), ..., value(rows *
-cols - 1)`, so section 2's Claim, Initialization, Maintenance, and Termination all carry over
-untouched; only the way a cell's value is read changed, not the loop that decides where to look.
+**`find_row` finds the right row.** Since `matrix[i][0]` is increasing in `i`, the check
+`matrix[mid][0] <= target` is a monotonic predicate: true for a prefix of row indices, false for
+the rest. That's the same loop invariant shape as section 2, just for "find the last index where
+a monotonic condition holds" instead of "find an equal value":
 
-**Complexity:** `O(log(rows * cols))` time, which is `O(log rows + log cols)`, and `O(1)` space,
-same as section 3, since `rows * cols` is just this problem's `n`.
+- **Claim:** at the start of every iteration, if some row index has `matrix[i][0] <= target`, the
+  largest such index is either already stored in `row`, or lies in `[left, right]`.
+- **Initialization:** `left = 0`, `right = rows - 1` covers every row index, and `row = -1`;
+  trivially true.
+- **Maintenance:** if `matrix[mid][0] <= target`, `mid` satisfies the check, so it's at least as
+  good as whatever `row` held before; store it, and since the largest satisfying index can't be
+  smaller than `mid`, set `left = mid + 1` to keep looking to the right for a better one. If
+  `matrix[mid][0] > target`, monotonicity means every index `>= mid` fails the check too, so the
+  largest satisfying index (if any) is `< mid`; set `right = mid - 1`.
+- **Termination:** `left > right` means every row index has been accounted for, so `row` holds
+  exactly the largest index with `matrix[row][0] <= target`, or `-1` if no index has it.
+
+**Only that row can contain `target`.** If `row == -1`, `target < matrix[0][0]`, the smallest
+value in the whole matrix, so `target` can't be anywhere; the `return False` is correct. Otherwise,
+let `r = row`. Every row `i < r` has `matrix[i][last] < matrix[i+1][0] <= ... <= matrix[r][0] <=
+target`, so every value in it is `< target`. Every row `i > r` has `matrix[i][0] > target` (`r`
+was the *largest* index satisfying the check), so every value in it, being `>= matrix[i][0]`, is
+`> target`. Row `r` is the only place left `target` could be, and `search_matrix` hands it to
+`search_row`, whose correctness is already proved in section 2 (it's `binary_search`, unchanged).
 
 </details>
 
-**Question for the class:** a different idea for this problem: binary search over the rows for the
-one whose first entry is `<= target`, and inside that call, binary search over the row itself
-(effectively two nested copies of section 1's `binary_search`). It's correct, every row visited
-either fully rules itself out or gets a real row search. How does its complexity compare to the
-flattened version above?
+<details>
+<summary>Complexity</summary>
+
+`find_row` is one binary search over `rows` indices: `O(log rows)`. `search_row` on one row is
+`O(log cols)`. One after the other: `O(log rows) + O(log cols) = O(log rows + log cols) =
+O(log(rows * cols))` time, `O(1)` space, two loops, no recursion, no extra memory beyond a handful
+of indices.
+
+</details>
+
+**Question for the class:** a tempting variant: instead of finishing `find_row` completely and
+*then* searching the row, search the row as soon as a candidate turns up, every time
+`matrix[mid][0] <= target` during the row search, before deciding whether to keep looking right.
+Still correct, every candidate gets a fair check. What does it cost?
 
 <details>
-<summary>Answer: worse, and it's a good Master Theorem-style habit to check</summary>
+<summary>Answer: worse, because the row search now runs inside the loop, not after it</summary>
 
-The outer binary search visits `O(log rows)` candidate row indices before it stops. In the worst
-case (say `target` is bigger than every row's first entry), *every* one of those candidates passes
-the `matrix[mid][0] <= target` check and triggers a full row search, each costing `O(log cols)`.
-Multiply: `O(log rows * log cols)`.
+The outer binary search still visits `O(log rows)` candidate row indices. In the worst case
+(`target` bigger than every row's first entry), *every single one* of those candidates passes the
+check and triggers a full row search, each costing `O(log cols)`, before the outer loop moves on.
+Multiply instead of add: `O(log rows * log cols)`.
 
-Compare the two bounds directly: `log rows + log cols` versus `log rows * log cols`. For
-`rows = cols = 1024`, `log rows = log cols = 10`: the sum is `20`, the product is `100`. Once both
-logs are at least `2` (that is, the matrix has at least 4 rows and at least 4 columns, a very mild
-condition), the product is at least as big as the sum, and it pulls further ahead as the matrix
-grows. The flattened, single binary search is strictly the tighter bound, and it's also less code:
-one loop, reused as-is, instead of two nested copies of it.
+For `rows = cols = 1024` (`log rows = log cols = 10`), that's `100` versus this section's `20`, and
+the gap only widens as the matrix grows. Doing the two binary searches strictly one after the
+other, only ever touching one row, is both simpler to read and asymptotically better than checking
+a row at every step of the outer search.
 
 </details>
 
@@ -200,11 +217,14 @@ one loop, reused as-is, instead of two nested copies of it.
   (one iteration preserves it), **Termination** (what it means when the loop stops) play the same
   roles as **Claim**, **Base case**, **Assume**, and **Show** do for a recursive proof.
 - A matrix where every row is sorted *and* each row's first value beats the previous row's last
-  value is a sorted 1D array wearing a `rows x cols` costume. Map a virtual index to a cell with
-  `idx // cols, idx % cols` and reuse binary search exactly as written.
-- Two nested binary searches (rows, then within a row) are also correct, but cost
-  `O(log rows * log cols)` in the worst case, looser than the flattened version's
-  `O(log rows + log cols) = O(log(rows * cols))`. When a problem splits into two independent
-  binary searches, check whether it can be flattened into one before settling for nesting them.
+  value has increasing row-starting values too. Binary search over the rows for the last one
+  whose start is `<= target`, that's the only row that can contain it, then binary search inside
+  that one row with `binary_search` exactly as written.
+- The same "find the last index where a monotonic condition holds" loop invariant that locates
+  the right row is the one from section 2, just applied to row-starting values instead of array
+  values.
+- Two binary searches run one after the other cost `O(log rows) + O(log cols) = O(log(rows *
+  cols))`. Running the row search inside every step of the outer search instead of after it costs
+  `O(log rows * log cols)` in the worst case, strictly worse, for no gain in correctness.
 
 </details>

@@ -2,22 +2,40 @@ from typing import List
 
 
 class Solution:
-    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        rows, cols = len(matrix), len(matrix[0])
-        left, right = 0, rows * cols - 1
+    def find_row(self, matrix: List[List[int]], target: int) -> int:
+        left, right = 0, len(matrix) - 1
+        row = -1
 
         while left <= right:
             mid = (left + right) // 2
-            value = matrix[mid // cols][mid % cols]
+            if matrix[mid][0] <= target:
+                row = mid
+                left = mid + 1
+            else:
+                right = mid - 1
 
-            if value == target:
+        return row
+
+    def search_row(self, row: List[int], target: int) -> bool:
+        left, right = 0, len(row) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if row[mid] == target:
                 return True
-            elif value < target:
+            elif row[mid] < target:
                 left = mid + 1
             else:
                 right = mid - 1
 
         return False
+
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        row = self.find_row(matrix, target)
+        if row == -1:
+            return False
+
+        return self.search_row(matrix[row], target)
 
 
 if __name__ == "__main__":
