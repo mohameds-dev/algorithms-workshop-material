@@ -20,24 +20,24 @@ public:
         return row;
     }
 
-    bool searchRow(vector<int> &row, int target) {
+    int searchRow(vector<int> &row, int target) {
         int left = 0, right = (int)row.size() - 1;
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (row[mid] == target) return true;
+            if (row[mid] == target) return mid;
             else if (row[mid] < target) left = mid + 1;
             else right = mid - 1;
         }
 
-        return false;
+        return -1;
     }
 
     bool searchMatrix(vector<vector<int>> &matrix, int target) {
         int row = findRow(matrix, target);
         if (row == -1) return false;
 
-        return searchRow(matrix[row], target);
+        return searchRow(matrix[row], target) != -1;
     }
 };
 

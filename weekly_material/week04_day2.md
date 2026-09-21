@@ -135,14 +135,15 @@ function search_matrix(matrix, target):
     if row == -1:
         return False
 
-    return search_row(matrix[row], target)   // section 1's binary_search, renamed, run on one row
+    return search_row(matrix[row], target) != -1   // -1 means "not found", same as section 1
 ```
 
 `find_row` is a binary search over the row-starting values for the boundary between "row starts
 `<= target`" and "row starts `> target`", keeping the best (largest) index it's seen on the true
-side. `search_matrix` runs it once, then hands the one row it points to over to `search_row`,
-which is the exact `binary_search` from section 1, unchanged, just under a name that fits this
-problem.
+side. `search_row` is the exact `binary_search` from section 1, unchanged, just under a name that
+fits this problem: it returns `target`'s index in the row it's given, or `-1`. `search_matrix`
+runs `find_row` once, hands the one row it points to over to `search_row`, and turns that index
+into the bool this problem actually asks for with `!= -1`.
 
 <details>
 <summary>Correctness</summary>
@@ -170,7 +171,9 @@ let `r = row`. Every row `i < r` has `matrix[i][last] < matrix[i+1][0] <= ... <=
 target`, so every value in it is `< target`. Every row `i > r` has `matrix[i][0] > target` (`r`
 was the *largest* index satisfying the check), so every value in it, being `>= matrix[i][0]`, is
 `> target`. Row `r` is the only place left `target` could be, and `search_matrix` hands it to
-`search_row`, whose correctness is already proved in section 2 (it's `binary_search`, unchanged).
+`search_row`, whose correctness is already proved in section 2 (it's `binary_search`, unchanged):
+it returns an index `!= -1` exactly when `target` is in that row, which is exactly when `target`
+is in the matrix at all.
 
 </details>
 

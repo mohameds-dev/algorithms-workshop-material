@@ -28,8 +28,11 @@ other.
 entry is `<= target`. That's the one and only row that could possibly contain `target`; every
 earlier row's values are all smaller, every later row's values are all bigger.
 
-`search_row(row, target)` is then a plain binary search inside that single row, exactly the
-iterative `binary_search` from [Week 4, Day 2](../../weekly_material/week04_day2.md).
+`search_row(row, target)` is then exactly the iterative `binary_search` from
+[Week 4, Day 2](../../weekly_material/week04_day2.md), unchanged, run on that single row: it
+returns `target`'s index in `row`, or `-1`, the same as `binary_search` returns for `nums`.
+`searchMatrix` only needs whether `target` was found, so it turns that index into a bool with
+`!= -1`.
 
 ## Correctness
 
@@ -38,7 +41,8 @@ Two things to establish, both in [Week 4, Day 2](../../weekly_material/week04_da
 1. `find_row` returns the unique row that could contain `target` (or `-1` if none does), by a
    loop invariant on the sequence of row-starting values, the same shape as `binary_search`'s but
    for "find the last index where a monotonic condition holds" instead of "find an equal value".
-2. `search_row` on that row is exactly `binary_search`, whose correctness is already proved.
+2. `search_row` on that row is exactly `binary_search`, whose correctness is already proved, so
+   `search_row(matrix[row], target) != -1` is true exactly when `target` is in that row.
 
 ## Complexity
 

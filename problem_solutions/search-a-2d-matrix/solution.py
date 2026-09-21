@@ -16,26 +16,26 @@ class Solution:
 
         return row
 
-    def search_row(self, row: List[int], target: int) -> bool:
+    def search_row(self, row: List[int], target: int) -> int:
         left, right = 0, len(row) - 1
 
         while left <= right:
             mid = (left + right) // 2
             if row[mid] == target:
-                return True
+                return mid
             elif row[mid] < target:
                 left = mid + 1
             else:
                 right = mid - 1
 
-        return False
+        return -1
 
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         row = self.find_row(matrix, target)
         if row == -1:
             return False
 
-        return self.search_row(matrix[row], target)
+        return self.search_row(matrix[row], target) != -1
 
 
 if __name__ == "__main__":
