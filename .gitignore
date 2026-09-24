@@ -222,7 +222,8 @@ __marimo__/
 CLAUDE.md
 .gng*
 .claude
-
+AGENTS.md
+GEMINI.md
 
 # content not to be pushed to github
 references/*
