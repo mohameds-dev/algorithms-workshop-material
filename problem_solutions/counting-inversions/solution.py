@@ -5,6 +5,7 @@ def merge_and_count(a, aux, lo, mid, hi):
 
     i, j, k = lo, mid, lo
     inversions = 0
+    
     while i < mid and j < hi:
         if aux[i] <= aux[j]:
             a[k] = aux[i]
@@ -32,8 +33,9 @@ def count_inversions(a, aux, lo, hi):
     if hi - lo <= 1:
         return 0  # base case: 0 or 1 elements have no inversions
 
-    mid = lo + (hi - lo) // 2
-    inversions = count_inversions(a, aux, lo, mid)
+    mid = (lo + hi) // 2
+    inversions = 0
+    inversions += count_inversions(a, aux, lo, mid)
     inversions += count_inversions(a, aux, mid, hi)
     inversions += merge_and_count(a, aux, lo, mid, hi)
     return inversions
