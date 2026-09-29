@@ -8,18 +8,11 @@ than divide and conquer's "throw half away": backtracking explores every choice 
 one before trying the next, turning last week's recursion into a decision tree instead of a
 narrowing range.
 
-**Session plan (4:00-5:20):**
-
-| Time | Section |
-|---|---|
-| 4:00-4:10 | 1. Exploring instead of narrowing |
-| 4:10-4:40 | 2. Subsets |
-| 4:40-5:05 | 3. Permutations |
-| 5:05-5:15 | 4. Recap |
-| 5:15-5:20 | Buffer |
+> [!NOTE]
+> The live session stopped after covering Subsets correctness (§2). Subsets complexity analysis and the Permutations problem (§3) are left for students' additional practice or future sessions reference.
 
 <details>
-<summary>1. Exploring instead of narrowing (4:00-4:10)</summary>
+<summary>1. Exploring instead of narrowing</summary>
 
 Binary search picks *one* of two halves to recurse into and discards the other, so the recursion
 visits `O(log n)` nodes total. Today's problems need every combination of choices to show up in
@@ -45,7 +38,7 @@ have this shape, `k = 2` for one, `k` shrinking by one each level for the other.
 </details>
 
 <details>
-<summary>2. Subsets (4:10-4:40)</summary>
+<summary>2. Subsets</summary>
 
 [LeetCode 78](https://leetcode.com/problems/subsets/): given an array `nums` of `n` unique
 integers, return every possible subset (the power set), in any order.
@@ -127,6 +120,9 @@ the initial call appends every subset of `nums`, exactly once.
 
 </details>
 
+> [!NOTE]
+> The live session stopped here. Subsets complexity analysis below and the Permutations problem are left for students' additional practice or future sessions reference.
+
 <details>
 <summary>Complexity</summary>
 
@@ -154,7 +150,7 @@ subset.
 </details>
 
 <details>
-<summary>3. Permutations (4:40-5:05)</summary>
+<summary>3. Permutations</summary>
 
 [LeetCode 46](https://leetcode.com/problems/permutations/): given an array `nums` of `n` distinct
 integers, return every possible ordering (permutation) of them, in any order.
@@ -272,7 +268,7 @@ the same `O(n)` copy at each of the `n!` base cases: **`O(n * n!)`**.
 </details>
 
 <details>
-<summary>4. Recap (5:05-5:15)</summary>
+<summary>4. Recap</summary>
 
 - "Find one answer" (binary search, matrix search) narrows a range and throws half away; "find
   every answer" (today) has to explore every branch, since the output itself is exponentially

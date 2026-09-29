@@ -7,19 +7,8 @@ Permutations. Then, a review session built from problems on the COSC3320 Fall 20
 set of recurrences, and two divide-and-conquer/backtracking problems that build directly on
 Merge Sort and today's Permutations.
 
-**Session plan (4:00-5:20):**
-
-| Time | Section |
-|---|---|
-| 4:00-4:25 | 1. Finish backtracking (continue in Week 5, Day 1) |
-| 4:25-4:30 | 2. Review: recurrences |
-| 4:30-5:00 | 3. Review: counting inversions |
-| 5:00-5:10 | 4. Review: social permutations |
-| 5:10-5:15 | 5. Recap |
-| 5:15-5:20 | Buffer |
-
 <details>
-<summary>1. Finish backtracking (4:00-4:25)</summary>
+<summary>1. Finish backtracking</summary>
 
 Last session ran out of time before reaching Subsets' complexity and before starting Permutations.
 Pick up directly in [Week 5, Day 1](week05_day1.md): finish §2 Subsets' **Complexity** block, then
@@ -31,7 +20,7 @@ on the Permutations backtracking skeleton.
 </details>
 
 <details>
-<summary>2. Review: recurrences (4:25-4:30)</summary>
+<summary>2. Review: recurrences</summary>
 
 Three Master Theorem applications, straight out of [Week 3, Day 1](week03_day1.md)'s toolbox. For
 each, identify `a`, `b`, and `f(n)`, then compare `f(n)` against `n^(log_b a)`.
@@ -91,7 +80,7 @@ So `T(n) = Θ(n^2)`.
 </details>
 
 <details>
-<summary>3. Review: counting inversions (4:30-5:00)</summary>
+<summary>3. Review: counting inversions</summary>
 
 An **inversion** in an array `A[0:n]` is a pair of indices `(i, j)` with `i < j` and
 `A[i] > A[j]`. A sorted array has 0 inversions; a reverse-sorted array has `C(n, 2)`, the maximum
@@ -205,7 +194,7 @@ recursion stack, same as Merge Sort.
 </details>
 
 <details>
-<summary>4. Review: social permutations (5:00-5:10)</summary>
+<summary>4. Review: social permutations</summary>
 
 `N` people, labeled `0` through `N - 1`, each give exactly one gift and receive exactly one gift:
 a permutation `p`, where `p[i]` is who person `i` gives to. Call `p` **social** if:
@@ -327,7 +316,7 @@ asymptotically.
 </details>
 
 <details>
-<summary>5. Recap (5:10-5:15)</summary>
+<summary>5. Recap</summary>
 
 - Subsets and Permutations, finished from last session: two backtracking skeletons, fixed
   branching factor vs. shrinking branching factor, `O(n * 2^n)` and `O(n * n!)` time
