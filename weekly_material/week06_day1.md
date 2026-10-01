@@ -3,12 +3,12 @@
 ## Today
 
 Last week we explored backtracking through two structural lenses: binary include/exclude
-decisions (Subsets) and sequential element selection (Permutations and Social Permutations).
+decisions (**Subsets**) and sequential element selection (**Permutations** and **Social Permutations**).
 Today we consolidate those complexity models, then apply backtracking with multi-directional
-pruning to a classic benchmark: [LeetCode 51, N-Queens](https://leetcode.com/problems/n-queens/).
+pruning to a classic benchmark: [LeetCode 51, **N-Queens**](https://leetcode.com/problems/n-queens/).
 
 > [!NOTE]
-> The backtracking complexity model comparison below was moved to [Week 6, Day 2](week06_day2.md) during the live session to dedicate full focus to N-Queens (§2).
+> The backtracking complexity model comparison below was moved to [Week 6, Day 2](week06_day2.md) during the live session to dedicate full focus to **N-Queens** (§2).
 
 <details>
 <summary>1. Backtracking review and complexity models</summary>
@@ -24,20 +24,20 @@ individual solutions and proofs in their respective session notes:
 
 | Problem | Decision per step | Branching factor | Leaves | Time complexity | Working space |
 |---|---|---|---|---|---|
-| Subsets | Include or exclude element | 2 (fixed) | `2^n` | `O(n * 2^n)` | `O(n)` |
-| Permutations | Pick next unused element | `n - level` (shrinking) | `n!` | `O(n * n!)` | `O(n)` |
-| Social Permutations | Pick unused element without conflict | `<= n - level` (pruned) | `< n!` | `O(n * n!)` bound | `O(n)` |
+| **Subsets** | Include or exclude element | 2 (fixed) | `2^n` | `O(n * 2^n)` | `O(n)` |
+| **Permutations** | Pick next unused element | `n - level` (shrinking) | `n!` | `O(n * n!)` | `O(n)` |
+| **Social Permutations** | Pick unused element without conflict | `<= n - level` (pruned) | `< n!` | `O(n * n!)` bound | `O(n)` |
 
 **Key observations:**
 
-1. **Fixed vs shrinking branching factor:** Subsets makes a binary decision at each index, yielding
-   a full binary recursion tree of depth `n` with `2^n` leaves. Permutations selects an unused
+1. **Fixed vs shrinking branching factor:** **Subsets** makes a binary decision at each index, yielding
+   a full binary recursion tree of depth `n` with `2^n` leaves. **Permutations** selects an unused
    element, starting with `n` branches, then `n - 1`, down to `1`, producing `n!` leaves.
-2. **Copying dominates leaf cost:** Both Subsets and Permutations perform `O(1)` work at internal
+2. **Copying dominates leaf cost:** Both **Subsets** and **Permutations** perform `O(1)` work at internal
    nodes (excluding loop overhead), but pay `O(n)` at each leaf to copy the accumulated solution
    into the results array.
-3. **Pruning avoids entire subtrees:** Social Permutations uses the exact same skeleton as
-   Permutations, but checks constraints (no self-gift, no mutual gift) before recursing. An invalid
+3. **Pruning avoids entire subtrees:** **Social Permutations** uses the exact same skeleton as
+   **Permutations**, but checks constraints (no self-gift, no mutual gift) before recursing. An invalid
    choice is pruned immediately, preventing the recursion from expanding subtrees that cannot lead
    to valid outputs.
 
@@ -58,7 +58,7 @@ each step depend on which elements remain available, producing a shrinking branc
 <details>
 <summary>2. N-Queens</summary>
 
-[LeetCode 51](https://leetcode.com/problems/n-queens/): given an integer `n`, place `n` queens on an
+[LeetCode 51, **N-Queens**](https://leetcode.com/problems/n-queens/): given an integer `n`, place `n` queens on an
 `n x n` chessboard such that no two queens attack each other. Return all distinct board
 configurations, where `'Q'` is a queen and `'.'` is an empty space.
 
@@ -455,23 +455,23 @@ excluding the solution output list.
 <details>
 <summary>3. Recap</summary>
 
-- **Permutation with constraints:** N-Queens is Permutations in disguise. Row-by-row placement
+- **Permutation with constraints:** **N-Queens** is **Permutations** in disguise. Row-by-row placement
   satisfies the row rule automatically; column tracking ensures column uniqueness (a permutation);
   diagonal arrays prune invalid branches early.
 - **Constant-time constraint checking:** Using the invariant lines `row - col` and `row + col` turns
   geometric diagonal checks into `O(1)` array lookups, avoiding costly board scans.
 - **The Backtracking Progression:**
-  1. *Subsets:* Binary branching, fixed branching factor 2, `O(n * 2^n)`.
-  2. *Permutations:* Unused element branching, shrinking branching factor `n - level`, `O(n * n!)`.
-  3. *Social Permutations:* Permutations with mutual-pair pruning.
-  4. *N-Queens:* Permutations with column and diagonal pruning.
+  1. ***Subsets:*** Binary branching, fixed branching factor 2, `O(n * 2^n)`.
+  2. ***Permutations:*** Unused element branching, shrinking branching factor `n - level`, `O(n * n!)`.
+  3. ***Social Permutations:*** Permutations with mutual-pair pruning.
+  4. ***N-Queens:*** Permutations with column and diagonal pruning.
 
 </details>
 
 <details>
 <summary>References</summary>
 
-- LeetCode 51: [N-Queens](https://leetcode.com/problems/n-queens/)
-- LeetCode 52: [N-Queens II](https://leetcode.com/problems/n-queens-ii/) (counting solutions without board construction)
+- LeetCode 51: [**N-Queens**](https://leetcode.com/problems/n-queens/)
+- LeetCode 52: [**N-Queens II**](https://leetcode.com/problems/n-queens-ii/) (counting solutions without board construction)
 
 </details>

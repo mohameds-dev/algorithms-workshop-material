@@ -3,21 +3,21 @@
 ## Today
 
 Today we conclude our backtracking unit by consolidating the complexity models across all four
-backtracking benchmarks we have studied (Subsets, Permutations, Social Permutations, and N-Queens).
+backtracking benchmarks we have studied (**Subsets**, **Permutations**, **Social Permutations**, and **N-Queens**).
 We then pivot to **Dynamic Programming (DP)**: examining why backtracking is required when every
 configuration is distinct, and how problems with overlapping subproblems and optimal substructure
 can be optimized from exponential time down to polynomial time.
 
 We study this transition through a progression of three benchmarks:
-[LeetCode 509, Fibonacci Number](https://leetcode.com/problems/fibonacci-number/),
-[LeetCode 70, Climbing Stairs](https://leetcode.com/problems/climbing-stairs/), and
-[LeetCode 1137, N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/):
+[LeetCode 509, **Fibonacci Number**](https://leetcode.com/problems/fibonacci-number/),
+[LeetCode 70, **Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/), and
+[LeetCode 1137, **N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/):
 1. Analyze the naive recursive tree and quantify the cost of duplicate subproblems ($O(2^n)$ time).
 2. Apply **top-down Dynamic Programming (Memoization)** to prune duplicate subtrees ($O(n)$ time).
 3. Convert to **bottom-up Dynamic Programming (Tabulation)** to eliminate recursive stack overhead ($O(n)$ time).
 4. Apply state compression to achieve $O(1)$ auxiliary space.
 5. Contrast tabular traversal mindsets: **Pull DP** (lookback) vs **Push DP** (forward dispatching).
-6. Generalize from 2-term dependencies to a 3-term recurrence (Tribonacci).
+6. Generalize from 2-term dependencies to a 3-term recurrence (**Tribonacci**).
 7. Compare the complexity profiles, execution trade-offs, and design patterns across all approaches.
 
 <details>
@@ -35,26 +35,29 @@ individual solutions and proofs in their respective session notes:
 
 | Problem | Decision per step | Branching factor | Tree leaves | Time complexity | Working space | Pruning mechanism |
 |---|---|---|---|---|---|---|
-| Subsets | Include or exclude element | 2 (fixed) | `2^n` | `O(n * 2^n)` | `O(n)` | None (full power set) |
-| Permutations | Pick next unused element | `n - level` (shrinking) | `n!` | `O(n * n!)` | `O(n)` | None (all orderings) |
-| Social Permutations | Pick unused element without conflict | `<= n - level` (pruned) | `< n!` | `O(n * n!)` bound | `O(n)` | Backward checks: no self-gift, no mutual gift |
-| N-Queens | Pick unused column and safe diagonals | `<= n - level` (heavily pruned) | Valid boards $S \ll n!$ | `O(n!)` bound | `O(n^2)` or `O(n)` | $O(1)$ lookups for columns and both diagonals |
+| **Subsets** | Include or exclude element | 2 (fixed) | `2^n` | `O(n * 2^n)` | `O(n)` | None (full power set) |
+| **Permutations** | Pick next unused element | `n - level` (shrinking) | `n!` | `O(n * n!)` | `O(n)` | None (all orderings) |
+| **Social Permutations** | Pick unused element without conflict | `<= n - level` (pruned) | `< n!` | `O(n * n!)` bound | `O(n)` | Backward checks: no self-gift, no mutual gift |
+| **N-Queens** | Pick unused column and safe diagonals | `<= n - level` (heavily pruned) | Valid boards $S \ll n!$ | `O(n!)` bound | `O(n^2)` or `O(n)` | $O(1)$ lookups for columns and both diagonals |
 
 ### Four structural observations
 
-1. **Fixed vs shrinking branching factor:** Subsets makes a binary decision at each index, yielding
-   a full binary recursion tree of depth `n` with $2^n$ leaves. Permutations selects an unused
+1. **Fixed vs shrinking branching factor:** **Subsets** makes a binary decision at each index, yielding
+   a full binary recursion tree of depth `n` with $2^n$ leaves. **Permutations** selects an unused
    element, starting with `n` branches, then `n - 1`, down to `1`, producing $n!$ leaves.
-2. **Copying dominates leaf cost:** Both Subsets and Permutations perform $O(1)$ work at internal
+2. **Copying dominates leaf cost:** Both **Subsets** and **Permutations** perform $O(1)$ work at internal
    nodes (excluding loop setup), but pay $O(n)$ at each leaf to copy the accumulated solution
-   into the results array. For N-Queens, copying the formatted board of $n$ strings of length $n$
+   into the results array. For **N-Queens**, copying the formatted board of $n$ strings of length $n$
    takes $O(n^2)$ time per valid solution.
-3. **Pruning avoids entire subtrees:** Social Permutations and N-Queens use the exact same skeleton as
-   Permutations, but verify constraints before recursing. An invalid choice is pruned immediately,
+3. **Pruning avoids entire subtrees:** **Social Permutations** and **N-Queens** use the exact same skeleton as
+   **Permutations**, but verify constraints before recursing. An invalid choice is pruned immediately,
    preventing the recursion from expanding subtrees that cannot lead to valid outputs.
-4. **Working space is linear:** Backtracking traverses depth-first (DFS). Because we only maintain
-   the current path on the call stack and undo changes when returning, auxiliary working space
-   is $O(n)$ (or $O(n^2)$ for the board representation in N-Queens), excluding the output container.
+4. **Working space is linear (one path at a time):** Think of walking a maze: you follow a single
+   trail of choices all the way to the end (a leaf), record the result, and then retrace your steps
+   (backtrack) to try the next turn. You never store the entire decision tree in memory at once;
+   you only keep the single active path currently on the call stack. Because this path is at most `n`
+   choices deep, auxiliary working space is $O(n)$ (or $O(n^2)$ for the board grid in **N-Queens**),
+   excluding the final output list.
 
 <details>
 <summary>Question: When should we use include/exclude vs next-element choice?</summary>
@@ -69,9 +72,9 @@ each step depend on which elements remain available, producing a shrinking branc
 </details>
 
 <details>
-<summary>Question: Why can't we use memoization on Subsets or Permutations?</summary>
+<summary>Question: Why can't we use memoization on **Subsets** or **Permutations**?</summary>
 
-Every leaf in Subsets and Permutations represents a distinct combinatorial configuration that must
+Every leaf in **Subsets** and **Permutations** represents a distinct combinatorial configuration that must
 appear in the final output. There are no "duplicate" answers to cache or reuse; the search path
 itself is the result.
 
@@ -89,10 +92,10 @@ profit, the minimum coins, or the count of valid ways)?
 When an algorithm breaks a problem into subproblems, three distinct paradigms emerge:
 
 1. **Divide and Conquer:** Subproblems are independent and non-overlapping.
-   - Example: Merge Sort splits an array into completely disjoint left and right halves. Neither
+   - Example: **Merge Sort** splits an array into completely disjoint left and right halves. Neither
      half solves problems needed by the other.
 2. **Backtracking:** Search space contains distinct configurations; paths must be exhaustively explored.
-   - Example: Permutations and N-Queens generate unique permutations and board placements.
+   - Example: **Permutations** and **N-Queens** generate unique permutations and board placements.
 3. **Dynamic Programming:** Subproblems are **overlapping** and have **optimal substructure**.
    - **Overlapping subproblems:** The recursive formulation calls the exact same subproblem
      repeatedly with the exact same arguments.
@@ -107,7 +110,7 @@ each subproblem once, saves the result, and looks it up in subsequent encounters
 <details>
 <summary>3. Fibonacci: naive recursion and overlapping work</summary>
 
-[LeetCode 509, Fibonacci Number](https://leetcode.com/problems/fibonacci-number/):
+[LeetCode 509, **Fibonacci Number**](https://leetcode.com/problems/fibonacci-number/):
 The Fibonacci sequence is defined by the mathematical recurrence:
 
 ```
@@ -210,7 +213,7 @@ is evaluated recursively exactly once.
 - C++: [`memoized_solution.cpp`](../problem_solutions/fibonacci-number/memoized_solution.cpp)
 
 <details>
-<summary>Starting snippet (Python)</summary>
+<summary>Implementation (Python)</summary>
 
 ```python
 class Solution:
@@ -239,7 +242,7 @@ if __name__ == "__main__":
 </details>
 
 <details>
-<summary>Starting snippet (C++)</summary>
+<summary>Implementation (C++)</summary>
 
 ```cpp
 #include <bits/stdc++.h>
@@ -343,7 +346,7 @@ dp[i]:     [0]  [1]  [1]  [2]  [3]  [5]  ...  F(n)
 - C++: [`iterative_solution.cpp`](../problem_solutions/fibonacci-number/iterative_solution.cpp)
 
 <details>
-<summary>Starting snippet (Python)</summary>
+<summary>Implementation (Python)</summary>
 
 ```python
 class Solution:
@@ -371,7 +374,7 @@ if __name__ == "__main__":
 </details>
 
 <details>
-<summary>Starting snippet (C++)</summary>
+<summary>Implementation (C++)</summary>
 
 ```cpp
 #include <bits/stdc++.h>
@@ -469,7 +472,7 @@ def fib(n: int) -> int:
 <details>
 <summary>6. Climbing Stairs: Pull DP vs Push DP</summary>
 
-[LeetCode 70, Climbing Stairs](https://leetcode.com/problems/climbing-stairs/):
+[LeetCode 70, **Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/):
 You are climbing a staircase with `n` steps. Each time you can either climb 1 or 2 steps.
 In how many distinct ways can you climb to the top?
 
@@ -490,7 +493,7 @@ With base cases:
 - `ways(0) = 1`: Exactly 1 way to stand at ground level (do nothing).
 - `ways(1) = 1`: Exactly 1 way to reach step 1 (single 1-step jump).
 
-While this recurrence is mathematically isomorphic to Fibonacci, writing iterative DP loops
+While this recurrence is mathematically isomorphic to **Fibonacci**, writing iterative DP loops
 reveals two fundamentally different ways to process state transitions: **Pull DP** and **Push DP**.
 
 ### Pull DP (Lookback / Gathering)
@@ -555,9 +558,9 @@ class Solution:
 </details>
 
 <details>
-<summary>7. Generalizing to 3-term recurrences: N-th Tribonacci Number</summary>
+<summary>7. Exercise: N-th Tribonacci Number</summary>
 
-[LeetCode 1137, N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/):
+[LeetCode 1137, **N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/):
 The Tribonacci sequence $T_n$ is defined by:
 ```
 T(0) = 0
@@ -566,17 +569,21 @@ T(2) = 1
 T(n) = T(n - 1) + T(n - 2) + T(n - 3),  for n >= 3
 ```
 
-- Python solutions: [`problem_solutions/n-th-tribonacci-number/solution.py`](../problem_solutions/n-th-tribonacci-number/solution.py), [`memoized_solution.py`](../problem_solutions/n-th-tribonacci-number/memoized_solution.py), [`iterative_solution.py`](../problem_solutions/n-th-tribonacci-number/iterative_solution.py), [`optimized_iterative_solution.py`](../problem_solutions/n-th-tribonacci-number/optimized_iterative_solution.py)
-- C++ solutions: [`problem_solutions/n-th-tribonacci-number/solution.cpp`](../problem_solutions/n-th-tribonacci-number/solution.cpp), [`memoized_solution.cpp`](../problem_solutions/n-th-tribonacci-number/memoized_solution.cpp), [`iterative_solution.cpp`](../problem_solutions/n-th-tribonacci-number/iterative_solution.cpp), [`optimized_iterative_solution.cpp`](../problem_solutions/n-th-tribonacci-number/optimized_iterative_solution.cpp)
-- Writeup: [`problem_solutions/n-th-tribonacci-number/README.md`](../problem_solutions/n-th-tribonacci-number/README.md)
+- Reference writeup: [`problem_solutions/n-th-tribonacci-number/README.md`](../problem_solutions/n-th-tribonacci-number/README.md)
+- Complete reference solutions: [`solution.py`](../problem_solutions/n-th-tribonacci-number/solution.py) / [`solution.cpp`](../problem_solutions/n-th-tribonacci-number/solution.cpp)
 
-This benchmark verifies how naturally our DP templates generalize when subproblem dependencies expand
-from two terms to three terms.
+**Your turn.** Now that we have walked through the complete Dynamic Programming progression on
+**Fibonacci** and **Climbing Stairs**, apply this pipeline to **Tribonacci**.
 
-### Approach 1: Top-Down Dynamic Programming (Memoization)
+Work through the three-step progression below. Use the minimal starting snippets as a structural
+scaffold, filling in each `...` section.
 
-Allocate a cache `mem` initialized to `-1`. If `mem[num]` is already computed, return it; otherwise,
-compute `solve(num - 1) + solve(num - 2) + solve(num - 3)`, store it, and return:
+### Step 1: Top-down memoization
+
+Write a recursive helper with a memoization table `mem` of size $n + 1$ initialized to `-1`.
+
+<details>
+<summary>Starting snippet (Python)</summary>
 
 ```python
 class Solution:
@@ -584,51 +591,160 @@ class Solution:
         if n <= 1:
             return n
 
-        mem = [-1 for i in range(n + 1)]
+        # initialize memo table with -1 sentinel
+        mem = [-1] * (n + 1)
 
-        def solve(num):
+        def solve(num: int) -> int:
+            # base cases: T(0) = 0, T(1) = 1, T(2) = 1
             if num <= 2:
-                return 1 if num > 0 else 0
+                ...
 
-            if mem[num] == -1:
-                mem[num] = solve(num - 1) + solve(num - 2) + solve(num - 3)
+            # return cached value if already computed
+            if mem[num] != -1:
+                ...
 
+            # transition: compute 3-term sum, cache, and return
+            mem[num] = ...
             return mem[num]
 
         return solve(n)
 ```
 
-- **Time:** $O(n)$ (each state $0 \dots n$ is computed once).
-- **Space:** $O(n)$ ($n + 1$ cache entries and $O(n)$ recursion call stack frames).
+</details>
 
-### Approach 2: Bottom-Up Dynamic Programming (Tabulation)
+<details>
+<summary>Starting snippet (C++)</summary>
 
-Initialize the base cases `trib[0] = 0`, `trib[1] = 1`, `trib[2] = 1`, then iteratively fill from
-$i = 3$ to $n$:
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+private:
+    vector<int> mem;
+
+    int solve(int num) {
+        // base cases: T(0) = 0, T(1) = 1, T(2) = 1
+        if (num <= 2) {
+            // ...
+        }
+
+        // return cached value if already computed
+        if (mem[num] != -1) {
+            // ...
+        }
+
+        // transition: compute 3-term sum, cache, and return
+        mem[num] = /* ... */;
+        return mem[num];
+    }
+
+public:
+    int tribonacci(int n) {
+        if (n <= 1) return n;
+        mem.assign(n + 1, -1);
+        return solve(n);
+    }
+};
+```
+
+</details>
+
+<details>
+<summary>Hints (Memoization)</summary>
+
+1. Check your base cases carefully: $T(0) = 0$, but both $T(1) = 1$ and $T(2) = 1$. When `num <= 2`,
+   return `1 if num > 0 else 0`.
+2. If `mem[num] != -1`, return the cached value directly in $O(1)$.
+3. Otherwise, recursively sum `solve(num - 1) + solve(num - 2) + solve(num - 3)`, store into
+   `mem[num]`, and return.
+
+</details>
+
+Solution: [`memoized_solution.py`](../problem_solutions/n-th-tribonacci-number/memoized_solution.py) /
+[`memoized_solution.cpp`](../problem_solutions/n-th-tribonacci-number/memoized_solution.cpp)
+
+---
+
+### Step 2: Bottom-up tabulation
+
+Convert the top-down recursion into an iterative table fill from $i = 3$ to $n$.
+
+<details>
+<summary>Starting snippet (Python)</summary>
 
 ```python
 class Solution:
     def tribonacci(self, n: int) -> int:
         if n <= 1:
             return n
-        trib = [-1 for _ in range(n + 1)]
-        trib[0] = 0
-        trib[1] = 1
-        trib[2] = 1
 
+        trib = [-1] * (n + 1)
+        # initialize base cases
+        trib[0] = ...
+        trib[1] = ...
+        trib[2] = ...
+
+        # iterative fill in dependency order
         for i in range(3, n + 1):
-            trib[i] = trib[i - 1] + trib[i - 2] + trib[i - 3]
+            trib[i] = ...
 
         return trib[n]
 ```
 
-- **Time:** $O(n)$ (a single loop with $n - 2$ iterations).
-- **Space:** $O(n)$ (table of size $n + 1$, $0$ recursion stack frames).
+</details>
 
-### Approach 3: Space-Optimized Tabulation (Rolling Variables)
+<details>
+<summary>Starting snippet (C++)</summary>
 
-Because $T(i)$ depends only on the immediately preceding three values ($T(i - 1), T(i - 2), T(i - 3)$),
-we do not need to preserve the entire array. Three rolling variables (`a0`, `a1`, `a2`) suffice:
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int tribonacci(int n) {
+        if (n <= 1) return n;
+
+        vector<int> trib(n + 1, -1);
+        // initialize base cases
+        trib[0] = /* ... */;
+        trib[1] = /* ... */;
+        trib[2] = /* ... */;
+
+        // iterative fill in dependency order
+        for (int i = 3; i <= n; ++i) {
+            trib[i] = /* ... */;
+        }
+
+        return trib[n];
+    }
+};
+```
+
+</details>
+
+<details>
+<summary>Hints (Tabulation)</summary>
+
+1. Initialize `trib[0] = 0`, `trib[1] = 1`, and `trib[2] = 1`.
+2. In the loop from `3` to `n`, each cell is `trib[i - 1] + trib[i - 2] + trib[i - 3]`.
+3. When $n = 2$, `range(3, 3)` is skipped and `trib[2] = 1` is returned directly without out-of-bounds errors.
+
+</details>
+
+Solution: [`iterative_solution.py`](../problem_solutions/n-th-tribonacci-number/iterative_solution.py) /
+[`iterative_solution.cpp`](../problem_solutions/n-th-tribonacci-number/iterative_solution.cpp)
+
+---
+
+### Step 3: Space-optimized tabulation (rolling variables)
+
+Notice that each state $T(i)$ only requires the last three values. Compress the array into three
+rolling variables for $O(1)$ auxiliary space.
+
+<details>
+<summary>Starting snippet (Python)</summary>
 
 ```python
 class Solution:
@@ -636,18 +752,59 @@ class Solution:
         if n <= 1:
             return n
 
-        a0 = 0
-        a1 = 1
-        a2 = 1
+        # initialize rolling variables for T(0), T(1), T(2)
+        a0 = ...
+        a1 = ...
+        a2 = ...
 
         for i in range(3, n + 1):
-            a0, a1, a2 = a1, a2, a0 + a1 + a2
+            # advance sliding window forward
+            a0, a1, a2 = ...
 
         return a2
 ```
 
-- **Time:** $O(n)$.
-- **Space:** **$O(1)$** auxiliary space (only three scalar variables).
+</details>
+
+<details>
+<summary>Starting snippet (C++)</summary>
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int tribonacci(int n) {
+        if (n <= 1) return n;
+
+        // initialize rolling variables for T(0), T(1), T(2)
+        int a0 = /* ... */, a1 = /* ... */, a2 = /* ... */;
+
+        for (int i = 3; i <= n; ++i) {
+            // advance sliding window forward
+            // ...
+        }
+
+        return a2;
+    }
+};
+```
+
+</details>
+
+<details>
+<summary>Hints (Space Optimization)</summary>
+
+1. Start with `a0 = 0`, `a1 = 1`, `a2 = 1`.
+2. In Python, use simultaneous tuple assignment: `a0, a1, a2 = a1, a2, a0 + a1 + a2`.
+3. In C++, save the sum first (`int next_val = a0 + a1 + a2;`), then advance variables:
+   `a0 = a1; a1 = a2; a2 = next_val;`.
+
+</details>
+
+Solution: [`optimized_iterative_solution.py`](../problem_solutions/n-th-tribonacci-number/optimized_iterative_solution.py) /
+[`optimized_iterative_solution.cpp`](../problem_solutions/n-th-tribonacci-number/optimized_iterative_solution.cpp)
 
 </details>
 
@@ -680,7 +837,7 @@ class Solution:
      hits. Memoization jumps across recursive call stack frames and hash map buckets.
 4. **Reconstructing the solution path:**
    - If a problem asks not just for the optimal value, but also for the exact sequence of choices
-     (e.g. printing the chosen items in Knapsack), retaining the full `dp` table or decision
+     (e.g. printing the chosen items in **Knapsack**), retaining the full `dp` table or decision
      pointers is required. State compression to $O(1)$ discards history and prevents path
      reconstruction.
 
@@ -703,10 +860,10 @@ class Solution:
      keeping $O(n)$ table.
   5. *Pull vs Push Tabulation:* Pull gathers backward from predecessors (`mem[i] = mem[i-1] + mem[i-2]`);
      Push distributes forward to successors (`mem[i+1] += mem[i]`, `mem[i+2] += mem[i]`).
-  6. *State Compression:* When transitions only look back a constant number of steps ($k = 2$ for Fib,
-     $k = 3$ for Trib), reduce table to $O(1)$ auxiliary variables.
+  6. *State Compression:* When transitions only look back a constant number of steps ($k = 2$ for **Fibonacci**,
+     $k = 3$ for **Tribonacci**), reduce table to $O(1)$ auxiliary variables.
 - **Looking ahead:** Next session we apply this exact progression to problems with choices and
-  optimization: [LeetCode 322, Coin Change](https://leetcode.com/problems/coin-change/).
+  optimization: [LeetCode 322, **Coin Change**](https://leetcode.com/problems/coin-change/).
 
 </details>
 
@@ -730,9 +887,9 @@ class Solution:
 <details>
 <summary>References</summary>
 
-- LeetCode 509: [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
-- LeetCode 70: [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) (isomorphic to Fibonacci)
-- LeetCode 1137: [N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/) (three-term recurrence)
+- LeetCode 509: [**Fibonacci Number**](https://leetcode.com/problems/fibonacci-number/)
+- LeetCode 70: [**Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/) (isomorphic to **Fibonacci**)
+- LeetCode 1137: [**N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/) (three-term recurrence)
 - Cormen et al., *Introduction to Algorithms*, Chapter 15 "Dynamic Programming" (pp. 359-390)
 
 </details>
