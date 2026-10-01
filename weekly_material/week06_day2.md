@@ -10,14 +10,14 @@ can be optimized from exponential time down to polynomial time.
 
 We study this transition through a progression of three benchmarks:
 [LeetCode 509, **Fibonacci Number**](https://leetcode.com/problems/fibonacci-number/),
-[LeetCode 70, **Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/), and
-[LeetCode 1137, **N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/):
+[LeetCode 1137, **N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/), and
+[LeetCode 70, **Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/):
 1. Analyze the naive recursive tree and quantify the cost of duplicate subproblems ($O(2^n)$ time).
 2. Apply **top-down Dynamic Programming (Memoization)** to prune duplicate subtrees ($O(n)$ time).
 3. Convert to **bottom-up Dynamic Programming (Tabulation)** to eliminate recursive stack overhead ($O(n)$ time).
 4. Apply state compression to achieve $O(1)$ auxiliary space.
-5. Contrast tabular traversal mindsets: **Pull DP** (lookback) vs **Push DP** (forward dispatching).
-6. Generalize from 2-term dependencies to a 3-term recurrence (**Tribonacci**).
+5. Practice the DP pipeline on a 3-term recurrence (**Tribonacci**).
+6. Contrast tabular traversal mindsets: **Pull DP** (lookback) vs **Push DP** (forward dispatching) on **Climbing Stairs**.
 7. Compare the complexity profiles, execution trade-offs, and design patterns across all approaches.
 
 <details>
@@ -220,7 +220,7 @@ class Solution:
     def fib(self, n: int) -> int:
         memo: dict[int, int] = {}
 
-        def helper(k: int) -> int:
+        def solve(k: int) -> int:
             if k == 0:
                 return 0
             if k == 1:
@@ -228,10 +228,10 @@ class Solution:
             if k in memo:
                 return memo[k]
 
-            memo[k] = helper(k - 1) + helper(k - 2)
+            memo[k] = solve(k - 1) + solve(k - 2)
             return memo[k]
 
-        return helper(n)
+        return solve(n)
 
 
 if __name__ == "__main__":
@@ -252,19 +252,19 @@ class Solution {
 private:
     vector<int> memo;
 
-    int helper(int k) {
+    int solve(int k) {
         if (k == 0) return 0;
         if (k == 1) return 1;
         if (memo[k] != -1) return memo[k];
 
-        memo[k] = helper(k - 1) + helper(k - 2);
+        memo[k] = solve(k - 1) + solve(k - 2);
         return memo[k];
     }
 
 public:
     int fib(int n) {
         memo.assign(n + 2, -1);
-        return helper(n);
+        return solve(n);
     }
 };
 
@@ -280,22 +280,22 @@ int main() {
 <details>
 <summary>Correctness</summary>
 
-**Claim:** For every non-negative integer $k$, calling `helper(k)` returns $F(k)$ and ensures
+**Claim:** For every non-negative integer $k$, calling `solve(k)` returns $F(k)$ and ensures
 `memo[k] = F(k)`.
 
 **Base case:** $k = 0$ returns 0, and $k = 1$ returns 1. Both match the math definition $F(0) = 0$ and $F(1) = 1$.
 
-**Assume:** For all $m < k$, `helper(m)` correctly returns $F(m)$.
+**Assume:** For all $m < k$, `solve(m)` correctly returns $F(m)$.
 
 **Show:** For $k \ge 2$:
 - If `k in memo` (`memo[k] != -1`), the value was recorded by a prior call that computed $F(k)$, so
   returning `memo[k]` is correct.
-- If `k` is not yet in `memo`: the algorithm evaluates `helper(k - 1) + helper(k - 2)`. By **Assume**,
+- If `k` is not yet in `memo`: the algorithm evaluates `solve(k - 1) + solve(k - 2)`. By **Assume**,
   these evaluate to $F(k - 1)$ and $F(k - 2)$ respectively. Their sum is $F(k - 1) + F(k - 2) = F(k)$.
   The algorithm assigns `memo[k] = F(k)` and returns it.
 
-In both branches, `helper(k)` returns $F(k)$. By mathematical induction, the initial call
-`helper(n)` returns $F(n)$.
+In both branches, `solve(k)` returns $F(k)$. By mathematical induction, the initial call
+`solve(n)` returns $F(n)$.
 
 </details>
 
@@ -470,95 +470,7 @@ def fib(n: int) -> int:
 </details>
 
 <details>
-<summary>6. Climbing Stairs: Pull DP vs Push DP</summary>
-
-[LeetCode 70, **Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/):
-You are climbing a staircase with `n` steps. Each time you can either climb 1 or 2 steps.
-In how many distinct ways can you climb to the top?
-
-- Python solutions: [`problem_solutions/climbing-stairs/solution.py`](../problem_solutions/climbing-stairs/solution.py), [`pull_solution.py`](../problem_solutions/climbing-stairs/pull_solution.py), [`push_solution.py`](../problem_solutions/climbing-stairs/push_solution.py)
-- C++ solutions: [`problem_solutions/climbing-stairs/solution.cpp`](../problem_solutions/climbing-stairs/solution.cpp), [`pull_solution.cpp`](../problem_solutions/climbing-stairs/pull_solution.cpp), [`push_solution.cpp`](../problem_solutions/climbing-stairs/push_solution.cpp)
-- Writeup: [`problem_solutions/climbing-stairs/README.md`](../problem_solutions/climbing-stairs/README.md)
-
-### Mathematical formulation
-
-To land on step `i`, your very last jump must have been either:
-- A 1-step jump from step `i - 1`, or
-- A 2-step jump from step `i - 2`.
-
-This yields the familiar recurrence:
-`ways(i) = ways(i - 1) + ways(i - 2)`
-
-With base cases:
-- `ways(0) = 1`: Exactly 1 way to stand at ground level (do nothing).
-- `ways(1) = 1`: Exactly 1 way to reach step 1 (single 1-step jump).
-
-While this recurrence is mathematically isomorphic to **Fibonacci**, writing iterative DP loops
-reveals two fundamentally different ways to process state transitions: **Pull DP** and **Push DP**.
-
-### Pull DP (Lookback / Gathering)
-
-In **Pull DP**, you stand at destination state `i` and look backward into the past:
-*"Where could I have arrived from to land on step `i`?"*
-
-You pull or accumulate values from already-computed earlier states into the current state:
-
-```python
-class Solution:
-    def climbStairs(self, n: int) -> int:
-        mem = [0 for i in range(n + 2)]
-        mem[0] = 1
-        mem[1] = 1
-        for i in range(2, n + 1):
-            mem[i] = mem[i - 1] + mem[i - 2]
-
-        return mem[n]
-```
-
-- **Loop range:** `i` advances from `2` up to `n`.
-- **Precondition:** `mem[i - 1]` and `mem[i - 2]` must already be computed before calculating `mem[i]`.
-- **Mental model:** Destination-oriented. We aggregate incoming transitions (`mem[i] = incoming_1 + incoming_2`).
-
-### Push DP (Forward Dispatching / Relaxation)
-
-In **Push DP**, you stand at current state `i` and look forward into the future:
-*"Where can I go from step `i`?"*
-
-Once state `i` is resolved, you push or distribute its count forward to all valid reachable states:
-
-```python
-class Solution:
-    def climbStairs(self, n: int) -> int:
-        mem = [0 for i in range(n + 2)]
-        mem[0] = 1
-
-        for i in range(0, n):
-            mem[i + 1] += mem[i]
-            mem[i + 2] += mem[i]
-
-        return mem[n]
-```
-
-- **Loop range:** `i` advances from `0` up to `n - 1`.
-- **Precondition:** `mem[i]` must be fully settled and finalized before we loop through it to push its value forward.
-- **Mental model:** Source-oriented. We propagate outgoing transitions from the current state to its successors (`mem[next] += current`).
-- **Array sizing:** Sized to `n + 2` because when `i = n - 1`, pushing two steps forward targets index `(n - 1) + 2 = n + 1`. An array of size `n + 1` would cause an out-of-bounds error.
-
-### Pull DP vs Push DP comparison
-
-| Dimension | Pull DP (Gathering) | Push DP (Dispatching) |
-|---|---|---|
-| Core question | "Where did I come from?" | "Where can I go from here?" |
-| State role | Destination: `mem[i]` receives inputs | Source: `mem[i]` distributes outputs |
-| Transition style | `mem[i] = mem[i - 1] + mem[i - 2]` | `mem[i + 1] += mem[i]`; `mem[i + 2] += mem[i]` |
-| Loop bounds | `i` from `2` to `n` | `i` from `0` to `n - 1` |
-| Base cases | `mem[0] = 1`, `mem[1] = 1` | `mem[0] = 1` |
-| When to prefer | When incoming edges/predecessors are easy to list | When outgoing edges/successors are easy to generate, or in shortest-path DP (Dijkstra/Bellman-Ford) |
-
-</details>
-
-<details>
-<summary>7. Exercise: N-th Tribonacci Number</summary>
+<summary>6. Exercise: N-th Tribonacci Number</summary>
 
 [LeetCode 1137, **N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/):
 The Tribonacci sequence $T_n$ is defined by:
@@ -573,14 +485,14 @@ T(n) = T(n - 1) + T(n - 2) + T(n - 3),  for n >= 3
 - Complete reference solutions: [`solution.py`](../problem_solutions/n-th-tribonacci-number/solution.py) / [`solution.cpp`](../problem_solutions/n-th-tribonacci-number/solution.cpp)
 
 **Your turn.** Now that we have walked through the complete Dynamic Programming progression on
-**Fibonacci** and **Climbing Stairs**, apply this pipeline to **Tribonacci**.
+**Fibonacci**, apply this pipeline to **Tribonacci**.
 
 Work through the three-step progression below. Use the minimal starting snippets as a structural
 scaffold, filling in each `...` section.
 
 ### Step 1: Top-down memoization
 
-Write a recursive helper with a memoization table `mem` of size $n + 1$ initialized to `-1`.
+Write a recursive `solve` function with a memoization table `mem` of size $n + 1$ initialized to `-1`.
 
 <details>
 <summary>Starting snippet (Python)</summary>
@@ -809,6 +721,81 @@ Solution: [`optimized_iterative_solution.py`](../problem_solutions/n-th-tribonac
 </details>
 
 <details>
+<summary>7. Climbing Stairs</summary>
+
+[LeetCode 70, **Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/):
+You are climbing a staircase with `n` steps. Each time you can either climb 1 or 2 steps.
+In how many distinct ways can you climb to the top?
+
+- Python solutions: [`problem_solutions/climbing-stairs/solution.py`](../problem_solutions/climbing-stairs/solution.py), [`pull_solution.py`](../problem_solutions/climbing-stairs/pull_solution.py), [`push_solution.py`](../problem_solutions/climbing-stairs/push_solution.py)
+- C++ solutions: [`problem_solutions/climbing-stairs/solution.cpp`](../problem_solutions/climbing-stairs/solution.cpp), [`pull_solution.cpp`](../problem_solutions/climbing-stairs/pull_solution.cpp), [`push_solution.cpp`](../problem_solutions/climbing-stairs/push_solution.cpp)
+- Writeup: [`problem_solutions/climbing-stairs/README.md`](../problem_solutions/climbing-stairs/README.md)
+
+### Mathematical formulation
+
+To land on step `i`, your very last jump must have been either:
+- A 1-step jump from step `i - 1`, or
+- A 2-step jump from step `i - 2`.
+
+This yields the familiar recurrence:
+`ways(i) = ways(i - 1) + ways(i - 2)`
+
+With base cases:
+- `ways(0) = 1`: Exactly 1 way to stand at ground level (do nothing).
+- `ways(1) = 1`: Exactly 1 way to reach step 1 (single 1-step jump).
+
+### DP Tabulation
+
+While this recurrence is mathematically isomorphic to **Fibonacci**, it is an excellent opportunity
+to solidify tabulation. You stand at destination state `i` and look backward into the past:
+*"Where could I have arrived from to land on step `i`?"*
+
+```python
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        mem = [0 for i in range(n + 2)]
+        mem[0] = 1
+        mem[1] = 1
+        for i in range(2, n + 1):
+            mem[i] = mem[i - 1] + mem[i - 2]
+
+        return mem[n]
+```
+
+- **Loop range:** `i` advances from `2` up to `n`.
+- **Precondition:** `mem[i - 1]` and `mem[i - 2]` must already be computed before calculating `mem[i]`.
+- **Mental model:** Destination-oriented. We aggregate incoming transitions (`mem[i] = incoming_1 + incoming_2`).
+
+<details>
+<summary>FYI: "Push" DP (Forward Dispatching)</summary>
+
+The standard DP above is "Pull DP" (gathering answers from predecessors). Alternatively, you can
+use "Push DP": stand at state `i` and ask, *"Where can I go from step `i`?"*
+
+Once state `i` is resolved, distribute its value forward to successors:
+
+```python
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        mem = [0 for i in range(n + 2)]
+        mem[0] = 1
+
+        for i in range(0, n):
+            mem[i + 1] += mem[i]
+            mem[i + 2] += mem[i]
+
+        return mem[n]
+```
+
+- **Loop bounds:** `i` advances from `0` up to `n - 1`.
+- **Array sizing:** Sized to `n + 2` so `(n - 1) + 2 = n + 1` does not cause out-of-bounds errors.
+- **When to prefer:** Standard "Pull" DP is usually cleaner when incoming edges are easy to list. "Push" DP is useful when outgoing edges are easier to generate (e.g. shortest-path DP like Dijkstra).
+
+</details>
+
+</details>
+
+<details>
 <summary>8. Comparing the complexities and approaches</summary>
 
 ### Side-by-side comparison
@@ -858,10 +845,9 @@ Solution: [`optimized_iterative_solution.py`](../problem_solutions/n-th-tribonac
      with $O(n)$ stack and memory.
   4. *Bottom-Up DP (Tabulation):* Fill table iteratively in dependency order; drops call stack to $O(1)$,
      keeping $O(n)$ table.
-  5. *Pull vs Push Tabulation:* Pull gathers backward from predecessors (`mem[i] = mem[i-1] + mem[i-2]`);
-     Push distributes forward to successors (`mem[i+1] += mem[i]`, `mem[i+2] += mem[i]`).
-  6. *State Compression:* When transitions only look back a constant number of steps ($k = 2$ for **Fibonacci**,
+  5. *State Compression:* When transitions only look back a constant number of steps ($k = 2$ for **Fibonacci**,
      $k = 3$ for **Tribonacci**), reduce table to $O(1)$ auxiliary variables.
+  6. *Tabulation Direction (FYI):* Default DP "pulls" from predecessors (`mem[i] = mem[i-1] + mem[i-2]`). "Push" DP distributes forward (`mem[i+1] += mem[i]`, `mem[i+2] += mem[i]`).
 - **Looking ahead:** Next session we apply this exact progression to problems with choices and
   optimization: [LeetCode 322, **Coin Change**](https://leetcode.com/problems/coin-change/).
 
@@ -888,8 +874,8 @@ Solution: [`optimized_iterative_solution.py`](../problem_solutions/n-th-tribonac
 <summary>References</summary>
 
 - LeetCode 509: [**Fibonacci Number**](https://leetcode.com/problems/fibonacci-number/)
-- LeetCode 70: [**Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/) (isomorphic to **Fibonacci**)
 - LeetCode 1137: [**N-th Tribonacci Number**](https://leetcode.com/problems/n-th-tribonacci-number/) (three-term recurrence)
+- LeetCode 70: [**Climbing Stairs**](https://leetcode.com/problems/climbing-stairs/) (isomorphic to **Fibonacci**)
 - Cormen et al., *Introduction to Algorithms*, Chapter 15 "Dynamic Programming" (pp. 359-390)
 
 </details>

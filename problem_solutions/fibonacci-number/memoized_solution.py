@@ -2,7 +2,7 @@ class Solution:
     def fib(self, n: int) -> int:
         memo: dict[int, int] = {}
 
-        def helper(k: int) -> int:
+        def solve(k: int) -> int:
             if k == 0:
                 return 0
             if k == 1:
@@ -10,10 +10,10 @@ class Solution:
             if k in memo:
                 return memo[k]
 
-            memo[k] = helper(k - 1) + helper(k - 2)
+            memo[k] = solve(k - 1) + solve(k - 2)
             return memo[k]
 
-        return helper(n)
+        return solve(n)
 
 
 if __name__ == "__main__":
