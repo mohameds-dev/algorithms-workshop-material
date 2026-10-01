@@ -4,7 +4,7 @@ LeetCode 509: https://leetcode.com/problems/fibonacci-number/
 
 - Difficulty: Easy
 - Topics: Recursion, Dynamic Programming, Math
-- Discussed: [Week 1, Day 2](../../weekly_material/week01_day2.md)
+- Discussed: [Week 1, Day 2](../../weekly_material/week01_day2.md), [Week 6, Day 2](../../weekly_material/week06_day2.md)
 
 ## Summary
 
@@ -23,25 +23,29 @@ Given `n`, return `F(n)`.
 1. The definition is already recursive: `F(n)` is defined directly in terms of `F(n - 1)` and
    `F(n - 2)`. What are the base cases, the values of `n` where the answer is already known
    without computing anything?
-2. For an iterative approach, you don't need to remember every value of `F`, only enough to
-   compute the next one. How many previous values does the definition actually depend on? Try
-   tracking just the last two values, updating them as you count up from 0 to `n`.
+2. When recursing, the tree branches into duplicate subproblems (e.g. `F(3)` is computed multiple
+   times when calculating `F(5)`). Store each computed answer in a lookup table (memoization) so
+   that each subproblem is solved only once.
+3. For an iterative approach (tabulation), start from the base cases and build upwards to `n`.
+   Notice that computing `F(i)` only requires `F(i - 1)` and `F(i - 2)`. You can track just the
+   last two values in variables to achieve O(1) auxiliary space.
 
 ## Solution
 
-Two approaches, each provided in C++ and Python, both O(n) auxiliary space (see the note on the
-recursive version's actual space use below):
+Three approaches, each provided in C++ and Python:
 
-- [`recursive_solution.cpp`](recursive_solution.cpp) /
-  [`recursive_solution.py`](recursive_solution.py): translates the math definition directly.
-  `fib(n)` returns immediately on the base cases (`n == 0`, `n == 1`) and otherwise returns
-  `fib(n - 1) + fib(n - 2)`. Simple and reads like the definition, but recomputes the same
-  subproblems repeatedly (e.g. `fib(3)` is computed multiple times while evaluating `fib(5)`),
-  giving O(2^n) time and O(n) space from the call stack depth.
-- [`iterative_solution.cpp`](iterative_solution.cpp) /
-  [`iterative_solution.py`](iterative_solution.py): builds up the sequence from the base cases
-  in a loop, storing each value as it goes. O(n) time and O(n) space (a fixed-size array here;
-  this could be reduced to O(1) space by keeping only the last two values, as hinted above).
-
-The repeated work in the recursive version is the seed for memoization and dynamic programming,
-covered later in the semester.
+- **Recursive (Naive):**
+  [`recursive_solution.cpp`](recursive_solution.cpp) /
+  [`recursive_solution.py`](recursive_solution.py)
+  Translates the mathematical definition directly. Computes the same subproblems repeatedly,
+  yielding O(2^n) time (strictly Θ(1.618^n)) and O(n) space from call stack frames.
+- **Top-Down Dynamic Programming (Memoization):**
+  [`memoized_solution.cpp`](memoized_solution.cpp) /
+  [`memoized_solution.py`](memoized_solution.py)
+  Caches the result of `fib(k)` upon first evaluation. Subsequent recursive calls for the same
+  subproblem return in O(1) time. Runs in O(n) time and O(n) space (memo table and call stack).
+- **Bottom-Up Dynamic Programming (Tabulation):**
+  [`iterative_solution.cpp`](iterative_solution.cpp) /
+  [`iterative_solution.py`](iterative_solution.py)
+  Fills a table iteratively from `i = 2` to `n` in dependency order. Eliminates recursive call
+  stack overhead. Runs in O(n) time and O(n) space (reducible to O(1) space with rolling variables).

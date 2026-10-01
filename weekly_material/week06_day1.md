@@ -7,6 +7,9 @@ decisions (Subsets) and sequential element selection (Permutations and Social Pe
 Today we consolidate those complexity models, then apply backtracking with multi-directional
 pruning to a classic benchmark: [LeetCode 51, N-Queens](https://leetcode.com/problems/n-queens/).
 
+> [!NOTE]
+> The backtracking complexity model comparison below was moved to [Week 6, Day 2](week06_day2.md) during the live session to dedicate full focus to N-Queens (§2).
+
 <details>
 <summary>1. Backtracking review and complexity models</summary>
 
