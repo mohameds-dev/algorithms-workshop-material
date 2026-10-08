@@ -3,21 +3,19 @@
 
 using namespace std;
 
+long long solve(int index, int remaining, const vector<int>& weights, const vector<int>& values) {
+    if (index == (int)weights.size()) {
+        return 0;
+    }
+
+    long long max_value = solve(index + 1, remaining, weights, values);
+    if (weights[index] <= remaining) {
+        max_value = max(max_value, (long long)values[index] + solve(index + 1, remaining - weights[index], weights, values));
+    }
+
+    return max_value;
+}
+
 long long solve_knapsack(const vector<int>& weights, const vector<int>& values, int capacity) {
-    int n = weights.size();
-
-    auto solve = [&](auto& self, int i, int remaining) -> long long {
-        if (i == n) {
-            return 0;
-        }
-
-        long long ans = self(self, i + 1, remaining);
-        if (weights[i] <= remaining) {
-            ans = max(ans, (long long)values[i] + self(self, i + 1, remaining - weights[i]));
-        }
-
-        return ans;
-    };
-
-    return solve(solve, 0, capacity);
+    return solve(0, capacity, weights, values);
 }
