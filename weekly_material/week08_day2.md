@@ -3,7 +3,7 @@
 ## Today
 
 Today's session is split into two parts:
-1. **Part 1: Dr. Leiss Material Review:** In-class review of old course material and exam concepts from Dr. Leiss's COSC 3320 section (not hosted in this repo).
+1. **Part 1: Dr. Leiss Material Review:** In-class review of old course material and exam concepts from Dr. Leiss's COSC 3320 section ([check this link](https://drive.google.com/drive/folders/1ij9dJuyaT-RQorDTFiWYa15IkCH0mCSH?usp=drive_link)).
 2. **Part 2: Rollover Problems from Day 1:**
    - **Canonical Signatures:** [Group Anagrams](https://leetcode.com/problems/group-anagrams/) ([LeetCode 49](https://leetcode.com/problems/group-anagrams/)).
    - **2D Grid Dynamic Programming:** [Unique Paths](https://leetcode.com/problems/unique-paths/) ([LeetCode 62](https://leetcode.com/problems/unique-paths/)) and [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/) ([LeetCode 63](https://leetcode.com/problems/unique-paths-ii/)).
