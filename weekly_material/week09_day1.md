@@ -9,7 +9,8 @@ You can write and test your code without any local setup using the [Online IDE G
 
 ---
 
-## 1. Explanation: Motivation, Solution Derivation, and Correctness
+<details>
+<summary>1. Explanation: Motivation, Solution Derivation, and Correctness</summary>
 
 ### The Problem and the Bottleneck
 
@@ -76,12 +77,12 @@ This leads directly to the simulation lifecycle:
   - If no tasks are **Ready**, the CPU must **idle** for 1 unit while waiting for cooling tasks to become eligible.
   - Advance the clock.
 
+</details>
+
 ---
 
-## 2. Hints
-
 <details>
-<summary>Hints</summary>
+<summary>2. Hints</summary>
 
 1. High-frequency tasks create the biggest scheduling bottlenecks. If you schedule rare tasks first, what happens when only copies of the most frequent task remain?
 2. At any point in time, what are the two possible states a task can be in?
@@ -93,10 +94,8 @@ This leads directly to the simulation lifecycle:
 
 ---
 
-## 3. More Hints
-
 <details>
-<summary>More Hints</summary>
+<summary>3. More Hints</summary>
 
 1. **Ready Pool (Max-Heap):**
    - You need rapid access to the maximum frequency among all ready tasks.
@@ -112,7 +111,8 @@ This leads directly to the simulation lifecycle:
 
 ---
 
-## 4. High Level Pseudocode
+<details>
+<summary>4. High Level Pseudocode</summary>
 
 ```text
 function leastInterval(tasks, n):
@@ -144,9 +144,12 @@ function leastInterval(tasks, n):
     return cur_time
 ```
 
+</details>
+
 ---
 
-## 5. Starting Code
+<details>
+<summary>5. Starting Code (Python and C++)</summary>
 
 Open the [Judge0 Online IDE](https://ide.judge0.com/) or your local environment. Each comment below corresponds to one part of the high level pseudocode. Implement each part and test your solution with your own test inputs.
 
@@ -224,9 +227,12 @@ public:
 };
 ```
 
+</details>
+
 ---
 
-## 6. Theoretical Discussion and Pause
+<details>
+<summary>6. Theoretical Discussion and Pause</summary>
 
 > [!NOTE]
 > **Pause and Discuss:** Before viewing the solution code, take time to trace the algorithm and discuss the theoretical mechanics:
@@ -236,12 +242,12 @@ public:
 > 3. **Implicit Idle Accounting:** How does this simulation handle idle intervals? Where in the loop is an idle slot registered, and why is no separate `idle_count` variable needed?
 > 4. **By-Hand Trace:** Walk through `tasks = ["A", "A", "A", "B", "B", "B"], n = 2` on paper or the whiteboard to verify when each task is pushed and popped.
 
+</details>
+
 ---
 
-## 7. Solutions and Code Explanation
-
 <details>
-<summary>Solutions (Python and C++)</summary>
+<summary>7. Solutions and Code Explanation (Python and C++)</summary>
 
 ### Code Explanation: How the Simulation Operates
 

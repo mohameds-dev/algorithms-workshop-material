@@ -12,5 +12,5 @@ package = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["sorting", "hanoi"]
+testpaths = ["sorting", "hanoi", "test_run_cpp.py"]
 addopts = "-ra"
