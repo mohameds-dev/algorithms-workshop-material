@@ -1,4 +1,4 @@
-# Week 10, Day 2 (October 29, 2026)
+# Week 10, Day 1 (October 27, 2026)
 
 ## Today
 

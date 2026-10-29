@@ -5,7 +5,7 @@ NeetCode: https://neetcode.io/problems/products-of-array-discluding-self
 
 - Difficulty: Medium
 - Topics: Array, Prefix Sum
-- Discussed: [Week 10, Day 2](../../weekly_material/week10_day2.md)
+- Discussed: [Week 10, Day 1](../../weekly_material/week10_day1.md)
 
 ## Summary
 
