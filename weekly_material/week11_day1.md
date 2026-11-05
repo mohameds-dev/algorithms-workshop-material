@@ -487,17 +487,3 @@ public:
 ```
 
 </details>
-
----
-
-<details>
-<summary>References</summary>
-
-- [Graph Theory Worksheet (PDF)](../misc_references/Graph%20Theory%20Worksheet.pdf)
-- [Worksheet Diagrams Gallery (Dark Mode Inverted)](../misc_references/graph_worksheet_images/README.md)
-- [Graph Theory Walkthrough Slides (SharePoint / Teams)](https://uofh.sharepoint.com/:p:/r/sites/Section_H_20263_IDNS_2197_24413/Shared%20Documents/General/Graph%20Theory%20Walkthrough%20-%20Copy.pptx?d=w2ea0689aa429498f984dc2a273a5c756&csf=1&web=1&e=n0LcPt)
-- [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/)
-- [VisuAlgo Interactive Visualizations](https://visualgo.net/en)
-- [Online IDE Guide](../misc_references/online-ide.md)
-
-</details>
