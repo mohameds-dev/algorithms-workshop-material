@@ -4,11 +4,14 @@
 
 Today we begin our unit on **Graph Theory**. We move beyond linear structures (arrays, linked lists) and hierarchical structures (trees) to general graphs, which model arbitrary networks and pairwise relationships.
 
-Our session focuses on:
-1. **Core Terminology:** Nodes (vertices), edges (directed vs undirected, weighted vs unweighted), paths, cycles, and connected components.
-2. **In-Class Worksheet Walkthrough:** Visual tracing across five scenarios (Fork in the Road, Disconnected Islands, Complex Mesh, Social Media Following, and Texas Cities).
+Our in-class session covers through page 6 of the worksheet:
+1. **Core Terminology:** Nodes (vertices), directed vs undirected edges, paths, cycles, connected components, and node degrees.
+2. **In-Class Worksheet Scenarios 1 to 4:** Hands-on tracing of Fork in the Road, Disconnected Islands, Complex Mesh, and Social Media Following (directed reachability).
 3. **Graph Representations in Code:** Translating graph structures into **Adjacency Lists** and **Adjacency Matrices** in Python and C++.
-4. **Interactive Graph Visualizers:** Tools to construct and animate graph structures.
+4. **Interactive Graph Visualizers:** Tools to construct and visualize custom graph structures.
+
+> [!NOTE]
+> We concluded this session after exploring Adjacency Lists and Matrices on page 6. Weighted graphs, Texas Cities, Minimum Spanning Trees (MST), Kruskal's algorithm, and Disjoint Set Union (DSU) from page 7 of the worksheet are grouped below under [5. Additional Material - To Be Covered in Later Sessions](#5-additional-material---to-be-covered-in-later-sessions).
 
 ---
 
@@ -16,8 +19,7 @@ Our session focuses on:
 
 - **Presentation Slides:** [Graph Theory Walkthrough Presentation (Teams)](https://uofh.sharepoint.com/:p:/r/sites/Section_H_20263_IDNS_2197_24413/Shared%20Documents/General/Graph%20Theory%20Walkthrough%20-%20Copy.pptx?d=w2ea0689aa429498f984dc2a273a5c756&csf=1&web=1&e=n0LcPt)
 - **In-Class Worksheet:** [Graph Theory Worksheet (PDF)](../misc_references/Graph%20Theory%20Worksheet.pdf)
-
-### Additional links for your reference
+- **Worksheet Diagrams:** [Extracted Diagrams Gallery (Dark Mode Inverted)](../misc_references/graph_worksheet_images/README.md)
 - **Graph Editor (Edge List Visualizer):** [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/) (enter edge pairs to draw and rearrange graphs instantly)
 - **Algorithm Animations:** [VisuAlgo Graph Data Structures and Traversals](https://visualgo.net/en) (step-by-step interactive animations of BFS, DFS, Dijkstra, Kruskal, and Prim)
 - **Online IDE:** [Online IDE Guide](../misc_references/online-ide.md) ([Judge0 IDE](https://ide.judge0.com/))
@@ -33,7 +35,6 @@ A graph $G = (V, E)$ consists of a set of **vertices** (or nodes) $V$ and a set 
 2. **Edge:** The connection between two vertices representing a relationship or route:
    - **Undirected Edge:** A two-way connection between $u$ and $v$ (written as $\{u, v\}$ or $u - v$). Traversal can go in either direction.
    - **Directed Edge (Arc):** A one-way connection from $u$ to $v$ (written as $(u, v)$ or $u \to v$). Traversal can only go from $u$ to $v$.
-   - **Weighted Edge:** An edge carrying a cost, length, or capacity (e.g. mileage between cities or latency between servers).
 3. **Path:** A sequence of edges allowing travel from one vertex to another.
    - Example: $A \to B \to C$ connects $A$ to $C$.
    - A **simple path** visits no node more than once.
@@ -44,6 +45,7 @@ A graph $G = (V, E)$ consists of a set of **vertices** (or nodes) $V$ and a set 
 5. **Connected Component ("Island"):** A maximal sub-group of nodes where every node is reachable from every other node in that group. If a graph is disconnected, each isolated cluster forms its own component.
 
    ![Connected Components](../misc_references/graph_worksheet_images/components.png)
+
 6. **Degree:**
    - In an undirected graph, the **degree** of a node is the number of edges attached to it.
    - In a directed graph:
@@ -55,9 +57,9 @@ A graph $G = (V, E)$ consists of a set of **vertices** (or nodes) $V$ and a set 
 ---
 
 <details>
-<summary>2. In-Class Worksheet Walkthrough</summary>
+<summary>2. In-Class Worksheet Walkthrough (Scenarios 1 to 4)</summary>
 
-Here is the complete breakdown of the five visual scenarios from the [Graph Theory Worksheet](../misc_references/Graph%20Theory%20Worksheet.pdf).
+Here is the step-by-step breakdown of the visual scenarios solved during class from pages 2 to 5 of the [Graph Theory Worksheet](../misc_references/Graph%20Theory%20Worksheet.pdf).
 
 ### Scenario 1: Fork In The Road
 
@@ -183,42 +185,6 @@ Here is the complete breakdown of the five visual scenarios from the [Graph Theo
       - **Aaron to Jesiah:** No.
         From Aaron, reachable nodes are Trenise, Caroline, Ashley, Christina, Tuan, and Jawad. None of these nodes have an outgoing edge pointing back to Nathalye or Jesiah.
 
----
-
-### Scenario 5: Texas Cities (Weighted Graph and Optimization)
-
-![Texas Cities](../misc_references/graph_worksheet_images/texas_cities.png)
-
-#### Questions and Solutions
-
-17. **What is the shortest path (sum of distances across edges) from Houston to El-Paso?**
-    - **Answer:** 750 miles.
-    - **Path:** $\text{Houston} \to \text{San-Antonio} \to \text{El-Paso}$ ($200 + 550 = 750$).
-    - **Comparison with other routes:**
-      - Via Austin and San Antonio: $165 + 80 + 550 = 795$ miles.
-      - Via Austin and Abilene: $165 + 210 + 450 = 825$ miles.
-      - Via Dallas and Abilene: $240 + 180 + 450 = 870$ miles.
-
-18. **If the direct 200-mile route from Houston to San-Antonio is closed, what would the answer become?**
-    - **Answer:** 795 miles.
-    - **Path:** Detour via Austin: $\text{Houston} \to \text{Austin} \to \text{San-Antonio} \to \text{El-Paso}$ ($165 + 80 + 550 = 795$).
-
-19. **Stretch Problem: Connecting all cities with minimum total mileage and no redundant loops (Minimum Spanning Tree).**
-    - **Answer:** 1,155 miles using 6 highway segments.
-    - **Concept:** This is the **Minimum Spanning Tree (MST)** problem, solved greedily via Kruskal's algorithm (selecting lowest-weight edges that do not form a cycle).
-    - **Step-by-step edge selection (7 cities, need $7 - 1 = 6$ edges):**
-      1. Austin to San-Antonio: 80 (Pick)
-      2. Houston to Beaumont: 85 (Pick)
-      3. Houston to Austin: 165 (Pick)
-      4. Abilene to Dallas: 180 (Pick)
-      5. Austin to Dallas: 195 (Pick)
-      6. Houston to San-Antonio (200): Skip (forms cycle Austin - San-Antonio - Houston)
-      7. Austin to Abilene (210): Skip (forms cycle Austin - Dallas - Abilene)
-      8. Houston to Dallas (240): Skip (forms cycle)
-      9. Abilene to El-Paso: 450 (Pick, connects El-Paso)
-      10. San-Antonio to El-Paso (550): Skip (forms cycle)
-    - **Total mileage:** $80 + 85 + 165 + 180 + 195 + 450 = 1{,}155$ miles.
-
 </details>
 
 ---
@@ -226,7 +192,7 @@ Here is the complete breakdown of the five visual scenarios from the [Graph Theo
 <details>
 <summary>3. Graph Representations in Code</summary>
 
-Graphs can be stored in computer memory in two primary ways: **Adjacency List** and **Adjacency Matrix**.
+Page 6 of the worksheet explores how graphs are stored in computer memory. The two canonical representations are the **Adjacency List** and the **Adjacency Matrix**.
 
 ### 1. Adjacency List
 
@@ -281,7 +247,7 @@ int main() {
 
 ### 2. Adjacency Matrix
 
-An Adjacency Matrix is a 2D array of size $V \times V$, where `matrix[u][v] == 1` indicates an edge from $u$ to $v$ (or the weight if the graph is weighted), and `0` indicates no edge.
+An Adjacency Matrix is a 2D array of size $V \times V$, where `matrix[u][v] == 1` indicates an edge from $u$ to $v$, and `0` indicates no edge.
 
 #### Python
 
@@ -357,7 +323,6 @@ When solving graph problems, visualizing the structure can make hidden patterns 
    - **What it is:** A web tool for quickly drawing graphs given a list of edges.
    - **How to use it:**
      - Paste pairs of nodes in the text box (e.g. `1 2`, `1 3`, `2 4`).
-     - For weighted edges, pass a third number: `Houston Austin 165`.
      - Toggle between **Directed** and **Undirected** modes.
      - Drag nodes freely to inspect components and cycles.
 
@@ -367,5 +332,172 @@ When solving graph problems, visualizing the structure can make hidden patterns 
      - **Graph Traversal:** Animated step-by-step Breadth-First Search (BFS) and Depth-First Search (DFS).
      - **Single-Source Shortest Paths:** Dijkstra's algorithm running on weighted graphs.
      - **Minimum Spanning Tree:** Kruskal's and Prim's algorithms showing edge-by-edge tree construction.
+
+</details>
+
+---
+
+<details>
+<summary>5. Additional Material - To Be Covered in Later Sessions</summary>
+
+> [!NOTE]
+> During our Week 11 Day 1 session, we stopped on page 6 of the worksheet. The material below covers page 7 (Texas Cities), edge weights, Minimum Spanning Trees (MST), Kruskal's algorithm, and Disjoint Set Union (DSU), which will be taught in upcoming workshops.
+
+### Weighted Graphs
+
+In a weighted graph, every edge $(u, v)$ has an associated numerical value (weight) $w$, representing cost, length, capacity, or latency.
+
+- **Adjacency List with Weights:**
+  Each neighbor entry becomes a tuple or pair `(neighbor, weight)`:
+  ```python
+  adj = {
+      "Houston": [("Austin", 165), ("Beaumont", 85), ("San-Antonio", 200)],
+      "Austin": [("Houston", 165), ("San-Antonio", 80), ("Dallas", 195)]
+  }
+  ```
+- **Adjacency Matrix with Weights:**
+  Instead of storing 1, `matrix[u][v]` stores the edge weight $w$. Missing edges are typically filled with $\infty$ (infinity) or 0 depending on the problem.
+
+---
+
+### Scenario 5: Texas Cities (Worksheet Page 7)
+
+![Texas Cities](../misc_references/graph_worksheet_images/texas_cities.png)
+
+#### Questions and Solutions
+
+17. **What is the shortest path (sum of distances across edges) from Houston to El-Paso?**
+    - **Answer:** 750 miles.
+    - **Path:** $\text{Houston} \to \text{San-Antonio} \to \text{El-Paso}$ ($200 + 550 = 750$).
+    - **Comparison with other routes:**
+      - Via Austin and San Antonio: $165 + 80 + 550 = 795$ miles.
+      - Via Austin and Abilene: $165 + 210 + 450 = 825$ miles.
+      - Via Dallas and Abilene: $240 + 180 + 450 = 870$ miles.
+
+18. **If the direct 200-mile route from Houston to San-Antonio is closed, what would the answer become?**
+    - **Answer:** 795 miles.
+    - **Path:** Detour via Austin: $\text{Houston} \to \text{Austin} \to \text{San-Antonio} \to \text{El-Paso}$ ($165 + 80 + 550 = 795$).
+
+19. **Stretch Problem: Connecting all cities with minimum total mileage and no redundant loops (Minimum Spanning Tree).**
+    - **Answer:** 1,155 miles using 6 highway segments.
+    - **Concept:** This is the **Minimum Spanning Tree (MST)** problem, solved greedily via Kruskal's algorithm (selecting lowest-weight edges that do not form a cycle).
+    - **Step-by-step edge selection (7 cities, need $7 - 1 = 6$ edges):**
+      1. Austin to San-Antonio: 80 (Pick)
+      2. Houston to Beaumont: 85 (Pick)
+      3. Houston to Austin: 165 (Pick)
+      4. Abilene to Dallas: 180 (Pick)
+      5. Austin to Dallas: 195 (Pick)
+      6. Houston to San-Antonio (200): Skip (forms cycle Austin - San-Antonio - Houston)
+      7. Austin to Abilene (210): Skip (forms cycle Austin - Dallas - Abilene)
+      8. Houston to Dallas (240): Skip (forms cycle)
+      9. Abilene to El-Paso: 450 (Pick, connects El-Paso)
+      10. San-Antonio to El-Paso (550): Skip (forms cycle)
+    - **Total mileage:** $80 + 85 + 165 + 180 + 195 + 450 = 1{,}155$ miles.
+
+---
+
+### Minimum Spanning Trees (MST) and Kruskal's Algorithm
+
+A **Spanning Tree** of a connected, undirected graph with $V$ vertices is a subgraph that:
+1. Includes all $V$ vertices.
+2. Contains exactly $V - 1$ edges.
+3. Has no cycles (it is a tree).
+
+The **Minimum Spanning Tree (MST)** is the spanning tree that achieves the minimum possible total edge weight.
+
+#### Kruskal's Algorithm (Greedy Approach)
+
+1. Sort all edges in ascending order of their weights.
+2. Iterate through sorted edges:
+   - If adding the edge does not create a cycle, include it in the MST.
+   - If adding the edge creates a cycle, discard it.
+3. Stop when $V - 1$ edges have been selected.
+
+---
+
+### Disjoint Set Union (DSU / Union-Find) Preview
+
+To check whether adding an edge creates a cycle in nearly $O(1)$ time, Kruskal's algorithm relies on a **Disjoint Set Union (DSU)** data structure with path compression and union by rank.
+
+#### Python Preview
+
+```python
+class DSU:
+    def __init__(self, n: int):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+
+    def find(self, x: int) -> int:
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x: int, y: int) -> bool:
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x == root_y:
+            return False  # Same component, adding edge creates a cycle
+        if self.rank[root_x] < self.rank[root_y]:
+            root_x, root_y = root_y, root_x
+        self.parent[root_y] = root_x
+        if self.rank[root_x] == self.rank[root_y]:
+            self.rank[root_x] += 1
+        return True
+```
+
+#### C++ Preview (C++20 Standard)
+
+```cpp
+#include <vector>
+#include <numeric>
+#include <utility>
+
+class DSU {
+public:
+    std::vector<int> parent;
+    std::vector<int> rank;
+
+    explicit DSU(int n) : parent(n), rank(n, 0) {
+        std::iota(parent.begin(), parent.end(), 0);
+    }
+
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+
+    bool unite(int x, int y) {
+        int root_x = find(x);
+        int root_y = find(y);
+        if (root_x == root_y) {
+            return false;
+        }
+        if (rank[root_x] < rank[root_y]) {
+            std::swap(root_x, root_y);
+        }
+        parent[root_y] = root_x;
+        if (rank[root_x] == rank[root_y]) {
+            rank[root_x]++;
+        }
+        return true;
+    }
+};
+```
+
+</details>
+
+---
+
+<details>
+<summary>References</summary>
+
+- [Graph Theory Worksheet (PDF)](../misc_references/Graph%20Theory%20Worksheet.pdf)
+- [Worksheet Diagrams Gallery (Dark Mode Inverted)](../misc_references/graph_worksheet_images/README.md)
+- [Graph Theory Walkthrough Slides (SharePoint / Teams)](https://uofh.sharepoint.com/:p:/r/sites/Section_H_20263_IDNS_2197_24413/Shared%20Documents/General/Graph%20Theory%20Walkthrough%20-%20Copy.pptx?d=w2ea0689aa429498f984dc2a273a5c756&csf=1&web=1&e=n0LcPt)
+- [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/)
+- [VisuAlgo Interactive Visualizations](https://visualgo.net/en)
+- [Online IDE Guide](../misc_references/online-ide.md)
 
 </details>
