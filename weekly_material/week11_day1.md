@@ -16,6 +16,8 @@ Our session focuses on:
 
 - **Presentation Slides:** [Graph Theory Walkthrough Presentation (Teams)](https://uofh.sharepoint.com/:p:/r/sites/Section_H_20263_IDNS_2197_24413/Shared%20Documents/General/Graph%20Theory%20Walkthrough%20-%20Copy.pptx?d=w2ea0689aa429498f984dc2a273a5c756&csf=1&web=1&e=n0LcPt)
 - **In-Class Worksheet:** [Graph Theory Worksheet (PDF)](../misc_references/Graph%20Theory%20Worksheet.pdf)
+
+### Additional links for your reference
 - **Graph Editor (Edge List Visualizer):** [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/) (enter edge pairs to draw and rearrange graphs instantly)
 - **Algorithm Animations:** [VisuAlgo Graph Data Structures and Traversals](https://visualgo.net/en) (step-by-step interactive animations of BFS, DFS, Dijkstra, Kruskal, and Prim)
 - **Online IDE:** [Online IDE Guide](../misc_references/online-ide.md) ([Judge0 IDE](https://ide.judge0.com/))
@@ -35,8 +37,13 @@ A graph $G = (V, E)$ consists of a set of **vertices** (or nodes) $V$ and a set 
 3. **Path:** A sequence of edges allowing travel from one vertex to another.
    - Example: $A \to B \to C$ connects $A$ to $C$.
    - A **simple path** visits no node more than once.
+
+   ![Path](../misc_references/graph_worksheet_images/path.png)
+
 4. **Cycle:** A closed path that starts and ends at the exact same vertex, visiting no other vertex or edge more than once (e.g. $A \to B \to C \to A$). A graph with no cycles is called **acyclic**.
 5. **Connected Component ("Island"):** A maximal sub-group of nodes where every node is reachable from every other node in that group. If a graph is disconnected, each isolated cluster forms its own component.
+
+   ![Connected Components](../misc_references/graph_worksheet_images/components.png)
 6. **Degree:**
    - In an undirected graph, the **degree** of a node is the number of edges attached to it.
    - In a directed graph:
@@ -54,18 +61,7 @@ Here is the complete breakdown of the five visual scenarios from the [Graph Theo
 
 ### Scenario 1: Fork In The Road
 
-```mermaid
-graph LR
-    1 --- 2
-    1 --- 3
-    2 --- 4
-    3 --- 4
-    4 --- 5
-    4 --- 6
-    5 --- 7
-    6 --- 7
-    7 --- 8
-```
+![Fork In The Road](../misc_references/graph_worksheet_images/fork_in_the_road.png)
 
 #### Questions and Solutions
 
@@ -96,23 +92,7 @@ graph LR
 
 ### Scenario 2: Disconnected Islands
 
-```mermaid
-graph TD
-    subgraph Component 1
-        4 --- 5
-        5 --- 7
-        7 --- 6
-        6 --- 5
-    end
-    subgraph Component 2
-        1 --- 2
-        2 --- 3
-        3 --- 1
-    end
-    subgraph Component 3
-        8 --- 9
-    end
-```
+![Disconnected Islands](../misc_references/graph_worksheet_images/disconnected_islands.png)
 
 #### Questions and Solutions
 
@@ -140,21 +120,7 @@ graph TD
 
 ### Scenario 3: Complex Mesh
 
-```mermaid
-graph TD
-    A --- B
-    A --- C
-    B --- E
-    B --- D
-    C --- G
-    C --- E
-    C --- D
-    D --- F
-    E --- G
-    E --- F
-    G --- H
-    F --- H
-```
+![Complex Mesh](../misc_references/graph_worksheet_images/complex_mesh.png)
 
 #### Questions and Solutions
 
@@ -196,25 +162,7 @@ graph TD
 
 ### Scenario 4: Social Media Following (Directed Graph)
 
-```mermaid
-graph TD
-    Jesiah --> Jawad
-    Jesiah --> Lilee
-    Jawad --> Tuan
-    Tuan --> Jawad
-    Tuan --> Caroline
-    Nathalye --> Jesiah
-    Nathalye --> Lilee
-    Nathalye --> Caroline
-    Lilee --> Ashley
-    Caroline --> Ashley
-    Caroline --> Christina
-    Christina --> Ashley
-    Christina --> Aaron
-    Aaron --> Caroline
-    Aaron --> Tuan
-    Aaron --> Trenise
-```
+![Social Media Following](../misc_references/graph_worksheet_images/social_media_following.png)
 
 #### Questions and Solutions
 
@@ -239,19 +187,7 @@ graph TD
 
 ### Scenario 5: Texas Cities (Weighted Graph and Optimization)
 
-```mermaid
-graph TD
-    Houston ---|85| Beaumont
-    Houston ---|200| San-Antonio
-    Houston ---|165| Austin
-    Houston ---|240| Dallas
-    Austin ---|80| San-Antonio
-    Austin ---|195| Dallas
-    Austin ---|210| Abilene
-    Dallas ---|180| Abilene
-    San-Antonio ---|550| El-Paso
-    Abilene ---|450| El-Paso
-```
+![Texas Cities](../misc_references/graph_worksheet_images/texas_cities.png)
 
 #### Questions and Solutions
 
@@ -431,18 +367,5 @@ When solving graph problems, visualizing the structure can make hidden patterns 
      - **Graph Traversal:** Animated step-by-step Breadth-First Search (BFS) and Depth-First Search (DFS).
      - **Single-Source Shortest Paths:** Dijkstra's algorithm running on weighted graphs.
      - **Minimum Spanning Tree:** Kruskal's and Prim's algorithms showing edge-by-edge tree construction.
-
-</details>
-
----
-
-<details>
-<summary>References</summary>
-
-- [Graph Theory Worksheet (PDF)](../misc_references/Graph%20Theory%20Worksheet.pdf)
-- [Graph Theory Walkthrough Slides (SharePoint / Teams)](https://uofh.sharepoint.com/:p:/r/sites/Section_H_20263_IDNS_2197_24413/Shared%20Documents/General/Graph%20Theory%20Walkthrough%20-%20Copy.pptx?d=w2ea0689aa429498f984dc2a273a5c756&csf=1&web=1&e=n0LcPt)
-- [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/)
-- [VisuAlgo Interactive Visualizations](https://visualgo.net/en)
-- [Online IDE Guide](../misc_references/online-ide.md)
 
 </details>
