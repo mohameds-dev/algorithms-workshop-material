@@ -5,7 +5,7 @@
 
 - Difficulty: Medium
 - Topics: Graph, Directed Acyclic Graph (DAG), Topological Sort, Breadth-First Search, Queue
-- Discussed: [Week 12, Day 1](../../weekly_material/week12_day1.md)
+- Discussed: [Week 12, Day 2](../../weekly_material/week12_day2.md)
 
 ## Summary
 
