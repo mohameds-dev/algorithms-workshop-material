@@ -448,9 +448,9 @@ Rule B possesses the **greedy choice property**: there exists a minimum hitting 
 
 4. **Case 2: $q < r_1$**
    Suppose $q < r_1$. We construct a modified set of points:
-   $$P' = (P^* \setminus \{q\}) \cup \{r_1\}$$
+   $$P' = (P^* - \{q\}) \cup \{r_1\}$$
    Notice that $|P'| \le |P^*|$. To prove $P'$ is an optimal hitting set, we show that $P'$ hits every interval that $P^*$ hit.
-   - Any interval hit by a point in $P^* \setminus \{q\}$ is still hit in $P'$.
+   - Any interval hit by a point in $P^* - \{q\}$ is still hit in $P'$.
    - What about any interval $J = [l_J, r_J]$ that was hit by $q$?
      Since $q \in J$, we know:
      $$l_J \le q \le r_J$$

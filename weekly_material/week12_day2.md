@@ -130,7 +130,7 @@ We formalize the inductive argument on the number of vertices $n$:
   3. When Kahn's algorithm processes $u$, it removes $u$ and all its outgoing edges $u \to v$ from the graph:
      - For each neighbor $v$, removing the directed edge $u \to v$ decrements `in_degree[v]` by 1.
      - This simulates that prerequisite $u$ has been completed, potentially freeing up new vertices whose in-degrees now reach 0.
-  4. Let the resulting remaining subgraph be $G' = G \setminus \{u\}$.
+  4. Let the resulting remaining subgraph be $G' = G - \{u\}$.
   5. **Why must $G'$ remain a valid DAG?**
      - Deleting vertices and edges can never create new cycles. If $G'$ contained a cycle, that cycle must have already existed in $G$, which contradicts our premise that $G$ is acyclic.
      - Therefore, $G'$ is guaranteed to remain a valid DAG on $n - 1$ vertices.

@@ -360,14 +360,14 @@ A **Minimum Spanning Tree (MST)** is a spanning tree whose sum of edge weights i
 
 ### The Cut Property (Exchange Argument Foundation)
 
-Let $S$ be any non-empty proper subset of vertices, and let $V \setminus S$ be the remaining vertices. The partition $(S, V \setminus S)$ is called a **cut**. An edge crosses the cut if one endpoint lies in $S$ and the other lies in $V \setminus S$.
+Let $S$ be any non-empty proper subset of vertices, and let $V - S$ be the remaining vertices. The partition $(S, V - S)$ is called a **cut**. An edge crosses the cut if one endpoint lies in $S$ and the other lies in $V - S$.
 
 ```mermaid
 flowchart LR
     subgraph S ["Subset S"]
         u["u"]
     end
-    subgraph V_S ["Subset V \\ S"]
+    subgraph V_S ["Subset V - S"]
         v["v"]
     end
     u -- "e* (cheapest crossing edge)" --> v
@@ -379,23 +379,23 @@ flowchart LR
 
 #### 1. Observation from the Problem
 - Any valid spanning tree must connect all vertices in the graph.
-- Therefore, every spanning tree **must contain at least one edge crossing the cut** $(S, V \setminus S)$ to bridge the two partitions.
+- Therefore, every spanning tree **must contain at least one edge crossing the cut** $(S, V - S)$ to bridge the two partitions.
 - If there are multiple edges crossing the cut, which one should we choose? Greedily selecting the cheapest crossing edge $e^*$ seems optimal, but we must prove it never eliminates the possibility of achieving a globally minimal spanning tree.
 
 #### 2. Step-by-Step Proof by Exchange Argument
-- **Claim:** Let $e^* = (u, v)$ be a minimum-weight edge crossing cut $(S, V \setminus S)$. Then $e^*$ belongs to at least one Minimum Spanning Tree.
+- **Claim:** Let $e^* = (u, v)$ be a minimum-weight edge crossing cut $(S, V - S)$. Then $e^*$ belongs to at least one Minimum Spanning Tree.
 - **Step 1 (Assume for Contradiction):**
   - Suppose that no MST contains $e^*$.
   - Let $T$ be an optimal MST of the graph. By our assumption, $e^* \notin T$.
 - **Step 2 (The Cycle in a Spanning Tree):**
   - Because $T$ is already a connected spanning tree, adding $e^*$ to $T$ must create a unique simple cycle $C$.
 - **Step 3 (Crossing Back Across the Cut):**
-  - Edge $e^*$ has one endpoint $u \in S$ and the other endpoint $v \in V \setminus S$.
-  - Traversing the cycle $C$ from $v$ back to $u$ starts in $V \setminus S$ and ends in $S$.
-  - Therefore, cycle $C$ must cross the cut $(S, V \setminus S)$ at least once more using some other edge $e' = (u', v') \ne e^*$.
+  - Edge $e^*$ has one endpoint $u \in S$ and the other endpoint $v \in V - S$.
+  - Traversing the cycle $C$ from $v$ back to $u$ starts in $V - S$ and ends in $S$.
+  - Therefore, cycle $C$ must cross the cut $(S, V - S)$ at least once more using some other edge $e' = (u', v') \ne e^*$.
 - **Step 4 (The Exchange):**
   - Construct a new subgraph $T'$ by removing $e'$ and inserting $e^*$:
-    $$T' = (T \setminus \{e'\}) \cup \{e^*\}$$
+    $$T' = (T - \{e'\}) \cup \{e^*\}$$
   - Since $e'$ was on cycle $C$, removing it breaks the cycle while leaving all vertices connected.
   - $T'$ has $V - 1$ edges, connects all vertices, and contains no cycles. Thus, $T'$ is a valid spanning tree.
 - **Step 5 (Cost Comparison):**
@@ -467,12 +467,12 @@ There are $n$ cities and $m$ roads between them. Each road has an associated rep
   - Assume $T_k$ is a subset of some MST $T^*$.
   - Kruskal's selects the next cheapest edge $e = (u, v)$ with $find(u) \ne find(v)$.
   - Let $C_u$ be the set of vertices in the connected component of $u$ within $(V, T_k)$.
-  - Consider the cut $(C_u, V \setminus C_u)$.
+  - Consider the cut $(C_u, V - C_u)$.
   - Because $v \notin C_u$, edge $e$ crosses this cut.
-  - Can there be any edge crossing $(C_u, V \setminus C_u)$ with strictly smaller weight than $e$?
+  - Can there be any edge crossing $(C_u, V - C_u)$ with strictly smaller weight than $e$?
     - No! Any cheaper edge in the entire graph was already examined before $e$.
-    - If a cheaper crossing edge existed, it would have been accepted or discarded. It could not have been discarded (since $C_u$ was not yet connected to $V \setminus C_u$), so it would have been accepted, meaning $v$ would already be in $C_u$, a contradiction.
-  - Thus, $e$ is the **minimum-weight edge in the entire graph crossing the cut** $(C_u, V \setminus C_u)$.
+    - If a cheaper crossing edge existed, it would have been accepted or discarded. It could not have been discarded (since $C_u$ was not yet connected to $V - C_u$), so it would have been accepted, meaning $v$ would already be in $C_u$, a contradiction.
+  - Thus, $e$ is the **minimum-weight edge in the entire graph crossing the cut** $(C_u, V - C_u)$.
   - By the **Cut Property**, $e$ belongs to an MST that extends $T_k$. Therefore, $T_{k+1} = T_k \cup \{e\}$ is also a subset of an MST.
 - **Termination:**
   - The algorithm stops when $n - 1$ edges have been accepted. Because no cycles were ever created, the result is a connected acyclic graph on $n$ vertices with $n - 1$ edges.
@@ -594,17 +594,17 @@ Return the minimum cost to make all points connected.
 
 #### 1. Observation from the Problem
 - In complete and dense graphs, Prim's algorithm grows a single tree $S$ one vertex at a time starting from an arbitrary vertex (e.g. vertex 0).
-- At any step, let $S$ be the set of vertices already added to the MST, and let $V \setminus S$ be the remaining unvisited vertices.
-- The algorithm greedily selects the unvisited vertex $u \in V \setminus S$ that minimizes `min_dist[u]`, which represents the shortest distance from $u$ to any vertex in $S$.
+- At any step, let $S$ be the set of vertices already added to the MST, and let $V - S$ be the remaining unvisited vertices.
+- The algorithm greedily selects the unvisited vertex $u \in V - S$ that minimizes `min_dist[u]`, which represents the shortest distance from $u$ to any vertex in $S$.
 
 #### 2. Step-by-Step Proof by Induction on Added Vertices
 - **Claim:** Every edge added by Prim's algorithm belongs to an optimal MST.
 - **Base Case:** The initial set $S = \{0\}$ trivially has 0 edges, which is a subset of an MST.
 - **Inductive Step:**
   - Assume the tree on vertices $S$ with edges $T_{step}$ is a subset of some MST.
-  - Consider the cut $(S, V \setminus S)$ separating the current tree from all unvisited vertices.
-  - The algorithm identifies vertex $u \in V \setminus S$ with the minimum `min_dist[u]`.
-  - The edge $(p, u)$ connecting $u$ to its closest neighbor $p \in S$ is, by construction, the **minimum-weight edge crossing the cut** $(S, V \setminus S)$.
+  - Consider the cut $(S, V - S)$ separating the current tree from all unvisited vertices.
+  - The algorithm identifies vertex $u \in V - S$ with the minimum `min_dist[u]`.
+  - The edge $(p, u)$ connecting $u$ to its closest neighbor $p \in S$ is, by construction, the **minimum-weight edge crossing the cut** $(S, V - S)$.
   - By the **Cut Property**, the minimum-weight edge crossing any cut belongs to an MST extending $T_{step}$.
   - Therefore, adding edge $(p, u)$ and vertex $u$ maintains the property that the edges are a subset of an MST.
 - **Termination:**

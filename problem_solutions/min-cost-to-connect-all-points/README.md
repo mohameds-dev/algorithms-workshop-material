@@ -37,12 +37,12 @@ On a dense graph ($E = \Theta(V^2)$), simple $O(V^2)$ Prim's is asymptotically f
 ## Correctness Proof: Prim's Algorithm (Cut Property Induction)
 
 ### 1. Observation from the Problem
-- Prim's algorithm starts with an arbitrary node $S = \{0\}$ and in each step connects one unvisited node $u \in V \setminus S$ to $S$.
-- At step $k$, the cut $(S, V \setminus S)$ partitions the graph into visited and unvisited vertices.
+- Prim's algorithm starts with an arbitrary node $S = \{0\}$ and in each step connects one unvisited node $u \in V - S$ to $S$.
+- At step $k$, the cut $(S, V - S)$ partitions the graph into visited and unvisited vertices.
 
 ### 2. Proof by Induction on Added Vertices
 - **Base Case:** $S = \{0\}$ trivially has 0 edges and is a subset of an MST.
-- **Inductive Step:** Suppose tree on $S$ is a subset of an MST. The algorithm picks $u \in V \setminus S$ minimizing distance to $S$. By definition, this edge is the minimum-weight edge crossing the cut $(S, V \setminus S)$. By the Cut Property, this edge belongs to an MST extending the current tree.
+- **Inductive Step:** Suppose tree on $S$ is a subset of an MST. The algorithm picks $u \in V - S$ minimizing distance to $S$. By definition, this edge is the minimum-weight edge crossing the cut $(S, V - S)$. By the Cut Property, this edge belongs to an MST extending the current tree.
 - **Termination:** After $V - 1$ steps, all vertices are included with $V - 1$ edges, forming a valid MST.
 
 ## Hints

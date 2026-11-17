@@ -25,21 +25,21 @@ This is the canonical Minimum Spanning Tree (MST) problem:
 
 ### 1. Observation from the Problem
 - Any spanning tree connects all $n$ vertices with $n - 1$ edges and no cycles.
-- When partitioned by any cut $(S, V \setminus S)$, at least one crossing edge must be included.
+- When partitioned by any cut $(S, V - S)$, at least one crossing edge must be included.
 
 ### 2. The Cut Property via Exchange Argument
-- **Claim:** The minimum-weight edge $e^*$ crossing any cut $(S, V \setminus S)$ belongs to an MST.
+- **Claim:** The minimum-weight edge $e^*$ crossing any cut $(S, V - S)$ belongs to an MST.
 - **Proof by Contradiction and Exchange:**
   1. Suppose an MST $T$ does not contain $e^* = (u, v)$.
   2. Adding $e^*$ to $T$ creates a unique cycle $C$.
-  3. Because $u \in S$ and $v \in V \setminus S$, cycle $C$ must cross back from $V \setminus S$ to $S$ using another edge $e'$.
-  4. Swapping $e'$ for $e^*$ yields $T' = (T \setminus \{e'\}) \cup \{e^*\}$.
+  3. Because $u \in S$ and $v \in V - S$, cycle $C$ must cross back from $V - S$ to $S$ using another edge $e'$.
+  4. Swapping $e'$ for $e^*$ yields $T' = (T - \{e'\}) \cup \{e^*\}$.
   5. Since $e^*$ is minimal on the cut, $cost(e^*) \le cost(e')$, so $cost(T') \le cost(T)$.
   6. Since $T$ was minimal, $cost(T') = cost(T)$, so $T'$ is also an MST containing $e^*$.
 
 ### 3. Kruskal's Correctness by Induction
 - **Base Case:** 0 edges accepted is trivially a subset of an MST.
-- **Inductive Step:** Suppose accepted set $T_k$ is a subset of an MST. The next cheapest edge $e = (u, v)$ connecting distinct components crosses the cut $(C_u, V \setminus C_u)$, where $C_u$ is the component containing $u$. Because all cheaper edges have already been processed, $e$ is the minimum-weight crossing edge for this cut. By the Cut Property, $T_k \cup \{e\}$ is a subset of an MST.
+- **Inductive Step:** Suppose accepted set $T_k$ is a subset of an MST. The next cheapest edge $e = (u, v)$ connecting distinct components crosses the cut $(C_u, V - C_u)$, where $C_u$ is the component containing $u$. Because all cheaper edges have already been processed, $e$ is the minimum-weight crossing edge for this cut. By the Cut Property, $T_k \cup \{e\}$ is a subset of an MST.
 - **Cycle Discard:** If $find(u) == find(v)$, adding $(u, v)$ would create a cycle where $(u, v)$ is the heaviest edge. By the Cycle Property, it cannot be in an MST and is safely discarded.
 
 ## Hints
