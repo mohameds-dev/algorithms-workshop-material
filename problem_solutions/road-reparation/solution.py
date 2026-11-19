@@ -46,21 +46,13 @@ def min_repair_cost(n: int, edges: list[tuple[int, int, int]]) -> int:
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
     edges = []
-    idx = 2
     for _ in range(m):
-        u = int(input_data[idx])
-        v = int(input_data[idx + 1])
-        cost = int(input_data[idx + 2])
+        u, v, cost = map(int, input().split())
         edges.append((u, v, cost))
-        idx += 3
 
     cost = min_repair_cost(n, edges)
     if cost == -1:

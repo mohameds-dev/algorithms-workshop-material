@@ -136,12 +136,8 @@ import sys
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
     # Step 1: Initialize parent array, size array, total_components = n, max_size = 1
     # Step 2: Implement find and union
@@ -488,12 +484,8 @@ import sys
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
     # Step 1: Read and sort all m edges by cost ascending
     # Step 2: Use DSU to greedily include non-cycle edges

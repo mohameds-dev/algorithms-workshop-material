@@ -54,27 +54,27 @@ Dijkstra relaxes edges through the cheapest intermediate vertex first, discoveri
 import heapq
 
 
-def dijkstra(num_nodes: int, adj: list[list[tuple[int, int]]], source: int):
-    dist = [float("inf")] * (num_nodes + 1)
-    dist[source] = 0
+def dijkstra(num_nodes: int, adj_list: list[list[tuple[int, int]]], source: int):
+    cost_to_reach = [float("inf") for _ in range(num_nodes + 1)]
+    cost_to_reach[source] = 0
 
-    # Min-heap stores pairs of (distance, vertex)
+    # Priority queue (min-heap) stores pairs of (cost, node)
     pq = [(0, source)]
 
     while pq:
-        curr_dist, node = heapq.heappop(pq)
+        cur_node_cost, cur_node = heapq.heappop(pq)
 
         # Skip stale entries pushed before a shorter route was found
-        if curr_dist > dist[node]:
+        if cur_node_cost > cost_to_reach[cur_node]:
             continue
 
-        for neighbor, weight in adj[node]:
-            new_dist = curr_dist + weight
-            if new_dist < dist[neighbor]:
-                dist[neighbor] = new_dist
-                heapq.heappush(pq, (new_dist, neighbor))
+        for node, edge_cost in adj_list[cur_node]:
+            new_cost = cur_node_cost + edge_cost
+            if new_cost < cost_to_reach[node]:
+                cost_to_reach[node] = new_cost
+                heapq.heappush(pq, (new_cost, node))
 
-    return dist
+    return cost_to_reach
 ```
 
 #### C++20 Template (Clean Struct with Custom Comparator)
@@ -203,17 +203,19 @@ There are $n$ cities and $m$ flight connections. Your task is to determine the l
 
 ```py
 import heapq
+import sys
 
 
 def main():
-    num_cities, num_flights = map(int, input().split())
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
-    adj = [[] for _ in range(num_cities + 1)]
-    for _ in range(num_flights):
-        src, dst, cost = map(int, input().split())
-        adj[src].append((dst, cost))
+    adj_list = [list() for _ in range(n + 1)]
+    for _ in range(m):
+        a, b, c = map(int, input().split())
+        adj_list[a].append((b, c))
 
-    # Step 2: Initialize dist array with infinity, dist[1] = 0
+    # Step 2: Initialize cost_to_reach with infinity, cost_to_reach[1] = 0
     # Step 3: Run Dijkstra with min-heap
     # Step 4: Print all shortest distances separated by spaces
     pass
@@ -231,7 +233,7 @@ if __name__ == "__main__":
 1. All edge weights are positive, which means standard Dijkstra's algorithm applies directly.
 2. In C++, flight lengths can accumulate up to $2 \cdot 10^{14}$. Always use 64-bit integers (`long long`) to prevent overflow.
 3. Multiple edges may exist between the same pair of cities. Dijkstra handles parallel edges automatically by relaxing the cheaper edge first.
-4. Don't forget the stale entry check: `if curr_dist > dist[city]: continue`. Without it, you do redundant relaxation work.
+4. Don't forget the stale entry check: `if cur_node_cost > cost_to_reach[cur_node]: continue`. Without it, you do redundant relaxation work.
 
 </details>
 
@@ -240,16 +242,17 @@ if __name__ == "__main__":
 <details>
 <summary>Solution Idea</summary>
 
-1. Build an adjacency list `adj` where `adj[city]` stores pairs `(neighbor, flight_cost)`.
-2. Initialize `dist = [inf] * (num_cities + 1)` and set `dist[1] = 0`.
+1. Build an adjacency list `adj_list` where `adj_list[cur_node]` stores pairs `(node, edge_cost)`.
+2. Initialize `cost_to_reach = [float("inf") for _ in range(n + 1)]` and set `cost_to_reach[1] = 0`.
 3. Push `(0, 1)` into a min-heap `pq`.
 4. While `pq` is not empty:
-   - Pop `(curr_dist, city)`. If `curr_dist > dist[city]`, continue.
-   - For each neighbor `(neighbor, flight_cost)` in `adj[city]`:
-     - If `curr_dist + flight_cost < dist[neighbor]`:
-       - `dist[neighbor] = curr_dist + flight_cost`
-       - Push `(dist[neighbor], neighbor)` into `pq`.
-5. Print `dist[1], dist[2], ..., dist[num_cities]`.
+   - Pop `(cur_node_cost, cur_node)`. If `cur_node_cost > cost_to_reach[cur_node]`, continue.
+   - For each `(node, edge_cost)` in `adj_list[cur_node]`:
+     - `new_cost = cur_node_cost + edge_cost`
+     - If `new_cost < cost_to_reach[node]`:
+       - `cost_to_reach[node] = new_cost`
+       - Push `(new_cost, node)` into `pq`.
+5. Print `cost_to_reach[1], cost_to_reach[2], ..., cost_to_reach[n]`.
 
 </details>
 
@@ -339,12 +342,12 @@ class Solution:
 <details>
 <summary>Solution Idea</summary>
 
-1. Construct directed adjacency list `adj` of size `num_nodes + 1`.
-2. Initialize `dist = [inf] * (num_nodes + 1)` and `dist[source] = 0`.
-3. Push `(0, source)` into min-heap `pq`.
+1. Construct directed adjacency list `adj_list` of size `n + 1`.
+2. Initialize `cost_to_reach = [INF for _ in range(n + 1)]` and `cost_to_reach[k] = 0`.
+3. Push `(0, k)` into min-heap `pq`.
 4. Run standard Dijkstra to compute shortest paths to all nodes.
-5. Take `max_time = max(dist[1 : num_nodes + 1])`.
-6. Return `max_time` if `max_time < inf` else `-1`.
+5. Take `max_cost = max(cost_to_reach[1:])`.
+6. Return `max_cost` if `max_cost < INF` else `-1`.
 
 </details>
 

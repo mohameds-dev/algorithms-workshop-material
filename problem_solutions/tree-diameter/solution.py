@@ -40,16 +40,13 @@ def find_tree_diameter(n: int, edges: list[tuple[int, int]]) -> int:
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n = int(input())
 
-    n = int(input_data[0])
     edges = []
-    idx = 1
     for _ in range(n - 1):
-        edges.append((int(input_data[idx]), int(input_data[idx + 1])))
-        idx += 2
+        a, b = map(int, input().split())
+        edges.append((a, b))
 
     print(find_tree_diameter(n, edges))
 

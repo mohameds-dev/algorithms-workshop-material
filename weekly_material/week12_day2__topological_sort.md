@@ -172,12 +172,8 @@ import sys
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
     # Step 1: Build adjacency list and compute in-degrees (1-indexed)
 

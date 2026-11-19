@@ -44,18 +44,13 @@ def process_roads(n: int, roads: list[tuple[int, int]]) -> list[tuple[int, int]]
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
     roads = []
-    idx = 2
     for _ in range(m):
-        roads.append((int(input_data[idx]), int(input_data[idx + 1])))
-        idx += 2
+        a, b = map(int, input().split())
+        roads.append((a, b))
 
     history = process_roads(n, roads)
     for comps, max_sz in history:

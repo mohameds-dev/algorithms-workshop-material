@@ -28,20 +28,13 @@ def find_order(n: int, prerequisites: list[tuple[int, int]]) -> list[int]:
 
 
 def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
+    input = sys.stdin.readline  # to avoid TLE on CSES
+    n, m = map(int, input().split())
 
     edges = []
-    idx = 2
     for _ in range(m):
-        a = int(input_data[idx])
-        b = int(input_data[idx + 1])
+        a, b = map(int, input().split())
         edges.append((a, b))
-        idx += 2
 
     order = find_order(n, edges)
     if not order:

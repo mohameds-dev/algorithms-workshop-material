@@ -2,36 +2,35 @@ import heapq
 
 
 class Solution:
-    def networkDelayTime(
-        self, times: list[list[int]], n: int, k: int
-    ) -> int:
-        num_nodes = n
-        source = k
+    def networkDelayTime(self, times: list[list[int]], n: int, k: int) -> int:
+        INF = 10**18
+        adj_list = [list() for _ in range(n + 1)]
+        cost_to_reach = [INF for _ in range(n + 1)]
 
-        adj = [[] for _ in range(num_nodes + 1)]
-        for src, dst, travel_time in times:
-            adj[src].append((dst, travel_time))
+        for a, b, c in times:
+            adj_list[a].append((b, c))
 
-        inf = float("inf")
-        dist = [inf] * (num_nodes + 1)
-        dist[source] = 0
+        pq = []  # priority queue (min heap)
 
-        pq = [(0, source)]
+        # let it sort by cost -> make it (cost, node)
+        pq.append((0, k))
+        cost_to_reach[k] = 0
 
         while pq:
-            curr_dist, node = heapq.heappop(pq)
+            cur_node_cost, cur_node = heapq.heappop(pq)
 
-            if curr_dist > dist[node]:
+            if cur_node_cost > cost_to_reach[cur_node]:
                 continue
 
-            for neighbor, travel_time in adj[node]:
-                new_dist = curr_dist + travel_time
-                if new_dist < dist[neighbor]:
-                    dist[neighbor] = new_dist
-                    heapq.heappush(pq, (new_dist, neighbor))
+            for node, edge_cost in adj_list[cur_node]:
+                new_cost = cur_node_cost + edge_cost
 
-        max_time = max(dist[1 : num_nodes + 1])
-        return max_time if max_time < inf else -1
+                if new_cost < cost_to_reach[node]:
+                    cost_to_reach[node] = new_cost
+                    heapq.heappush(pq, (new_cost, node))
+
+        max_cost = max(cost_to_reach[1:])
+        return max_cost if max_cost < INF else -1
 
 
 def test_solution():
