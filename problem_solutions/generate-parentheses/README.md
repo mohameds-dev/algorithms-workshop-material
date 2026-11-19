@@ -4,7 +4,7 @@ LeetCode 22: https://leetcode.com/problems/generate-parentheses/
 
 - Difficulty: Medium
 - Topics: String, Dynamic Programming, Backtracking
-- Discussed: [Week 8, Day 1](../../weekly_material/week08_day1.md)
+- Discussed: [Week 8, Day 1](../../weekly_material/week08_day1__valid_anagram_generate_parentheses.md)
 
 ## Summary
 

@@ -4,7 +4,7 @@ CSES 1675: https://cses.fi/problemset/task/1675
 
 - Difficulty: Medium
 - Topics: Graph, Minimum Spanning Tree (MST), Kruskal's Algorithm, Disjoint Set Union (DSU)
-- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1.md)
+- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1__dsu_and_mst.md)
 
 ## Summary
 

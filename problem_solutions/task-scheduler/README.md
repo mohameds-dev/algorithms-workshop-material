@@ -4,7 +4,7 @@ LeetCode 621: https://leetcode.com/problems/task-scheduler/
 
 - Difficulty: Medium
 - Topics: Array, Hash Table, Greedy, Queue, Heap (Priority Queue), Counting
-- Discussed: [Week 9, Day 1](../../weekly_material/week09_day1.md)
+- Discussed: [Week 9, Day 1](../../weekly_material/week09_day1__greedy_task_scheduler.md)
 
 ## Summary
 

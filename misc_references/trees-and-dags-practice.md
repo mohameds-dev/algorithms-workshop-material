@@ -1,6 +1,6 @@
 # Additional Practice: Trees and Directed Acyclic Graphs (DAGs)
 
-This practice handout extends the core concepts covered in [Week 12, Day 1](../weekly_material/week12_day1.md) (Tree Diameter) and [Week 12, Day 2](../weekly_material/week12_day2.md) (Topological Sort and Kahn's Algorithm).
+This practice handout extends the core concepts covered in [Week 12, Day 1](../weekly_material/week12_day1__tree_diameter.md) (Tree Diameter) and [Week 12, Day 2](../weekly_material/week12_day2__topological_sort.md) (Topological Sort and Kahn's Algorithm).
 
 ---
 

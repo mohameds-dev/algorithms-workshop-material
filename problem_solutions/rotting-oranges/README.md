@@ -4,7 +4,7 @@ LeetCode 994: https://leetcode.com/problems/rotting-oranges/
 
 - Difficulty: Medium
 - Topics: Breadth-First Search, Array, Matrix
-- Discussed: [Week 11, Day 2](../../weekly_material/week11_day2.md)
+- Discussed: [Week 11, Day 2](../../weekly_material/week11_day2__graph_traversal_bfs_dfs.md)
 
 ## Summary
 

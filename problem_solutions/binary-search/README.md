@@ -4,7 +4,7 @@ LeetCode 704: https://leetcode.com/problems/binary-search/description/
 
 - Difficulty: Easy
 - Topics: Array, Binary Search
-- Discussed: [Week 4, Day 1](../../weekly_material/week04_day1.md)
+- Discussed: [Week 4, Day 1](../../weekly_material/week04_day1__binary_search.md)
 
 ## Summary
 
@@ -31,7 +31,7 @@ at all, has to be in `nums[left..mid]`, so it recurses there; otherwise it recur
 
 ## Correctness
 
-Proved in [Week 4, Day 1](../../weekly_material/week04_day1.md).
+Proved in [Week 4, Day 1](../../weekly_material/week04_day1__binary_search.md).
 
 ## Complexity
 

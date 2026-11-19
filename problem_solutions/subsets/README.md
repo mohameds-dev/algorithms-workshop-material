@@ -4,7 +4,7 @@ LeetCode 78: https://leetcode.com/problems/subsets/
 
 - Difficulty: Medium
 - Topics: Array, Backtracking, Bit Manipulation
-- Discussed: [Week 5, Day 1](../../weekly_material/week05_day1.md)
+- Discussed: [Week 5, Day 1](../../weekly_material/week05_day1__backtracking_subsets_permutations.md)
 
 ## Summary
 
@@ -30,7 +30,7 @@ starts from the same `chosen` the previous one did.
 
 ## Correctness
 
-Proved in [Week 5, Day 1](../../weekly_material/week05_day1.md).
+Proved in [Week 5, Day 1](../../weekly_material/week05_day1__backtracking_subsets_permutations.md).
 
 ## Complexity
 

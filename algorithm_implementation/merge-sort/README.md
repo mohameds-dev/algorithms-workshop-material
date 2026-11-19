@@ -3,7 +3,7 @@
 A classic divide and conquer sorting algorithm: split the array into two halves, recursively
 sort each half, then merge the two sorted halves back into one sorted array in linear time.
 
-- Discussed: [Week 2, Day 1](../../weekly_material/week02_day1.md)
+- Discussed: [Week 2, Day 1](../../weekly_material/week02_day1__longest_nice_substring_proof.md)
 - Practice: [LeetCode 912, Sort an Array](https://leetcode.com/problems/sort-an-array/description/)
 
 ## Summary

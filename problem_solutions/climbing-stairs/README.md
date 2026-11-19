@@ -4,7 +4,7 @@ LeetCode 70: https://leetcode.com/problems/climbing-stairs/
 
 - Difficulty: Easy
 - Topics: Dynamic Programming, Math, Memoization
-- Discussed: [Week 6, Day 2](../../weekly_material/week06_day2.md)
+- Discussed: [Week 6, Day 2](../../weekly_material/week06_day2__dp_intro_fibonacci.md)
 
 ## Summary
 

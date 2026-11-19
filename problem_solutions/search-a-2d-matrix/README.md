@@ -4,7 +4,7 @@ LeetCode 74: https://leetcode.com/problems/search-a-2d-matrix/description/
 
 - Difficulty: Medium
 - Topics: Array, Binary Search, Matrix
-- Discussed: [Week 4, Day 2](../../weekly_material/week04_day2.md)
+- Discussed: [Week 4, Day 2](../../weekly_material/week04_day2__search_2d_matrix.md)
 
 ## Summary
 
@@ -29,14 +29,14 @@ entry is `<= target`. That's the one and only row that could possibly contain `t
 earlier row's values are all smaller, every later row's values are all bigger.
 
 `search_row(row, target)` is then exactly the iterative `binary_search` from
-[Week 4, Day 2](../../weekly_material/week04_day2.md), unchanged, run on that single row: it
+[Week 4, Day 2](../../weekly_material/week04_day2__search_2d_matrix.md), unchanged, run on that single row: it
 returns `target`'s index in `row`, or `-1`, the same as `binary_search` returns for `nums`.
 `searchMatrix` only needs whether `target` was found, so it turns that index into a bool with
 `!= -1`.
 
 ## Correctness
 
-Two things to establish, both in [Week 4, Day 2](../../weekly_material/week04_day2.md):
+Two things to establish, both in [Week 4, Day 2](../../weekly_material/week04_day2__search_2d_matrix.md):
 
 1. `find_row` returns the unique row that could contain `target` (or `-1` if none does), by a
    loop invariant on the sequence of row-starting values, the same shape as `binary_search`'s but

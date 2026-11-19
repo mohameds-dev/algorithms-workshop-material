@@ -4,7 +4,7 @@ LeetCode 200: https://leetcode.com/problems/number-of-islands/
 
 - Difficulty: Medium
 - Topics: Array, Depth-First Search, Breadth-First Search, Union-Find, Matrix
-- Discussed: [Week 11, Day 2](../../weekly_material/week11_day2.md)
+- Discussed: [Week 11, Day 2](../../weekly_material/week11_day2__graph_traversal_bfs_dfs.md)
 
 ## Summary
 

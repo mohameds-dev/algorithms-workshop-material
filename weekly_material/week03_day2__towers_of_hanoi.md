@@ -209,7 +209,7 @@ If you prefer induction: `M(0) = 0 = 2^0 - 1`, and `M(n) = 2(2^(n-1) - 1) + 1 = 
 <details>
 <summary>Answer</summary>
 
-Same reason as the lopsided split in [last session](week03_day1.md): the Master Theorem needs
+Same reason as the lopsided split in [last session](week03_day1__master_theorem_and_correctness.md): the Master Theorem needs
 `T(n/b)`, a piece that is a constant **fraction** of the input. Here the subproblem is `n - 1`,
 a subtraction, not a division. The theorem simply does not apply, so we unroll, which is what we
 just did.

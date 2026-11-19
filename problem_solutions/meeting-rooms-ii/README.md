@@ -4,7 +4,7 @@ LeetCode 253 / NeetCode: https://neetcode.io/problems/meeting-schedule-ii
 
 - Difficulty: Medium
 - Topics: Array, Greedy, Sorting, Heap, Balanced Binary Search Tree (Multiset)
-- Discussed: [Week 9, Day 2](../../weekly_material/week09_day2.md)
+- Discussed: [Week 9, Day 2](../../weekly_material/week09_day2__meeting_rooms.md)
 
 ## Summary
 

@@ -4,7 +4,7 @@ LeetCode 46: https://leetcode.com/problems/permutations/
 
 - Difficulty: Medium
 - Topics: Array, Backtracking
-- Discussed: [Week 5, Day 1](../../weekly_material/week05_day1.md)
+- Discussed: [Week 5, Day 1](../../weekly_material/week05_day1__backtracking_subsets_permutations.md)
 
 ## Summary
 
@@ -31,7 +31,7 @@ instead of needing a fresh copy per branch.
 
 ## Correctness
 
-Proved in [Week 5, Day 1](../../weekly_material/week05_day1.md).
+Proved in [Week 5, Day 1](../../weekly_material/week05_day1__backtracking_subsets_permutations.md).
 
 ## Complexity
 

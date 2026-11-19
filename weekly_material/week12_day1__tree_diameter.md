@@ -8,7 +8,7 @@ Today we explore tree structures and the tree diameter problem:
 3. **Problem: Tree Diameter** ([CSES 1131](https://cses.fi/problemset/task/1131)).
 
 > [!NOTE]
-> **Rollover Notice:** Topological Sort, Kahn's algorithm, and Course Schedule were moved to [Week 12, Day 2](./week12_day2.md) to allow for a thorough treatment of the tree diameter proof and double traversal implementations.
+> **Rollover Notice:** Topological Sort, Kahn's algorithm, and Course Schedule were moved to [Week 12, Day 2](./week12_day2__topological_sort.md) to allow for a thorough treatment of the tree diameter proof and double traversal implementations.
 
 You can write and test your code without local setup using the [Online IDE Guide](../misc_references/online-ide.md) ([Judge0 IDE](https://ide.judge0.com/)).
 
@@ -17,7 +17,7 @@ You can write and test your code without local setup using the [Online IDE Guide
 ## Session Resources
 
 - **Tree Diameter:** [CSES 1131](https://cses.fi/problemset/task/1131)
-- **Topological Sort (Moved to Day 2):** [Week 12, Day 2](./week12_day2.md)
+- **Topological Sort (Moved to Day 2):** [Week 12, Day 2](./week12_day2__topological_sort.md)
 - **Graph Visualizer:** [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/)
 - **Algorithm Animations:** [VisuAlgo Graph Traversal](https://visualgo.net/en/dfsbfs)
 - **Online IDE:** [Online IDE Guide](../misc_references/online-ide.md) ([Judge0 IDE](https://ide.judge0.com/))
@@ -311,4 +311,4 @@ flowchart TD
 
 ## Topic Rollover: Topological Sort and Kahn's Algorithm
 
-> **Moved to Day 2:** Topological Sort, Kahn's algorithm, the greedy choice exchange argument, and Course Schedule ([CSES 1679](https://cses.fi/problemset/task/1679) / [LeetCode 210](https://leetcode.com/problems/course-schedule-ii/description/)) have been moved to [Week 12, Day 2](./week12_day2.md).
+> **Moved to Day 2:** Topological Sort, Kahn's algorithm, the greedy choice exchange argument, and Course Schedule ([CSES 1679](https://cses.fi/problemset/task/1679) / [LeetCode 210](https://leetcode.com/problems/course-schedule-ii/description/)) have been moved to [Week 12, Day 2](./week12_day2__topological_sort.md).

@@ -4,7 +4,7 @@ LeetCode 62: https://leetcode.com/problems/unique-paths/
 
 - Difficulty: Medium
 - Topics: Math, Dynamic Programming, Combinatorics
-- Discussed: [Week 8, Day 2](../../weekly_material/week08_day2.md)
+- Discussed: [Week 8, Day 2](../../weekly_material/week08_day2__group_anagrams_unique_paths.md)
 
 ## Summary
 

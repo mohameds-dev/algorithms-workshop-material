@@ -18,7 +18,7 @@ You can write and test your code without any local setup using the [Online IDE G
 
 In our previous session, we tracked room availability by storing each occupied room's finish time in a descending multiset (`multiset<int, greater<>>`). For each meeting in start-time order, we queried for the latest finishing room that became free on or before our start time.
 
-For a full review of that data structure and its implementation, see the [Week 09 Day 2 C++ Multiset Solution](./week09_day2.md#full-solution-c) and its [Descending Multiset Intuition](./week09_day2.md#part-b-qa-searching-for-available-rooms-in-a-descending-multiset).
+For a full review of that data structure and its implementation, see the [Week 09 Day 2 C++ Multiset Solution](./week09_day2__meeting_rooms.md#full-solution-c) and its [Descending Multiset Intuition](./week09_day2__meeting_rooms.md#part-b-qa-searching-for-available-rooms-in-a-descending-multiset).
 
 ---
 

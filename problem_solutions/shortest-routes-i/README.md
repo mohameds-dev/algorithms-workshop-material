@@ -4,7 +4,7 @@ CSES 1671: https://cses.fi/problemset/task/1671
 
 - Difficulty: Medium
 - Topics: Graph, Shortest Path, Dijkstra's Algorithm, Priority Queue
-- Discussed: [Week 13, Day 2](../../weekly_material/week13_day2.md)
+- Discussed: [Week 13, Day 2](../../weekly_material/week13_day2__dijkstra.md)
 
 ## Summary
 

@@ -4,7 +4,7 @@ LeetCode 252 / NeetCode: https://neetcode.io/problems/meeting-schedule
 
 - Difficulty: Easy
 - Topics: Array, Sorting
-- Discussed: [Week 9, Day 2](../../weekly_material/week09_day2.md)
+- Discussed: [Week 9, Day 2](../../weekly_material/week09_day2__meeting_rooms.md)
 
 ## Summary
 

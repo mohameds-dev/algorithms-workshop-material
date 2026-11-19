@@ -4,7 +4,7 @@ LeetCode 1584: https://leetcode.com/problems/min-cost-to-connect-all-points/
 
 - Difficulty: Medium
 - Topics: Graph, Minimum Spanning Tree (MST), Prim's Algorithm, Kruskal's Algorithm, Disjoint Set Union (DSU)
-- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1.md)
+- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1__dsu_and_mst.md)
 
 ## Summary
 

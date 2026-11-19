@@ -7,7 +7,7 @@ Today we conduct an intensive problem-solving session focusing on two core probl
 2. **Backtracking with Invariant Pruning:** Decision trees with validity constraints via [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) ([LeetCode 22](https://leetcode.com/problems/generate-parentheses/)).
 
 > [!NOTE]
-> Group Anagrams (LeetCode 49), Unique Paths (LeetCode 62), and Unique Paths II (LeetCode 63) were moved to [Week 08, Day 2](week08_day2.md).
+> Group Anagrams (LeetCode 49), Unique Paths (LeetCode 62), and Unique Paths II (LeetCode 63) were moved to [Week 08, Day 2](week08_day2__group_anagrams_unique_paths.md).
 
 ---
 

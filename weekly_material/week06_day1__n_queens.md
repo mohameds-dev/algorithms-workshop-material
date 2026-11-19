@@ -8,7 +8,7 @@ Today we consolidate those complexity models, then apply backtracking with multi
 pruning to a classic benchmark: [LeetCode 51, **N-Queens**](https://leetcode.com/problems/n-queens/).
 
 > [!NOTE]
-> The backtracking complexity model comparison below was moved to [Week 6, Day 2](week06_day2.md) during the live session to dedicate full focus to **N-Queens** (§2).
+> The backtracking complexity model comparison below was moved to [Week 6, Day 2](week06_day2__dp_intro_fibonacci.md) during the live session to dedicate full focus to **N-Queens** (§2).
 
 <details>
 <summary>1. Backtracking review and complexity models</summary>
@@ -16,9 +16,9 @@ pruning to a classic benchmark: [LeetCode 51, **N-Queens**](https://leetcode.com
 Over the previous sessions, we developed three distinct backtracking structures. Review the
 individual solutions and proofs in their respective session notes:
 
-- **Subsets:** [Week 5, Day 1](week05_day1.md) and [`problem_solutions/subsets/`](../problem_solutions/subsets/)
-- **Permutations:** [Week 5, Day 1](week05_day1.md) and [`problem_solutions/permutations/`](../problem_solutions/permutations/)
-- **Social Permutations:** [Week 5, Day 2](week05_day2.md) and [`problem_solutions/social-permutations/`](../problem_solutions/social-permutations/)
+- **Subsets:** [Week 5, Day 1](week05_day1__backtracking_subsets_permutations.md) and [`problem_solutions/subsets/`](../problem_solutions/subsets/)
+- **Permutations:** [Week 5, Day 1](week05_day1__backtracking_subsets_permutations.md) and [`problem_solutions/permutations/`](../problem_solutions/permutations/)
+- **Social Permutations:** [Week 5, Day 2](week05_day2__midterm1_review.md) and [`problem_solutions/social-permutations/`](../problem_solutions/social-permutations/)
 
 ### Comparing the three decision models
 

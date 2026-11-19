@@ -7,7 +7,7 @@ are harder variants built on the same idea.
 
 - Difficulty: Medium
 - Topics: Array, Divide and Conquer, Merge Sort
-- Discussed: [Week 5, Day 2](../../weekly_material/week05_day2.md)
+- Discussed: [Week 5, Day 2](../../weekly_material/week05_day2__midterm1_review.md)
 
 ## Summary
 
@@ -36,7 +36,7 @@ on both halves, sums their inversion counts, and adds the cross count from `merg
 
 ## Correctness
 
-Proved in [Week 5, Day 2](../../weekly_material/week05_day2.md).
+Proved in [Week 5, Day 2](../../weekly_material/week05_day2__midterm1_review.md).
 
 ## Complexity
 

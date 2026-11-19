@@ -4,7 +4,7 @@ CSES 1131: https://cses.fi/problemset/task/1131
 
 - Difficulty: Medium
 - Topics: Tree, Depth-First Search, Breadth-First Search, Graph Traversal
-- Discussed: [Week 12, Day 1](../../weekly_material/week12_day1.md)
+- Discussed: [Week 12, Day 1](../../weekly_material/week12_day1__tree_diameter.md)
 
 ## Summary
 

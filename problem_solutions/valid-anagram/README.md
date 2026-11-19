@@ -4,7 +4,7 @@ LeetCode 242: https://leetcode.com/problems/valid-anagram/
 
 - Difficulty: Easy
 - Topics: Hash Table, String, Sorting
-- Discussed: [Week 8, Day 1](../../weekly_material/week08_day1.md)
+- Discussed: [Week 8, Day 1](../../weekly_material/week08_day1__valid_anagram_generate_parentheses.md)
 
 ## Summary
 

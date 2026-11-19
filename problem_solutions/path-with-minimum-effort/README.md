@@ -4,7 +4,7 @@ LeetCode 1631: https://leetcode.com/problems/path-with-minimum-effort/
 
 - Difficulty: Medium
 - Topics: Array, Binary Search, Depth-First Search, Breadth-First Search, Union-Find, Heap, Matrix
-- Discussed: [Week 13, Day 2](../../weekly_material/week13_day2.md)
+- Discussed: [Week 13, Day 2](../../weekly_material/week13_day2__dijkstra.md)
 
 ## Summary
 

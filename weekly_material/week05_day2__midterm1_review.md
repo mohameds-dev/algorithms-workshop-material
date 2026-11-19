@@ -11,7 +11,7 @@ Merge Sort and today's Permutations.
 <summary>1. Finish backtracking</summary>
 
 Last session ran out of time before reaching Subsets' complexity and before starting Permutations.
-Pick up directly in [Week 5, Day 1](week05_day1.md): finish §2 Subsets' **Complexity** block, then
+Pick up directly in [Week 5, Day 1](week05_day1__backtracking_subsets_permutations.md): finish §2 Subsets' **Complexity** block, then
 work through all of §3 **Permutations** (concept, your turn, correctness, complexity).
 
 Everything below assumes that's done: Social Permutations, later in this session, builds directly
@@ -22,7 +22,7 @@ on the Permutations backtracking skeleton.
 <details>
 <summary>2. Review: recurrences</summary>
 
-Three Master Theorem applications, straight out of [Week 3, Day 1](week03_day1.md)'s toolbox. For
+Three Master Theorem applications, straight out of [Week 3, Day 1](week03_day1__master_theorem_and_correctness.md)'s toolbox. For
 each, identify `a`, `b`, and `f(n)`, then compare `f(n)` against `n^(log_b a)`.
 
 a) `T(n) = 3T(n/3) + n, T(1) = 1`
@@ -60,7 +60,7 @@ recurrence.
 <summary>References</summary>
 
 - Cormen et al., *Introduction to Algorithms*, §4.5 "The master method for solving recurrences"
-  (pp. 93-97), already cited in [Week 3, Day 1](week03_day1.md): its exercises are good extra
+  (pp. 93-97), already cited in [Week 3, Day 1](week03_day1__master_theorem_and_correctness.md): its exercises are good extra
   practice for this kind of case-matching.
 
 </details>
@@ -208,7 +208,7 @@ using no more than `O(n)` memory.
 <details>
 <summary>Hints</summary>
 
-1. Start from [Permutations](week05_day1.md)' skeleton: build the permutation one position at a
+1. Start from [Permutations](week05_day1__backtracking_subsets_permutations.md)' skeleton: build the permutation one position at a
    time, tracking which values are already used.
 2. Add a check before recursing into each candidate value: reject it if it's a self-gift, or if it
    would complete a mutual pair with a position already filled.

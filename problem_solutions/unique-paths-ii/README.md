@@ -4,7 +4,7 @@ LeetCode 63: https://leetcode.com/problems/unique-paths-ii/
 
 - Difficulty: Medium
 - Topics: Array, Dynamic Programming, Matrix
-- Discussed: [Week 8, Day 2](../../weekly_material/week08_day2.md)
+- Discussed: [Week 8, Day 2](../../weekly_material/week08_day2__group_anagrams_unique_paths.md)
 
 ## Summary
 

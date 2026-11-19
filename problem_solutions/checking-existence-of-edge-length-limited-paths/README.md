@@ -4,7 +4,7 @@ LeetCode 1697: https://leetcode.com/problems/checking-existence-of-edge-length-l
 
 - Difficulty: Hard
 - Topics: Graph, Disjoint Set Union (DSU), Sorting, Offline Queries
-- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1.md)
+- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1__dsu_and_mst.md)
 
 ## Summary
 

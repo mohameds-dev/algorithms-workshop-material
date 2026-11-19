@@ -4,7 +4,7 @@ LeetCode 300: https://leetcode.com/problems/longest-increasing-subsequence/
 
 - Difficulty: Medium
 - Topics: Array, Binary Search, Dynamic Programming
-- Discussed: [Week 7, Day 2](../../weekly_material/week07_day2.md)
+- Discussed: [Week 7, Day 2](../../weekly_material/week07_day2__longest_increasing_subsequence.md)
 
 ## Summary
 
@@ -26,7 +26,7 @@ Given an integer array `nums`, return the length of the longest strictly increas
 
 ## Correctness
 
-Proved in [Week 7, Day 2](../../weekly_material/week07_day2.md).
+Proved in [Week 7, Day 2](../../weekly_material/week07_day2__longest_increasing_subsequence.md).
 
 ## Complexity
 

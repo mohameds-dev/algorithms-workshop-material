@@ -4,7 +4,7 @@ LeetCode 743: https://leetcode.com/problems/network-delay-time/
 
 - Difficulty: Medium
 - Topics: Graph, Shortest Path, Dijkstra's Algorithm, Priority Queue, Heap
-- Discussed: [Week 13, Day 2](../../weekly_material/week13_day2.md)
+- Discussed: [Week 13, Day 2](../../weekly_material/week13_day2__dijkstra.md)
 
 ## Summary
 

@@ -165,7 +165,7 @@ for all strings.
 
 </details>
 
-The same proof, written out in the same labels: [Week 2, Day 1](week02_day1.md).
+The same proof, written out in the same labels: [Week 2, Day 1](week02_day1__longest_nice_substring_proof.md).
 
 <details>
 <summary>References</summary>
@@ -315,7 +315,7 @@ T(n) = O(n * log n)
 ```
 
 which is exactly the `O(n log n)` we claimed for Merge Sort in
-[Week 2, Day 1](week02_day1.md).
+[Week 2, Day 1](week02_day1__longest_nice_substring_proof.md).
 
 </details>
 

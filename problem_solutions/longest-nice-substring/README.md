@@ -4,10 +4,10 @@ LeetCode 1763: https://leetcode.com/problems/longest-nice-substring/description/
 
 - Difficulty: Easy
 - Topics: String, Divide and Conquer, Recursion
-- Discussed: [Week 1, Day 2](../../weekly_material/week01_day2.md),
-  [Week 2, Day 1](../../weekly_material/week02_day1.md) (idea and proof),
-  [Week 2, Day 2](../../weekly_material/week02_day2.md) (built function by function),
-  [Week 3, Day 1](../../weekly_material/week03_day1.md) (complexity and the hash table version)
+- Discussed: [Week 1, Day 2](../../weekly_material/week01_day2__recursion_and_divide_conquer.md),
+  [Week 2, Day 1](../../weekly_material/week02_day1__longest_nice_substring_proof.md) (idea and proof),
+  [Week 2, Day 2](../../weekly_material/week02_day2__longest_nice_substring_implementation.md) (built function by function),
+  [Week 3, Day 1](../../weekly_material/week03_day1__master_theorem_and_correctness.md) (complexity and the hash table version)
 
 ## Summary
 
@@ -43,8 +43,8 @@ for this piece of the string, and let the return value carry the answer back up.
 
 ### Correctness
 
-Proved by induction in [Week 2, Day 1](../../weekly_material/week02_day1.md), and again in
-[Week 3, Day 1](../../weekly_material/week03_day1.md) one question at a time. The short version:
+Proved by induction in [Week 2, Day 1](../../weekly_material/week02_day1__longest_nice_substring_proof.md), and again in
+[Week 3, Day 1](../../weekly_material/week03_day1__master_theorem_and_correctness.md) one question at a time. The short version:
 the base case is the `return s` line (no bad character means `s` is nice, and a string is its own
 longest nice substring), and the inductive step is the split, which loses nothing because no nice
 substring can contain a character that fails the both-cases check in `s`.

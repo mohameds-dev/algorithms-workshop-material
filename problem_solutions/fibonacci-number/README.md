@@ -4,7 +4,7 @@ LeetCode 509: https://leetcode.com/problems/fibonacci-number/
 
 - Difficulty: Easy
 - Topics: Recursion, Dynamic Programming, Math
-- Discussed: [Week 1, Day 2](../../weekly_material/week01_day2.md), [Week 6, Day 2](../../weekly_material/week06_day2.md)
+- Discussed: [Week 1, Day 2](../../weekly_material/week01_day2__recursion_and_divide_conquer.md), [Week 6, Day 2](../../weekly_material/week06_day2__dp_intro_fibonacci.md)
 
 ## Summary
 

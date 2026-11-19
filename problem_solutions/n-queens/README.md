@@ -4,7 +4,7 @@ LeetCode 51: https://leetcode.com/problems/n-queens/
 
 - Difficulty: Hard
 - Topics: Array, Backtracking
-- Discussed: [Week 6, Day 1](../../weekly_material/week06_day1.md)
+- Discussed: [Week 6, Day 1](../../weekly_material/week06_day1__n_queens.md)
 
 ## Summary
 
@@ -57,7 +57,7 @@ with $O(1)$ column and diagonal pruning checks.
 
 ## Correctness
 
-Proved in [Week 6, Day 1](../../weekly_material/week06_day1.md).
+Proved in [Week 6, Day 1](../../weekly_material/week06_day1__n_queens.md).
 
 ## Complexity
 

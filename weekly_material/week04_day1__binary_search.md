@@ -160,7 +160,7 @@ whole array is sorted with distinct values; that's inherited by every sub-range.
   which is exactly what's returned.
 
 **Assume:** the Claim holds for every range strictly smaller than `[left, right]`. (Strong
-induction on range size, same reason as [Longest Nice Substring](week03_day1.md): the two
+induction on range size, same reason as [Longest Nice Substring](week03_day1__master_theorem_and_correctness.md): the two
 sub-ranges below are different sizes in general, not "one smaller".)
 
 **Show:** for `left < right`, `mid` is chosen with `left <= mid < right`. Because
@@ -237,7 +237,7 @@ T(n) = O(n^0 * log n) = O(log n)
 ```
 
 Contrast with [Merge Sort](../algorithm_implementation/merge-sort/README.md) and
-[Longest Nice Substring](week03_day1.md), also case 2, but with `a = 2` recursive calls instead of
+[Longest Nice Substring](week03_day1__master_theorem_and_correctness.md), also case 2, but with `a = 2` recursive calls instead of
 `1`: that's why those come out to `O(n log n)` and this comes out to `O(log n)`. Same case,
 different `a`.
 
@@ -262,7 +262,7 @@ regime where `Q` is large.
   two endpoints tells you "definitely not here" in `O(1)`.
 - Binary search extends that idea recursively: pick `mid`, decide which half's value range could
   contain `target`, throw the other half away, recurse. Same divide and conquer shape as
-  [Longest Nice Substring](week03_day1.md), splitting on a range of values instead of on a bad
+  [Longest Nice Substring](week03_day1__master_theorem_and_correctness.md), splitting on a range of values instead of on a bad
   character.
 - Correctness doesn't need an `if target == nums[mid]` shortcut; showing the two halves' value
   ranges can't overlap is enough, and the recursion still terminates correctly even when `target`

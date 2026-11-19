@@ -4,7 +4,7 @@ CSES 1676: https://cses.fi/problemset/task/1676
 
 - Difficulty: Medium
 - Topics: Graph, Disjoint Set Union (DSU), Connected Components
-- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1.md)
+- Discussed: [Week 13, Day 1](../../weekly_material/week13_day1__dsu_and_mst.md)
 
 ## Summary
 

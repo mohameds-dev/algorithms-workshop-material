@@ -7,7 +7,7 @@ backtracking with a pruning rule instead of accepting every candidate.
 
 - Difficulty: Medium
 - Topics: Backtracking, Recursion
-- Discussed: [Week 5, Day 2](../../weekly_material/week05_day2.md)
+- Discussed: [Week 5, Day 2](../../weekly_material/week05_day2__midterm1_review.md)
 
 ## Summary
 
@@ -39,7 +39,7 @@ pair, since `p[v]` already equals `index`). For every `v` that survives, set `p[
 
 ## Correctness
 
-Proved in [Week 5, Day 2](../../weekly_material/week05_day2.md).
+Proved in [Week 5, Day 2](../../weekly_material/week05_day2__midterm1_review.md).
 
 ## Complexity
 

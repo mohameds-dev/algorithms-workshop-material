@@ -5,7 +5,7 @@ NeetCode: https://neetcode.io/problems/longest-consecutive-sequence/
 
 - Difficulty: Medium
 - Topics: Array, Hash Table, Union Find
-- Discussed: [Week 10, Day 1](../../weekly_material/week10_day1.md)
+- Discussed: [Week 10, Day 1](../../weekly_material/week10_day1__prefix_suffix_and_intervals.md)
 
 ## Summary
 

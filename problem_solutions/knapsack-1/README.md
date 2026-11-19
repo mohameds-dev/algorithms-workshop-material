@@ -4,7 +4,7 @@ AtCoder DP Task D: https://atcoder.jp/contests/dp/tasks/dp_d
 
 - Difficulty: Medium
 - Topics: Dynamic Programming
-- Discussed: [Week 7, Day 1](../../weekly_material/week07_day1.md)
+- Discussed: [Week 7, Day 1](../../weekly_material/week07_day1__knapsack_dp.md)
 
 ## Summary
 
@@ -26,7 +26,7 @@ Given `n` items, each with a weight and a value, and a knapsack with capacity `c
 
 ## Correctness
 
-Proved in [Week 7, Day 1](../../weekly_material/week07_day1.md).
+Proved in [Week 7, Day 1](../../weekly_material/week07_day1__knapsack_dp.md).
 
 ## Complexity
 

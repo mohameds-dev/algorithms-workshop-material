@@ -16,7 +16,7 @@ You can write and test your code without local setup using the [Online IDE Guide
 
 - **Course Schedule:** [CSES 1679](https://cses.fi/problemset/task/1679)
 - **Course Schedule II:** [LeetCode 210](https://leetcode.com/problems/course-schedule-ii/description/)
-- **Tree Diameter (Day 1 Review):** [CSES 1131](https://cses.fi/problemset/task/1131) ([Week 12, Day 1](./week12_day1.md))
+- **Tree Diameter (Day 1 Review):** [CSES 1131](https://cses.fi/problemset/task/1131) ([Week 12, Day 1](./week12_day1__tree_diameter.md))
 - **Additional Practice Handout:** [Trees and DAGs Practice](../misc_references/trees-and-dags-practice.md)
 - **Graph Visualizer:** [CS Academy Graph Editor](https://csacademy.com/app/graph_editor/)
 - **Algorithm Animations:** [VisuAlgo Graph Traversal](https://visualgo.net/en/dfsbfs)

@@ -4,7 +4,7 @@ LeetCode 49: https://leetcode.com/problems/group-anagrams/
 
 - Difficulty: Medium
 - Topics: Array, Hash Table, String, Sorting
-- Discussed: [Week 8, Day 2](../../weekly_material/week08_day2.md)
+- Discussed: [Week 8, Day 2](../../weekly_material/week08_day2__group_anagrams_unique_paths.md)
 
 ## Summary
 

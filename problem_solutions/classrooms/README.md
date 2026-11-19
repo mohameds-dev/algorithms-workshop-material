@@ -4,7 +4,7 @@ Kattis: https://open.kattis.com/problems/classrooms
 
 - Difficulty: Medium (Kattis 4.9)
 - Topics: Greedy, Sorting, Binary Search, Multiset, Balanced Binary Search Tree
-- Discussed: [Week 9, Day 2](../../weekly_material/week09_day2.md)
+- Discussed: [Week 9, Day 2](../../weekly_material/week09_day2__meeting_rooms.md)
 
 ## Terminology
 

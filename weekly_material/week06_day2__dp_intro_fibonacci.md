@@ -26,10 +26,10 @@ We study this transition through a progression of three benchmarks:
 Over the last two weeks, we developed four distinct backtracking structures. Review the
 individual solutions and proofs in their respective session notes:
 
-- **Subsets:** [Week 5, Day 1](week05_day1.md) and [`problem_solutions/subsets/`](../problem_solutions/subsets/)
-- **Permutations:** [Week 5, Day 1](week05_day1.md) and [`problem_solutions/permutations/`](../problem_solutions/permutations/)
-- **Social Permutations:** [Week 5, Day 2](week05_day2.md) and [`problem_solutions/social-permutations/`](../problem_solutions/social-permutations/)
-- **N-Queens:** [Week 6, Day 1](week06_day1.md) and [`problem_solutions/n-queens/`](../problem_solutions/n-queens/)
+- **Subsets:** [Week 5, Day 1](week05_day1__backtracking_subsets_permutations.md) and [`problem_solutions/subsets/`](../problem_solutions/subsets/)
+- **Permutations:** [Week 5, Day 1](week05_day1__backtracking_subsets_permutations.md) and [`problem_solutions/permutations/`](../problem_solutions/permutations/)
+- **Social Permutations:** [Week 5, Day 2](week05_day2__midterm1_review.md) and [`problem_solutions/social-permutations/`](../problem_solutions/social-permutations/)
+- **N-Queens:** [Week 6, Day 1](week06_day1__n_queens.md) and [`problem_solutions/n-queens/`](../problem_solutions/n-queens/)
 
 ### Comparing the four decision models
 
@@ -119,7 +119,7 @@ F(1) = 1
 F(n) = F(n - 1) + F(n - 2),  for n > 1
 ```
 
-Recall our initial encounter in [Week 1, Day 2](week01_day2.md).
+Recall our initial encounter in [Week 1, Day 2](week01_day2__recursion_and_divide_conquer.md).
 Translating the math definition directly into code yields naive recursion:
 
 - Python: [`recursive_solution.py`](../problem_solutions/fibonacci-number/recursive_solution.py)
