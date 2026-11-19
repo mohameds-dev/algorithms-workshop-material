@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -26,10 +27,13 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    cout << boolalpha;
-    cout << sol.isAnagram("anagram", "nagaram") << endl; // true
-    cout << sol.isAnagram("rat", "car") << endl;         // false
+    assert(sol.isAnagram("anagram", "nagaram") == true);
+    assert(sol.isAnagram("rat", "car") == false);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

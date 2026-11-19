@@ -7,8 +7,12 @@ class Solution:
         return dp[-1]
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.uniquePaths(3, 7))  # 28
-    print(sol.uniquePaths(3, 2))  # 3
-    print(sol.uniquePaths(3, 3))  # 6
+    assert sol.uniquePaths(3, 7) == 28
+    assert sol.uniquePaths(3, 2) == 3
+    assert sol.uniquePaths(3, 3) == 6
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

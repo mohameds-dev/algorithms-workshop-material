@@ -1,14 +1,7 @@
 import sys
 
 
-def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
-
-    n = int(input_data[0])
-    m = int(input_data[1])
-
+def min_repair_cost(n: int, edges: list[tuple[int, int, int]]) -> int:
     parent = list(range(n + 1))
     rank = [0] * (n + 1)
 
@@ -36,32 +29,52 @@ def main():
             rank[root_u] += 1
         return True
 
-    edges = []
-    idx = 2
-    for _ in range(m):
-        u = int(input_data[idx])
-        v = int(input_data[idx + 1])
-        cost = int(input_data[idx + 2])
-        edges.append((cost, u, v))
-        idx += 3
-
-    edges.sort()
+    # edges: (u, v, cost)
+    sorted_edges = sorted(edges, key=lambda x: x[2])
 
     total_cost = 0
     edges_added = 0
 
-    for cost, u, v in edges:
+    for u, v, cost in sorted_edges:
         if union_sets(u, v):
             total_cost += cost
             edges_added += 1
             if edges_added == n - 1:
                 break
 
-    if edges_added == n - 1:
-        print(total_cost)
-    else:
+    return total_cost if edges_added == n - 1 else -1
+
+
+def main():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+
+    n = int(input_data[0])
+    m = int(input_data[1])
+
+    edges = []
+    idx = 2
+    for _ in range(m):
+        u = int(input_data[idx])
+        v = int(input_data[idx + 1])
+        cost = int(input_data[idx + 2])
+        edges.append((u, v, cost))
+        idx += 3
+
+    cost = min_repair_cost(n, edges)
+    if cost == -1:
         print("IMPOSSIBLE")
+    else:
+        print(cost)
+
+
+def test_solution():
+    edges = [(1, 2, 3), (2, 3, 5), (2, 4, 2), (3, 4, 8), (5, 1, 7), (5, 4, 4)]
+    assert min_repair_cost(5, edges) == 14
+    assert min_repair_cost(3, [(1, 2, 10)]) == -1
 
 
 if __name__ == "__main__":
-    main()
+    test_solution()  # Comment this out to run with custom inputs
+    # main()

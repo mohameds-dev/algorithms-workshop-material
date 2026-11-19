@@ -1,6 +1,6 @@
-def backtrack(n, index, p, used):
+def backtrack(n, index, p, used, results):
     if index == n:
-        print(p)
+        results.append(p.copy())
         return
 
     for v in range(n):
@@ -12,15 +12,29 @@ def backtrack(n, index, p, used):
 
         p[index] = v
         used[v] = True
-        backtrack(n, index + 1, p, used)
+        backtrack(n, index + 1, p, used, results)
         used[v] = False
 
 
-def print_social_permutations(n):
+def get_social_permutations(n: int) -> list[list[int]]:
     p = [0] * n
     used = [False] * n
-    backtrack(n, 0, p, used)
+    results = []
+    backtrack(n, 0, p, used, results)
+    return results
+
+
+def print_social_permutations(n: int):
+    for p in get_social_permutations(n):
+        print(p)
+
+
+def test_solution():
+    perms3 = get_social_permutations(3)
+    assert perms3 == [[1, 2, 0], [2, 0, 1]]
+    assert len(get_social_permutations(2)) == 0
 
 
 if __name__ == "__main__":
-    print_social_permutations(3)
+    test_solution()  # Comment this out to run with custom inputs
+    # print_social_permutations(3)

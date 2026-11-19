@@ -32,3 +32,17 @@ class Solution:
 
         max_time = max(dist[1 : num_nodes + 1])
         return max_time if max_time < inf else -1
+
+
+def test_solution():
+    sol = Solution()
+    # Test case 1: Standard reachable network
+    assert sol.networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2) == 2
+    # Test case 2: Single directed edge with unreachable destination
+    assert sol.networkDelayTime([[1, 2, 1]], 2, 2) == -1
+    # Test case 3: Single directed edge reachable
+    assert sol.networkDelayTime([[1, 2, 1]], 2, 1) == 1
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

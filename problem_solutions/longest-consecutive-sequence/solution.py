@@ -15,8 +15,12 @@ class Solution:
         return answer
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.longestConsecutive([100, 4, 200, 1, 3, 2]))  # 4
-    print(sol.longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]))  # 9
-    print(sol.longestConsecutive([]))  # 0
+    assert sol.longestConsecutive([100, 4, 200, 1, 3, 2]) == 4
+    assert sol.longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]) == 9
+    assert sol.longestConsecutive([]) == 0
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

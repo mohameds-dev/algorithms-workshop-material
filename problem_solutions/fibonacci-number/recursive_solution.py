@@ -10,7 +10,14 @@ class Solution:
         return self.fib(n - 1) + self.fib(n - 2)
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    n = 7
-    print(sol.fib(n))
+    assert sol.fib(0) == 0
+    assert sol.fib(1) == 1
+    assert sol.fib(2) == 1
+    assert sol.fib(3) == 2
+    assert sol.fib(4) == 3
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

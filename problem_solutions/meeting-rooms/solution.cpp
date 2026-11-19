@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <vector>
 
@@ -15,8 +16,8 @@ public:
 
 class Solution {
 public:
-    bool canAttendMeetings(vector<Interval> &intervals) {
-        sort(intervals.begin(), intervals.end(), [](const Interval &a, const Interval &b) {
+    bool canAttendMeetings(vector<Interval>& intervals) {
+        sort(intervals.begin(), intervals.end(), [](const Interval& a, const Interval& b) {
             return a.start < b.start;
         });
 
@@ -25,18 +26,20 @@ public:
                 return false;
             }
         }
-
         return true;
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    vector<Interval> t1 = {Interval(0, 30), Interval(5, 10), Interval(15, 20)};
-    cout << boolalpha << sol.canAttendMeetings(t1) << endl; // false
+    vector<Interval> test1 = {{0, 30}, {5, 10}, {15, 20}};
+    assert(sol.canAttendMeetings(test1) == false);
 
-    vector<Interval> t2 = {Interval(5, 8), Interval(9, 15)};
-    cout << boolalpha << sol.canAttendMeetings(t2) << endl; // true
+    vector<Interval> test2 = {{5, 8}, {9, 15}};
+    assert(sol.canAttendMeetings(test2) == true);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

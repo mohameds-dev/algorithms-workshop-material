@@ -30,7 +30,14 @@ class Solution:
         return result
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    nums = [1, 2, 3]
-    print(sol.permute(nums))
+    res = sol.permute([1, 2, 3])
+    assert len(res) == 6
+    assert [1, 2, 3] in res
+    assert [3, 2, 1] in res
+    assert sol.permute([1]) == [[1]]
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

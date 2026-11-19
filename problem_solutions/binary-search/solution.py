@@ -19,8 +19,13 @@ class Solution:
         return self.search_recursive(nums, target, 0, len(nums) - 1)
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    nums = [-1, 0, 3, 5, 9, 12]
-    target = 9
-    print(sol.search(nums, target))
+    assert sol.search([-1, 0, 3, 5, 9, 12], 9) == 4
+    assert sol.search([-1, 0, 3, 5, 9, 12], 2) == -1
+    assert sol.search([5], 5) == 0
+    assert sol.search([5], -5) == -1
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

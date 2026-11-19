@@ -17,23 +17,28 @@ Full syllabus: https://uofh-my.sharepoint.com/:w:/g/personal/msabdelr_cougarnet_
 
 ## Usage notes for instructors / repo users
 
-[`tests/`](tests/) is a standalone, uv-managed Python project that checks the solutions in
-[`algorithm_implementation/`](algorithm_implementation/) for correctness. It requires
-[uv](https://docs.astral.sh/uv/); if you don't have it, install it using this guide:
-https://docs.astral.sh/uv/getting-started/installation/. To run the tests:
+[`tests/`](tests/) is a standalone, uv-managed Python project that checks the solutions in both
+[`algorithm_implementation/`](algorithm_implementation/) and [`problem_solutions/`](problem_solutions/)
+for correctness across Python and C++20. It requires [uv](https://docs.astral.sh/uv/); if you don't have it, install it using this guide:
+https://docs.astral.sh/uv/getting-started/installation/.
 
-```
+To run all tests:
+
+```bash
 cd tests
 uv sync            # first time only, sets up the environment
-uv run pytest      # run every test
+uv run pytest      # run every test across all problems and algorithms
 ```
 
-Useful variations:
+To test a specific solution by file path:
 
-```
-uv run pytest -k merge_sort      # just one algorithm
-uv run pytest -k reverse_sorted  # just one test case, across every algorithm
-uv run pytest -v                 # list every test that ran, by name
+```bash
+# Using the CLI runner from repo root:
+python tests/run_solution.py problem_solutions/shortest-routes-i/solution.py
+python tests/run_solution.py problem_solutions/shortest-routes-i/solution.cpp
+
+# Or using pytest from tests/:
+uv run pytest -k shortest-routes-i
 ```
 
-See [`tests/README.md`](tests/README.md) for how to add a test case or add a new algorithm.
+See [`tests/README.md`](tests/README.md) for full testing options and details.

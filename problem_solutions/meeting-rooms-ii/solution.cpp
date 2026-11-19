@@ -1,6 +1,7 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
-#include <set>
+#include <queue>
 #include <vector>
 
 using namespace std;
@@ -14,37 +15,40 @@ public:
     }
 };
 
-bool compareIntervals(const Interval &a, const Interval &b) {
-    return a.start < b.start or (a.start == b.start and a.end < b.end);
-}
-
 class Solution {
 public:
-    int minMeetingRooms(vector<Interval> &intervals) {
-        sort(intervals.begin(), intervals.end(), compareIntervals);
-        multiset<int, greater<>> room_available;
-
-        for (auto &i : intervals) {
-            auto it = room_available.lower_bound(i.start);
-            // if room exists such that its next available time <= our start time
-            // we book it, and update its next available time
-            if (it != room_available.end()) {
-                room_available.erase(it); // remove old available time
-            }
-            // else, we reserve anyway
-            room_available.insert(i.end); // insert the end time of our class
+    int minMeetingRooms(vector<Interval>& intervals) {
+        if (intervals.empty()) {
+            return 0;
         }
-        return room_available.size();
+
+        sort(intervals.begin(), intervals.end(), [](const Interval& a, const Interval& b) {
+            return a.start < b.start;
+        });
+
+        priority_queue<int, vector<int>, greater<int>> room_end_times;
+
+        for (const auto& i : intervals) {
+            if (!room_end_times.empty() && room_end_times.top() <= i.start) {
+                room_end_times.pop();
+            }
+            room_end_times.push(i.end);
+        }
+
+        return room_end_times.size();
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    vector<Interval> t1 = {Interval(0, 30), Interval(5, 10), Interval(15, 20)};
-    cout << sol.minMeetingRooms(t1) << endl; // 2
+    vector<Interval> t1 = {{0, 30}, {5, 10}, {15, 20}};
+    assert(sol.minMeetingRooms(t1) == 2);
 
-    vector<Interval> t2 = {Interval(2, 7)};
-    cout << sol.minMeetingRooms(t2) << endl; // 1
+    vector<Interval> t2 = {{2, 7}};
+    assert(sol.minMeetingRooms(t2) == 1);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

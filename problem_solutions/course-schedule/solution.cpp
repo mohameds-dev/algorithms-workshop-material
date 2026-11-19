@@ -1,25 +1,16 @@
 #include <bits/stdc++.h>
+#include <cassert>
 
 using namespace std;
 
-const int NODES = 1e5 + 5;
-const int EDGES = 2e5 + 5;
+vector<int> findOrder(int n, const vector<pair<int, int>>& prerequisites) {
+    vector<int> in_degree(n + 1, 0);
+    vector<vector<int>> adj_list(n + 1);
 
-int in_degree[NODES] = {};
-vector<int> adj_list[NODES];
-
-int main() {
-    int n, m;
-    cin >> n >> m;
-
-    int a, b;
-    for (int i = 0; i < m; i++) {
-        cin >> a >> b;
+    for (const auto& [a, b] : prerequisites) {
         adj_list[a].push_back(b);
-        in_degree[b] += 1;
+        in_degree[b]++;
     }
-
-    vector<int> top_sorted;
 
     queue<int> q;
     for (int i = 1; i <= n; i++) {
@@ -28,6 +19,7 @@ int main() {
         }
     }
 
+    vector<int> top_sorted;
     while (!q.empty()) {
         int current = q.front();
         q.pop();
@@ -35,7 +27,6 @@ int main() {
 
         for (int child : adj_list[current]) {
             in_degree[child]--;
-
             if (in_degree[child] == 0) {
                 q.push(child);
             }
@@ -43,13 +34,34 @@ int main() {
     }
 
     if ((int)top_sorted.size() < n) {
-        cout << "IMPOSSIBLE";
-    } else {
-        for (int node : top_sorted) {
-            cout << node << " ";
+        return {};
+    }
+    return top_sorted;
+}
+
+void test_solution() {
+    vector<int> expected1 = {1, 2, 3, 4};
+    assert(findOrder(4, {{1, 2}, {2, 3}, {3, 4}}) == expected1);
+    assert(findOrder(2, {{1, 2}, {2, 1}}).empty());
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    /*
+    int n, m;
+    if (cin >> n >> m) {
+        vector<pair<int, int>> prerequisites(m);
+        for (int i = 0; i < m; i++) {
+            cin >> prerequisites[i].first >> prerequisites[i].second;
+        }
+        vector<int> order = findOrder(n, prerequisites);
+        if (order.empty()) {
+            cout << "IMPOSSIBLE\n";
+        } else {
+            for (int node : order) cout << node << " ";
+            cout << "\n";
         }
     }
-    cout << endl;
-
+    */
     return 0;
 }

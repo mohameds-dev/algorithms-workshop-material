@@ -1,3 +1,4 @@
+#include <cassert>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -20,10 +21,16 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    int n = 7;
-    cout << sol.fib(n) << endl;
+    assert(sol.fib(0) == 0);
+    assert(sol.fib(1) == 1);
+    assert(sol.fib(2) == 1);
+    assert(sol.fib(3) == 2);
+    assert(sol.fib(4) == 3);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

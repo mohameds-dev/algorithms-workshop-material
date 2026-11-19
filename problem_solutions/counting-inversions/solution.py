@@ -5,7 +5,7 @@ def merge_and_count(a, aux, lo, mid, hi):
 
     i, j, k = lo, mid, lo
     inversions = 0
-    
+
     while i < mid and j < hi:
         if aux[i] <= aux[j]:
             a[k] = aux[i]
@@ -47,5 +47,11 @@ def count(nums):
     return count_inversions(a, aux, 0, len(a))
 
 
+def test_solution():
+    assert count([2, 4, 1, 3, 5]) == 3
+    assert count([1, 2, 3, 4, 5]) == 0
+    assert count([5, 4, 3, 2, 1]) == 10
+
+
 if __name__ == "__main__":
-    print(count([2, 4, 1, 3, 5]))
+    test_solution()  # Comment this out to run with custom inputs

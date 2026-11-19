@@ -1,17 +1,12 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
-// Fills p[index:] and, once every position is filled, prints one social
-// permutation. used[v] marks whether value v is already assigned to an
-// earlier position.
-void backtrack(int n, int index, vector<int> &p, vector<bool> &used) {
+// Fills p[index:] and, once every position is filled, stores one social
+// permutation. used[v] marks whether value v is already assigned.
+void backtrack(int n, int index, vector<int> &p, vector<bool> &used, vector<vector<int>> &results) {
     if (index == n) {
-        cout << "[";
-        for (int i = 0; i < n; i++) {
-            cout << p[i];
-            if (i + 1 < n) cout << ", ";
-        }
-        cout << "]" << endl;
+        results.push_back(p);
         return;
     }
 
@@ -21,19 +16,39 @@ void backtrack(int n, int index, vector<int> &p, vector<bool> &used) {
 
         p[index] = v;
         used[v] = true;
-        backtrack(n, index + 1, p, used);
+        backtrack(n, index + 1, p, used, results);
         used[v] = false;
     }
 }
 
-void printSocialPermutations(int n) {
+vector<vector<int>> getSocialPermutations(int n) {
     vector<int> p(n);
     vector<bool> used(n, false);
-    backtrack(n, 0, p, used);
+    vector<vector<int>> results;
+    backtrack(n, 0, p, used, results);
+    return results;
+}
+
+void printSocialPermutations(int n) {
+    for (const auto &p : getSocialPermutations(n)) {
+        cout << "[";
+        for (int i = 0; i < n; i++) {
+            cout << p[i];
+            if (i + 1 < n) cout << ", ";
+        }
+        cout << "]\n";
+    }
+}
+
+void test_solution() {
+    vector<vector<int>> perms3 = getSocialPermutations(3);
+    vector<vector<int>> expected3 = {{1, 2, 0}, {2, 0, 1}};
+    assert(perms3 == expected3);
+    assert(getSocialPermutations(2).empty());
 }
 
 int main() {
-    printSocialPermutations(3);
-
+    test_solution(); // Comment this out to run with custom inputs
+    // printSocialPermutations(3);
     return 0;
 }

@@ -1,49 +1,58 @@
 #include <bits/stdc++.h>
+#include <cassert>
 
 using namespace std;
 
-const int NODES = 2e5 + 5;
+int findTreeDiameter(int n, const vector<pair<int, int>>& edges) {
+    if (n <= 1) return 0;
 
-vector<int> adj_list[NODES];
-
-int farthest_node = 0, max_distance = 0;
-
-bool visited[NODES];
-
-void dfs(int node, int distance) {
-    visited[node] = true;
-
-    if (distance > max_distance) {
-        max_distance = distance;
-        farthest_node = node;
-    }
-
-    for (int child : adj_list[node]) {
-        if (!visited[child]) {
-            dfs(child, distance + 1);
-        }
-    }
-}
-
-int main() {
-    int n;
-    cin >> n;
-
-    int a, b;
-    for (int i = 0; i < n - 1; i++) {
-        cin >> a >> b;
+    vector<vector<int>> adj_list(n + 1);
+    for (const auto& [a, b] : edges) {
         adj_list[a].push_back(b);
         adj_list[b].push_back(a);
     }
 
-    dfs(1, 0);
-    int first_farthest = farthest_node;
-    memset(visited, 0, sizeof visited);
+    int farthest_node = 0;
+    int max_distance = 0;
+    vector<bool> visited(n + 1, false);
 
-    dfs(first_farthest, 0);
-    int diameter = max_distance;
+    auto dfs = [&](auto& self, int node, int distance) -> void {
+        visited[node] = true;
+        if (distance > max_distance) {
+            max_distance = distance;
+            farthest_node = node;
+        }
 
-    cout << diameter << endl;
+        for (int child : adj_list[node]) {
+            if (!visited[child]) {
+                self(self, child, distance + 1);
+            }
+        }
+    };
 
+    dfs(dfs, 1, 0);
+
+    visited.assign(n + 1, false);
+    max_distance = 0;
+    dfs(dfs, farthest_node, 0);
+
+    return max_distance;
+}
+
+void test_solution() {
+    assert(findTreeDiameter(5, {{1, 2}, {1, 3}, {3, 4}, {3, 5}}) == 3);
+    assert(findTreeDiameter(1, {}) == 0);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    /*
+    int n;
+    if (cin >> n) {
+        vector<pair<int, int>> edges(n - 1);
+        for (int i = 0; i < n - 1; ++i) cin >> edges[i].first >> edges[i].second;
+        cout << findTreeDiameter(n, edges) << "\n";
+    }
+    */
     return 0;
 }

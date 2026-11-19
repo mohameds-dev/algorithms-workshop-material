@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -63,3 +64,22 @@ public:
         return max_time;
     }
 };
+
+void test_solution() {
+    Solution sol;
+    // Test case 1: Standard reachable network
+    vector<vector<int>> times1 = {{2, 1, 1}, {2, 3, 1}, {3, 4, 1}};
+    assert(sol.networkDelayTime(times1, 4, 2) == 2);
+
+    // Test case 2: Single directed edge with unreachable destination
+    vector<vector<int>> times2 = {{1, 2, 1}};
+    assert(sol.networkDelayTime(times2, 2, 2) == -1);
+
+    // Test case 3: Single directed edge reachable
+    assert(sol.networkDelayTime(times2, 2, 1) == 1);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    return 0;
+}

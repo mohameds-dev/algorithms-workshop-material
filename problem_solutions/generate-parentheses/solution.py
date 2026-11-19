@@ -30,8 +30,12 @@ class Solution:
         return result
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.generateParenthesis(1))
-    print(sol.generateParenthesis(2))
-    print(sol.generateParenthesis(3))
+    assert sol.generateParenthesis(1) == ["()"]
+    res3 = set(sol.generateParenthesis(3))
+    assert res3 == {"((()))", "(()())", "(())()", "()(())", "()()()"}
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

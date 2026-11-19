@@ -24,17 +24,17 @@ class Solution:
                 if in_grid(ni, nj) and grid[ni][nj] == "1" and (ni, nj) not in visited:
                     dfs(ni, nj)
 
-        islands_counter = 0
+        ans = 0
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == "1" and (i, j) not in visited:
-                    islands_counter += 1
                     dfs(i, j)
+                    ans += 1
 
-        return islands_counter
+        return ans
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
     grid1 = [
         ["1", "1", "1", "1", "0"],
@@ -42,7 +42,7 @@ if __name__ == "__main__":
         ["1", "1", "0", "0", "0"],
         ["0", "0", "0", "0", "0"],
     ]
-    print(sol.numIslands(grid1))  # 1
+    assert sol.numIslands(grid1) == 1
 
     grid2 = [
         ["1", "1", "0", "0", "0"],
@@ -50,4 +50,8 @@ if __name__ == "__main__":
         ["0", "0", "1", "0", "0"],
         ["0", "0", "0", "1", "1"],
     ]
-    print(sol.numIslands(grid2))  # 3
+    assert sol.numIslands(grid2) == 3
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

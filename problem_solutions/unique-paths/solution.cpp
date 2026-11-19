@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <vector>
 
@@ -7,8 +8,8 @@ class Solution {
 public:
     int uniquePaths(int m, int n) {
         vector<int> dp(n, 1);
-        for (int row = 1; row < m; row++) {
-            for (int col = 1; col < n; col++) {
+        for (int row = 1; row < m; ++row) {
+            for (int col = 1; col < n; ++col) {
                 dp[col] += dp[col - 1];
             }
         }
@@ -16,10 +17,14 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    cout << sol.uniquePaths(3, 7) << endl; // 28
-    cout << sol.uniquePaths(3, 2) << endl; // 3
-    cout << sol.uniquePaths(3, 3) << endl; // 6
+    assert(sol.uniquePaths(3, 7) == 28);
+    assert(sol.uniquePaths(3, 2) == 3);
+    assert(sol.uniquePaths(3, 3) == 6);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

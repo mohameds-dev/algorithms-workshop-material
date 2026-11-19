@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 class Solution {
@@ -30,9 +31,15 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    cout << "Pull: " << sol.climbStairs(5) << "\n";
-    cout << "Push: " << sol.climbStairsPush(5) << "\n";
+    assert(sol.climbStairs(2) == 2);
+    assert(sol.climbStairs(3) == 3);
+    assert(sol.climbStairs(5) == 8);
+    assert(sol.climbStairsPush(5) == 8);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

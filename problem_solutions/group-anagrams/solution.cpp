@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -25,17 +26,21 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
     vector<vector<string>> result = sol.groupAnagrams(strs);
-    for (const auto &group : result) {
-        cout << "[";
-        for (size_t i = 0; i < group.size(); i++) {
-            cout << group[i];
-            if (i + 1 < group.size()) cout << ", ";
-        }
-        cout << "]\n";
+    for (auto &group : result) {
+        sort(group.begin(), group.end());
     }
+    sort(result.begin(), result.end());
+
+    vector<vector<string>> expected = {{"ate", "eat", "tea"}, {"bat"}, {"nat", "tan"}};
+    sort(expected.begin(), expected.end());
+    assert(result == expected);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

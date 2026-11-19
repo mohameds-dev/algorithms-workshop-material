@@ -4,21 +4,14 @@ import sys
 sys.setrecursionlimit(300000)
 
 
-def main():
-    input_data = sys.stdin.read().split()
-    if not input_data:
-        return
+def find_tree_diameter(n: int, edges: list[tuple[int, int]]) -> int:
+    if n <= 1:
+        return 0
 
-    n = int(input_data[0])
     adj_list = [[] for _ in range(n + 1)]
-
-    idx = 1
-    for _ in range(n - 1):
-        a = int(input_data[idx])
-        b = int(input_data[idx + 1])
+    for a, b in edges:
         adj_list[a].append(b)
         adj_list[b].append(a)
-        idx += 2
 
     farthest_node = 0
     max_distance = 0
@@ -40,10 +33,32 @@ def main():
     first_farthest = farthest_node
 
     visited = [False] * (n + 1)
+    max_distance = 0
     dfs(first_farthest, 0)
 
-    print(max_distance)
+    return max_distance
+
+
+def main():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+
+    n = int(input_data[0])
+    edges = []
+    idx = 1
+    for _ in range(n - 1):
+        edges.append((int(input_data[idx]), int(input_data[idx + 1])))
+        idx += 2
+
+    print(find_tree_diameter(n, edges))
+
+
+def test_solution():
+    assert find_tree_diameter(5, [(1, 2), (1, 3), (3, 4), (3, 5)]) == 3
+    assert find_tree_diameter(1, []) == 0
 
 
 if __name__ == "__main__":
-    main()
+    test_solution()  # Comment this out to run with custom inputs
+    # main()

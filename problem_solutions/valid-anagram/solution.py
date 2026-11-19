@@ -11,7 +11,11 @@ class Solution:
         return all(count == 0 for count in counts)
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.isAnagram("anagram", "nagaram"))  # True
-    print(sol.isAnagram("rat", "car"))          # False
+    assert sol.isAnagram("anagram", "nagaram") is True
+    assert sol.isAnagram("rat", "car") is False
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

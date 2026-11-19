@@ -1,77 +1,98 @@
 # Test suite
 
-A pytest suite that checks the solutions in `../algorithm_implementation/` for correctness,
-using shared, reusable test cases per problem category (currently: sorting, hanoi).
+A test suite that checks all solutions across `../problem_solutions/` and
+`../algorithm_implementation/` for correctness in Python and C++20.
 
 ## Setup
 
 From this directory:
 
-```
+```bash
 uv sync
 ```
 
-## Running
+## Running Tests
 
+### Option 1: Fast CLI Runner (Best for single files or problem folders)
+
+Use `tests/run_solution.py` from the repository root:
+
+```bash
+# Test a specific Python or C++ solution file:
+python tests/run_solution.py problem_solutions/shortest-routes-i/solution.py
+python tests/run_solution.py problem_solutions/shortest-routes-i/solution.cpp
+
+# Test all solutions for a specific problem folder:
+python tests/run_solution.py problem_solutions/shortest-routes-i/
+python tests/run_solution.py shortest-routes-i
+
+# Run tests on every solution across the entire repo:
+python tests/run_solution.py
 ```
-uv run pytest                    # everything
-uv run pytest -k merge_sort      # just one algorithm
-uv run pytest -k reverse_sorted  # just one case, across every algorithm
-uv run pytest sorting            # just one category
-uv run pytest -v                 # list every test that ran, by name
+
+### Option 2: Running with pytest
+
+From the `tests/` directory:
+
+```bash
+# Run everything:
+uv run pytest
+
+# Run tests for a specific file path using --path:
+uv run pytest test_solutions.py --path problem_solutions/shortest-routes-i/solution.py
+
+# Run tests for a specific problem using -k keyword filter:
+uv run pytest -k shortest-routes-i
+uv run pytest -k network-delay-time
+
+# Run only Python or only C++ tests:
+uv run pytest -k solution.py
+uv run pytest -k solution.cpp
+
+# Run canonical algorithm tests:
+uv run pytest -k merge_sort
+uv run pytest sorting
+uv run pytest hanoi
 ```
 
-## Adding a test case
+## How Solutions Are Tested
 
-Sorting cases live in `sorting/cases.py`. Add one `SortCase(name, input)` to `SORT_CASES`; it
-runs against every registered sorting algorithm automatically.
+Every solution file in `problem_solutions/` and `algorithm_implementation/` is **self-testing**. Test inputs and assertions live directly inside the file within a `test_solution()` function called from the file's main execution block:
 
-Hanoi cases live in `hanoi/cases.py`. Add one
-`HanoiCase(name, disks, from_pole, to_pole, aux_pole)` to `HANOI_CASES`; the expected result is
-derived from the case itself, so there is nothing else to write.
-
-## Adding a new algorithm
-
-Copy `sorting/test_merge_sort.py` to `sorting/test_<algorithm>.py`, and change `SOLUTION_PATH`
-to point at the new algorithm's solution file (and rename the test function, so failures are
-reported under the right name). That's the whole file:
-
+### Python Pattern
 ```python
-from pathlib import Path
-
-from sorting.harness import assert_sorts_correctly, load_sort_function, sort_cases
-
-REPO_ROOT = Path(__file__).resolve().parents[2]
-SOLUTION_PATH = REPO_ROOT / "algorithm_implementation" / "<algorithm-slug>" / "solution.py"
-
-<algorithm> = load_sort_function(SOLUTION_PATH)
+def test_solution():
+    sol = Solution()
+    assert sol.method(...) == expected_value
 
 
-@sort_cases
-def test_<algorithm>_correctness(case):
-    assert_sorts_correctly(<algorithm>, case)
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs
 ```
 
-The solution file must define a top-level `sort(a)` function that returns `a` sorted in
-nondecreasing order. Every case in `cases.py` runs against it automatically; nothing in
-`cases.py` or `harness.py` needs to change.
+### C++20 Pattern
+```cpp
+#include <cassert>
 
-## What each category checks
+void test_solution() {
+    Solution sol;
+    assert(sol.method(...) == expected_value);
+}
 
-- `sorting/`: the returned list equals `sorted(input)`.
-- `hanoi/`: the solution prints its moves, so the harness captures stdout, parses each
-  `move disk <disk> from <pole> to <pole>` line, and replays the moves onto three stacks. It
-  fails if a move takes a disk that isn't on top, drops a disk onto a smaller one, names an
-  unknown pole, prints a line it can't parse, leaves a disk on the wrong pole at the end, or uses
-  more than the minimum `2^disks - 1` moves. Counting the printed lines is not enough on its own:
-  a wrong solution can print the right number of illegal moves.
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    return 0;
+}
+```
 
-## Adding a new category (not sorting or hanoi)
+This structure makes running tests straightforward:
+1. Executing `python3 <file.py>` or compiling and running `<file.cpp>` runs the test assertions.
+2. If all assertions pass, the program exits with code `0`. If any assertion fails, it exits with a non-zero code and pinpoints the failing assertion line.
+3. To run the file with custom inputs or standard input, simply comment out the `test_solution()` call.
 
-Copy the shape of `sorting/`: a `cases.py` for reusable inputs/expectations, a `harness.py`
-with the loading/assertion logic shared by every algorithm in the category, and one
-`test_<algorithm>.py` per algorithm that imports the harness and points it at that algorithm's
-solution file, plus an `__init__.py`. Add the directory to `testpaths` in `pyproject.toml`, or
-`uv run pytest` will not collect it. Keep case data, harness, and per-algorithm files separate,
-the way `sorting/` does, so adding an algorithm never means editing an existing file, and adding a case or a
-second kind of check (e.g. a performance test) never means touching every algorithm's file.
+## Canonical Algorithms Suite (`tests/sorting/` and `tests/hanoi/`)
+
+In addition to the self-tests in each solution file, standalone canonical algorithms in `algorithm_implementation/` are verified against reusable test suites:
+
+- `sorting/`: validates that the function sorts arbitrary inputs nondecreasingly.
+- `hanoi/`: simulates disk movements onto three stacks, verifying move legality, disk constraints, and the optimal $2^n - 1$ move count.

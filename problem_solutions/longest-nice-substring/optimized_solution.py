@@ -16,7 +16,12 @@ class Solution:
         return self.solve(s)
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    s = "YazaAay"
-    print(sol.longestNiceSubstring(s))
+    assert sol.longestNiceSubstring("YazaAay") == "aAa"
+    assert sol.longestNiceSubstring("Bb") == "Bb"
+    assert sol.longestNiceSubstring("c") == ""
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

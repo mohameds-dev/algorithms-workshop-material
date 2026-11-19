@@ -14,7 +14,11 @@ class Solution:
         return trib[n]
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.tribonacci(4))  # 4
-    print(sol.tribonacci(25))  # 1389537
+    assert sol.tribonacci(4) == 4
+    assert sol.tribonacci(25) == 1389537
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

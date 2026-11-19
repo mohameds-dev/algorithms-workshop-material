@@ -45,3 +45,12 @@ class Solution:
         backtrack(0)
         return answer
 
+
+def test_solution():
+    sol = Solution()
+    assert len(sol.solveNQueens(4)) == 2
+    assert sol.solveNQueens(1) == [["Q"]]
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

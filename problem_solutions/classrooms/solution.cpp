@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <set>
 #include <vector>
@@ -16,18 +17,7 @@ bool compare_classes(const Class &a, const Class &b) {
     return a.end < b.end;
 }
 
-int main() {
-    int num_classes, num_rooms;
-    cin >> num_classes >> num_rooms;
-
-    vector<Class> classes(num_classes);
-
-    for (int i = 0; i < num_classes; ++i) {
-        int a, b;
-        cin >> a >> b;
-        classes[i] = {a, b};
-    }
-
+int max_scheduled_activities(int num_rooms, vector<Class> classes) {
     sort(classes.begin(), classes.end(), compare_classes);
 
     // Track when each occupied room becomes free
@@ -48,6 +38,27 @@ int main() {
         }
     }
 
-    cout << answer << "\n";
+    return answer;
+}
+
+void test_solution() {
+    // 3 activities, 2 classrooms: [1, 2], [2, 3], [1, 3] -> 2
+    assert(max_scheduled_activities(2, {{1, 2}, {2, 3}, {1, 3}}) == 2);
+    // Single room, strictly disjoint activities (start > prev end)
+    assert(max_scheduled_activities(1, {{1, 4}, {2, 5}, {5, 6}}) == 2);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    /*
+    int num_classes, num_rooms;
+    if (cin >> num_classes >> num_rooms) {
+        vector<Class> classes(num_classes);
+        for (int i = 0; i < num_classes; ++i) {
+            cin >> classes[i].start >> classes[i].end;
+        }
+        cout << max_scheduled_activities(num_rooms, classes) << "\n";
+    }
+    */
     return 0;
 }

@@ -1,3 +1,4 @@
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -38,3 +39,17 @@ public:
         return total_cost;
     }
 };
+
+void test_solution() {
+    Solution sol;
+    vector<vector<int>> points1 = {{0, 0}, {2, 2}, {3, 10}, {5, 2}, {7, 0}};
+    assert(sol.minCostConnectPoints(points1) == 20);
+
+    vector<vector<int>> points2 = {{3, 12}, {-2, 5}, {-4, 1}};
+    assert(sol.minCostConnectPoints(points2) == 18);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    return 0;
+}

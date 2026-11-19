@@ -21,8 +21,11 @@ class Solution:
         return dp[-1]
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.uniquePathsWithObstacles([[0, 0, 0], [0, 1, 0], [0, 0, 0]]))  # 2
-    print(sol.uniquePathsWithObstacles([[0, 1], [0, 0]]))                    # 1
-    print(sol.uniquePathsWithObstacles([[1]]))                                # 0
+    assert sol.uniquePathsWithObstacles([[0, 0, 0], [0, 1, 0], [0, 0, 0]]) == 2
+    assert sol.uniquePathsWithObstacles([[0, 1], [0, 0]]) == 1
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

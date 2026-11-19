@@ -25,8 +25,12 @@ class Solution:
         return cur_time
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.leastInterval(["A", "A", "A", "B", "B", "B"], 2))  # 8
-    print(sol.leastInterval(["A", "C", "A", "B", "D", "B"], 1))  # 6
-    print(sol.leastInterval(["A", "A", "A", "B", "B", "B"], 3))  # 10
+    assert sol.leastInterval(["A", "A", "A", "B", "B", "B"], 2) == 8
+    assert sol.leastInterval(["A", "C", "A", "B", "D", "B"], 1) == 6
+    assert sol.leastInterval(["A", "A", "A", "B", "B", "B"], 3) == 10
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

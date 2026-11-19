@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 class Solution {
@@ -41,11 +42,14 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<vector<int>> matrix = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
-    int target = 3;
-    cout << (sol.searchMatrix(matrix, target) ? "true" : "false") << endl;
+    assert(sol.searchMatrix(matrix, 3) == true);
+    assert(sol.searchMatrix(matrix, 13) == false);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

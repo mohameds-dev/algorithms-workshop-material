@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 // Merges the two already-sorted ranges a[lo, mid) and a[mid, hi) into a
@@ -31,10 +32,15 @@ vector<int> mergeSort(vector<int> a) {
     return a;
 }
 
-int main() {
+void test_solution() {
     vector<int> a = {5, 2, 3, 1, 4, 4, -1};
-    for (int x : mergeSort(a)) cout << x << " ";
-    cout << endl;
+    vector<int> expected = {-1, 1, 2, 3, 4, 4, 5};
+    assert(mergeSort(a) == expected);
+    assert(mergeSort(vector<int>{}).empty());
+    assert(mergeSort(vector<int>{1}) == vector<int>{1});
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

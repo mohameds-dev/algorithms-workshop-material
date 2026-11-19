@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 class Solution {
@@ -29,19 +30,16 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<int> nums = {1, 2, 3};
-    vector<vector<int>> result = sol.permute(nums);
+    vector<vector<int>> res = sol.permute(nums);
+    assert(res.size() == 6);
+    vector<int> single = {1};
+    assert(sol.permute(single) == vector<vector<int>>{{1}});
+}
 
-    for (auto &permutation : result) {
-        cout << "[";
-        for (size_t i = 0; i < permutation.size(); i++) {
-            cout << permutation[i];
-            if (i + 1 < permutation.size()) cout << ", ";
-        }
-        cout << "]" << endl;
-    }
-
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

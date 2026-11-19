@@ -1,32 +1,26 @@
-#include <iostream>
-#include <vector>
-#include <queue>
 #include <algorithm>
-#include <climits>
+#include <cassert>
+#include <iostream>
+#include <queue>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-private:
-    const vector<pair<int, int>> directions = {
-        {-1, 0}, {1, 0}, {0, 1}, {0, -1}
-    };
-
-    bool inBounds(int i, int j, int n, int m) {
-        return i >= 0 && j >= 0 && i < n && j < m;
-    }
-
 public:
     int orangesRotting(vector<vector<int>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        vector<vector<int>> minuteRotten(n, vector<int>(m, INT_MAX));
+        const int INF = 1e9;
+        vector<vector<int>> minute_rotten(n, vector<int>(m, INF));
         queue<pair<int, int>> q;
+
+        vector<pair<int, int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
 
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 if (grid[i][j] == 2) {
-                    minuteRotten[i][j] = 0;
+                    minute_rotten[i][j] = 0;
                     q.push({i, j});
                 }
             }
@@ -35,49 +29,50 @@ public:
         while (!q.empty()) {
             auto [i, j] = q.front();
             q.pop();
-            int rotten = minuteRotten[i][j];
+            int rotten = minute_rotten[i][j];
 
-            for (const auto& [di, dj] : directions) {
+            for (const auto& [di, dj] : dirs) {
                 int ni = i + di;
                 int nj = j + dj;
-                if (inBounds(ni, nj, n, m) && grid[ni][nj] == 1 && minuteRotten[ni][nj] > rotten + 1) {
-                    minuteRotten[ni][nj] = rotten + 1;
+
+                if (ni >= 0 && ni < n && nj >= 0 && nj < m &&
+                    grid[ni][nj] == 1 &&
+                    minute_rotten[ni][nj] == INF) {
+                    minute_rotten[ni][nj] = rotten + 1;
                     q.push({ni, nj});
                 }
             }
         }
 
-        int latestRotTime = 0;
+        int max_minutes = 0;
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 if (grid[i][j] == 1) {
-                    latestRotTime = max(latestRotTime, minuteRotten[i][j]);
+                    if (minute_rotten[i][j] == INF) {
+                        return -1;
+                    }
+                    max_minutes = max(max_minutes, minute_rotten[i][j]);
                 }
             }
         }
 
-        return (latestRotTime == INT_MAX) ? -1 : latestRotTime;
+        return max_minutes;
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    vector<vector<int>> grid1 = {
-        {2, 1, 1},
-        {1, 1, 0},
-        {0, 1, 1}
-    };
-    cout << sol.orangesRotting(grid1) << endl; // 4
+    vector<vector<int>> grid1 = {{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
+    assert(sol.orangesRotting(grid1) == 4);
 
-    vector<vector<int>> grid2 = {
-        {2, 1, 1},
-        {0, 1, 1},
-        {1, 0, 1}
-    };
-    cout << sol.orangesRotting(grid2) << endl; // -1
+    vector<vector<int>> grid2 = {{2, 1, 1}, {0, 1, 1}, {1, 0, 1}};
+    assert(sol.orangesRotting(grid2) == -1);
 
     vector<vector<int>> grid3 = {{0, 2}};
-    cout << sol.orangesRotting(grid3) << endl; // 0
+    assert(sol.orangesRotting(grid3) == 0);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

@@ -17,10 +17,14 @@ class Solution:
         return True
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
     test1 = [Interval(0, 30), Interval(5, 10), Interval(15, 20)]
-    print(sol.canAttendMeetings(test1))  # False
+    assert sol.canAttendMeetings(test1) is False
 
     test2 = [Interval(5, 8), Interval(9, 15)]
-    print(sol.canAttendMeetings(test2))  # True
+    assert sol.canAttendMeetings(test2) is True
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

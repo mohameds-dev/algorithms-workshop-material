@@ -38,3 +38,18 @@ class Solution:
             answer[orig_idx] = find(p) == find(q)
 
         return answer
+
+
+def test_solution():
+    sol = Solution()
+    edges1 = [[0, 1, 2], [1, 2, 4], [2, 0, 8], [1, 0, 16]]
+    queries1 = [[0, 1, 2], [0, 2, 5]]
+    assert sol.distanceLimitedPathsExist(3, edges1, queries1) == [False, True]
+
+    edges2 = [[0, 1, 10], [1, 2, 5], [2, 3, 9], [3, 4, 13]]
+    queries2 = [[0, 4, 14], [1, 4, 13]]
+    assert sol.distanceLimitedPathsExist(5, edges2, queries2) == [True, False]
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

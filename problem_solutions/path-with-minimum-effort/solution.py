@@ -35,3 +35,17 @@ class Solution:
                         heapq.heappush(pq, (next_effort, next_row, next_col))
 
         return 0
+
+
+def test_solution():
+    sol = Solution()
+    # Test case 1: Standard 3x3 grid with bottleneck path
+    assert sol.minimumEffortPath([[1, 2, 2], [3, 8, 2], [5, 3, 5]]) == 2
+    # Test case 2: Grid with effort 1
+    assert sol.minimumEffortPath([[1, 2, 3], [3, 8, 4], [5, 3, 5]]) == 1
+    # Test case 3: Flat paths
+    assert sol.minimumEffortPath([[1, 2, 1, 1, 1], [1, 2, 1, 2, 1], [1, 2, 1, 2, 1], [1, 2, 1, 2, 1], [1, 1, 1, 2, 1]]) == 0
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

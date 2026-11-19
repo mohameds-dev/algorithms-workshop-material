@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 class Solution {
@@ -21,11 +22,17 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    vector<int> nums = {-1, 0, 3, 5, 9, 12};
-    int target = 9;
-    cout << sol.search(nums, target) << endl;
+    vector<int> nums1 = {-1, 0, 3, 5, 9, 12};
+    assert(sol.search(nums1, 9) == 4);
+    assert(sol.search(nums1, 2) == -1);
+    vector<int> nums2 = {5};
+    assert(sol.search(nums2, 5) == 0);
+    assert(sol.search(nums2, -5) == -1);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

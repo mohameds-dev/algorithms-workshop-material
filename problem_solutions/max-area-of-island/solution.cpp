@@ -1,12 +1,13 @@
+#include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 class Solution {
 private:
-    const vector<pair<int, int>> directions = {
+    vector<pair<int, int>> directions = {
         {-1, 0}, {1, 0}, {0, -1}, {0, 1}
     };
 
@@ -14,16 +15,17 @@ private:
         return i >= 0 && i < rows && j >= 0 && j < cols;
     }
 
-    int dfs(int i, int j, const vector<vector<int>>& grid, vector<vector<bool>>& visited) {
+    int dfs(int i, int j, vector<vector<int>>& grid, vector<vector<bool>>& visited) {
         visited[i][j] = true;
         int area = 1;
-        int rows = grid.size();
-        int cols = grid[0].size();
 
         for (const auto& [di, dj] : directions) {
             int ni = i + di;
             int nj = j + dj;
-            if (inGrid(ni, nj, rows, cols) && grid[ni][nj] == 1 && !visited[ni][nj]) {
+
+            if (inGrid(ni, nj, grid.size(), grid[0].size()) &&
+                grid[ni][nj] == 1 &&
+                !visited[ni][nj]) {
                 area += dfs(ni, nj, grid, visited);
             }
         }
@@ -33,28 +35,26 @@ private:
 
 public:
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        if (grid.empty() || grid[0].empty()) {
-            return 0;
-        }
+        if (grid.empty()) return 0;
 
         int rows = grid.size();
         int cols = grid[0].size();
         vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-        int maxArea = 0;
 
+        int max_area = 0;
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (grid[i][j] == 1 && !visited[i][j]) {
-                    maxArea = max(maxArea, dfs(i, j, grid, visited));
+                    max_area = max(max_area, dfs(i, j, grid, visited));
                 }
             }
         }
 
-        return maxArea;
+        return max_area;
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<vector<int>> grid1 = {
         {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
@@ -66,10 +66,12 @@ int main() {
         {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
     };
-    cout << sol.maxAreaOfIsland(grid1) << endl; // 6
-
+    assert(sol.maxAreaOfIsland(grid1) == 6);
     vector<vector<int>> grid2 = {{0, 0, 0, 0, 0, 0, 0, 0}};
-    cout << sol.maxAreaOfIsland(grid2) << endl; // 0
+    assert(sol.maxAreaOfIsland(grid2) == 0);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

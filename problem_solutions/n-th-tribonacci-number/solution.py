@@ -47,8 +47,11 @@ class Solution:
         return solve(n)
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print("Optimized:", sol.tribonacci(4))
-    print("Tabulation:", sol.tribonacciTabulation(4))
-    print("Memoization:", sol.tribonacciMemo(4))
+    assert sol.tribonacci(4) == 4
+    assert sol.tribonacci(25) == 1389537
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

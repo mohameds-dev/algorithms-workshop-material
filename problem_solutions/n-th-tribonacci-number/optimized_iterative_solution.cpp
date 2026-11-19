@@ -1,3 +1,4 @@
+#include <cassert>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -21,9 +22,13 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    cout << sol.tribonacci(4) << "\n";   // 4
-    cout << sol.tribonacci(25) << "\n";  // 1389537
+    assert(sol.tribonacci(4) == 4);
+    assert(sol.tribonacci(25) == 1389537);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

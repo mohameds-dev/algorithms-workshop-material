@@ -1,25 +1,18 @@
-#include <bits/stdc++.h>
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <vector>
+
 using namespace std;
 
 class Solution {
 private:
-    int n;
-    vector<string> board;
+    vector<vector<string>> answer;
     vector<bool> col_reserved;
     vector<bool> main_diagonal_reserved;
     vector<bool> anti_diagonal_reserved;
-    vector<vector<string>> answer;
 
-    void initialize_fields(int board_size) {
-        n = board_size;
-        board = vector<string>(n, string(n, '.'));
-        col_reserved = vector<bool>(n, false);
-        main_diagonal_reserved = vector<bool>(2 * n - 1, false);
-        anti_diagonal_reserved = vector<bool>(2 * n - 1, false);
-        answer.clear();
-    }
-
-    bool is_attacked(int row, int col) {
+    bool is_attacked(int row, int col, int n) {
         int main_diagonal_index = row - col + (n - 1);
         int anti_diagonal_index = row + col;
         return col_reserved[col] ||
@@ -27,48 +20,55 @@ private:
                anti_diagonal_reserved[anti_diagonal_index];
     }
 
-    void backtrack(int current_row) {
-        if (current_row == n) {
+    void backtrack(int row, int n, vector<string> &board) {
+        if (row == n) {
             answer.push_back(board);
             return;
         }
 
-        for (int col = 0; col < n; col++) {
-            if (!is_attacked(current_row, col)) {
-                int main_diagonal_index = current_row - col + (n - 1);
-                int anti_diagonal_index = current_row + col;
-
-                board[current_row][col] = 'Q';
-                col_reserved[col] = true;
-                main_diagonal_reserved[main_diagonal_index] = true;
-                anti_diagonal_reserved[anti_diagonal_index] = true;
-
-                backtrack(current_row + 1);
-
-                board[current_row][col] = '.';
-                col_reserved[col] = false;
-                main_diagonal_reserved[main_diagonal_index] = false;
-                anti_diagonal_reserved[anti_diagonal_index] = false;
+        for (int col = 0; col < n; ++col) {
+            if (is_attacked(row, col, n)) {
+                continue;
             }
+
+            int main_diagonal_index = row - col + (n - 1);
+            int anti_diagonal_index = row + col;
+
+            board[row][col] = 'Q';
+            col_reserved[col] = true;
+            main_diagonal_reserved[main_diagonal_index] = true;
+            anti_diagonal_reserved[anti_diagonal_index] = true;
+
+            backtrack(row + 1, n, board);
+
+            board[row][col] = '.';
+            col_reserved[col] = false;
+            main_diagonal_reserved[main_diagonal_index] = false;
+            anti_diagonal_reserved[anti_diagonal_index] = false;
         }
     }
 
 public:
     vector<vector<string>> solveNQueens(int n) {
-        initialize_fields(n);
-        backtrack(0);
+        answer.clear();
+        col_reserved.assign(n, false);
+        main_diagonal_reserved.assign(2 * n - 1, false);
+        anti_diagonal_reserved.assign(2 * n - 1, false);
+
+        vector<string> board(n, string(n, '.'));
+        backtrack(0, n, board);
         return answer;
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    auto answer = sol.solveNQueens(4);
-    for (const auto &board : answer) {
-        for (const auto &row : board) {
-            cout << row << "\n";
-        }
-        cout << "\n";
-    }
+    assert(sol.solveNQueens(4).size() == 2);
+    vector<vector<string>> expected1 = {{"Q"}};
+    assert(sol.solveNQueens(1) == expected1);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

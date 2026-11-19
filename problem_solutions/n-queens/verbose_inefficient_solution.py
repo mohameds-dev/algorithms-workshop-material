@@ -46,9 +46,11 @@ class Solution:
         return answer
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    for b in sol.solveNQueens(4):
-        for r in b:
-            print(r)
-        print()
+    assert len(sol.solveNQueens(4)) == 2
+    assert sol.solveNQueens(1) == [["Q"]]
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

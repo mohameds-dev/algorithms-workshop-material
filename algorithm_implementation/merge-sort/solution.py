@@ -44,6 +44,12 @@ def sort(a):
     return a
 
 
+def test_solution():
+    assert sort([5, 2, 3, 1, 4, 4, -1]) == [-1, 1, 2, 3, 4, 4, 5]
+    assert sort([]) == []
+    assert sort([1]) == [1]
+    assert sort([3, 2, 1]) == [1, 2, 3]
+
+
 if __name__ == "__main__":
-    a = [5, 2, 3, 1, 4, 4, -1]
-    print(sort(a))
+    test_solution()  # Comment this out to run with custom inputs

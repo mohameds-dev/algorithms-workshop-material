@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <numeric>
 #include <vector>
@@ -69,3 +70,21 @@ public:
         return answer;
     }
 };
+
+void test_solution() {
+    Solution sol;
+    vector<vector<int>> edgeList1 = {{0, 1, 2}, {1, 2, 4}, {2, 0, 8}, {1, 0, 16}};
+    vector<vector<int>> queries1 = {{0, 1, 2}, {0, 2, 5}};
+    vector<bool> expected1 = {false, true};
+    assert(sol.distanceLimitedPathsExist(3, edgeList1, queries1) == expected1);
+
+    vector<vector<int>> edgeList2 = {{0, 1, 10}, {1, 2, 5}, {2, 3, 9}, {3, 4, 13}};
+    vector<vector<int>> queries2 = {{0, 4, 14}, {1, 4, 13}};
+    vector<bool> expected2 = {true, false};
+    assert(sol.distanceLimitedPathsExist(5, edgeList2, queries2) == expected2);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    return 0;
+}

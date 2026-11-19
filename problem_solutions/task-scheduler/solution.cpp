@@ -1,59 +1,63 @@
+#include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <queue>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 class Solution {
 public:
-    int leastInterval(vector<char> &tasks, int n) {
-        vector<int> freq(26, 0);
+    int leastInterval(vector<char>& tasks, int n) {
+        unordered_map<char, int> count_map;
         for (char task : tasks) {
-            freq[task - 'A']++;
+            count_map[task]++;
         }
 
-        priority_queue<int> maxHeap;
-        for (int count : freq) {
-            if (count > 0) {
-                maxHeap.push(count);
-            }
+        priority_queue<int> max_heap;
+        for (auto const& [task, count] : count_map) {
+            max_heap.push(count);
         }
 
-        queue<pair<int, int>> waitQueue;
-        int curTime = 0;
+        queue<pair<int, int>> wait_q; // pair of (remaining_count, ready_time)
+        int cur_time = 0;
 
-        while (!maxHeap.empty() || !waitQueue.empty()) {
-            if (!maxHeap.empty()) {
-                int count = maxHeap.top() - 1;
-                maxHeap.pop();
+        while (!max_heap.empty() || !wait_q.empty()) {
+            if (!max_heap.empty()) {
+                int count = max_heap.top();
+                max_heap.pop();
+                count--;
                 if (count > 0) {
-                    waitQueue.push({count, curTime + n});
+                    wait_q.push({count, cur_time + n});
                 }
             }
 
-            if (!waitQueue.empty() && waitQueue.front().second == curTime) {
-                int count = waitQueue.front().first;
-                waitQueue.pop();
-                maxHeap.push(count);
+            if (!wait_q.empty() && wait_q.front().second == cur_time) {
+                max_heap.push(wait_q.front().first);
+                wait_q.pop();
             }
 
-            curTime++;
+            cur_time++;
         }
 
-        return curTime;
+        return cur_time;
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<char> tasks1 = {'A', 'A', 'A', 'B', 'B', 'B'};
-    cout << sol.leastInterval(tasks1, 2) << endl; // 8
+    assert(sol.leastInterval(tasks1, 2) == 8);
 
     vector<char> tasks2 = {'A', 'C', 'A', 'B', 'D', 'B'};
-    cout << sol.leastInterval(tasks2, 1) << endl; // 6
+    assert(sol.leastInterval(tasks2, 1) == 6);
 
     vector<char> tasks3 = {'A', 'A', 'A', 'B', 'B', 'B'};
-    cout << sol.leastInterval(tasks3, 3) << endl; // 10
+    assert(sol.leastInterval(tasks3, 3) == 10);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

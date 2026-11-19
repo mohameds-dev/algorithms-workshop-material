@@ -25,35 +25,28 @@ class Solution:
                 if (
                     in_bounds(ni, nj)
                     and grid[ni][nj] == 1
-                    and minute_rotten[ni][nj] > rotten
+                    and minute_rotten[ni][nj] == float("inf")
                 ):
                     minute_rotten[ni][nj] = rotten + 1
                     q.append((ni, nj))
 
-        latest_rot_time = 0
+        max_minutes = 0
         for i in range(n):
             for j in range(m):
                 if grid[i][j] == 1:
-                    latest_rot_time = max(latest_rot_time, minute_rotten[i][j])
+                    if minute_rotten[i][j] == float("inf"):
+                        return -1
+                    max_minutes = max(max_minutes, minute_rotten[i][j])
 
-        return -1 if latest_rot_time == float("inf") else latest_rot_time
+        return max_minutes
+
+
+def test_solution():
+    sol = Solution()
+    assert sol.orangesRotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]]) == 4
+    assert sol.orangesRotting([[2, 1, 1], [0, 1, 1], [1, 0, 1]]) == -1
+    assert sol.orangesRotting([[0, 2]]) == 0
 
 
 if __name__ == "__main__":
-    sol = Solution()
-    grid1 = [
-        [2, 1, 1],
-        [1, 1, 0],
-        [0, 1, 1],
-    ]
-    print(sol.orangesRotting(grid1))  # 4
-
-    grid2 = [
-        [2, 1, 1],
-        [0, 1, 1],
-        [1, 0, 1],
-    ]
-    print(sol.orangesRotting(grid2))  # -1
-
-    grid3 = [[0, 2]]
-    print(sol.orangesRotting(grid3))  # 0
+    test_solution()  # Comment this out to run with custom inputs

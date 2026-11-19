@@ -24,10 +24,14 @@ class Solution:
         return len(room_end_times)
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
     t1 = [Interval(0, 30), Interval(5, 10), Interval(15, 20)]
-    print(sol.minMeetingRooms(t1))  # 2
+    assert sol.minMeetingRooms(t1) == 2
 
     t2 = [Interval(2, 7)]
-    print(sol.minMeetingRooms(t2))  # 1
+    assert sol.minMeetingRooms(t2) == 1
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

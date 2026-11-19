@@ -10,6 +10,12 @@ class Solution:
         return mem[n]
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.climbStairs(5))  # 8
+    assert sol.climbStairs(2) == 2
+    assert sol.climbStairs(3) == 3
+    assert sol.climbStairs(5) == 8
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

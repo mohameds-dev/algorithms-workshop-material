@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 class Solution {
@@ -24,19 +25,16 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<int> nums = {1, 2, 3};
-    vector<vector<int>> result = sol.subsets(nums);
+    vector<vector<int>> res = sol.subsets(nums);
+    assert(res.size() == 8);
+    vector<int> single = {0};
+    assert(sol.subsets(single).size() == 2);
+}
 
-    for (auto &subset : result) {
-        cout << "[";
-        for (size_t i = 0; i < subset.size(); i++) {
-            cout << subset[i];
-            if (i + 1 < subset.size()) cout << ", ";
-        }
-        cout << "]" << endl;
-    }
-
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

@@ -13,8 +13,16 @@ class Solution:
         return list(groups.values())
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
-    print(sol.groupAnagrams([""]))
-    print(sol.groupAnagrams(["a"]))
+    out = [sorted(g) for g in sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])]
+    out.sort()
+    expected = [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]
+    expected.sort()
+    assert out == expected
+    assert sol.groupAnagrams([""]) == [[""]]
+    assert sol.groupAnagrams(["a"]) == [["a"]]
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

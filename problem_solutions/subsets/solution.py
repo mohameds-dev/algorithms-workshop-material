@@ -21,7 +21,15 @@ class Solution:
         return result
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    nums = [1, 2, 3]
-    print(sol.subsets(nums))
+    res = sol.subsets([1, 2, 3])
+    assert len(res) == 8
+    assert [] in res
+    assert [1, 2, 3] in res
+    res_single = sol.subsets([0])
+    assert len(res_single) == 2
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs

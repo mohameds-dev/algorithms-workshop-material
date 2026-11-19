@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <queue>
@@ -64,3 +65,19 @@ public:
         return 0;
     }
 };
+
+void test_solution() {
+    Solution sol;
+    // Test case 1: Standard 3x3 grid with bottleneck path
+    vector<vector<int>> heights1 = {{1, 2, 2}, {3, 8, 2}, {5, 3, 5}};
+    assert(sol.minimumEffortPath(heights1) == 2);
+
+    // Test case 2: Grid with effort 1
+    vector<vector<int>> heights2 = {{1, 2, 3}, {3, 8, 4}, {5, 3, 5}};
+    assert(sol.minimumEffortPath(heights2) == 1);
+}
+
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
+    return 0;
+}

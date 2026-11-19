@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 
 // Merges the two already-sorted ranges a[lo, mid) and a[mid, hi) into a
@@ -39,9 +40,13 @@ long long countInversions(vector<int> a) {
     return countInversions(a, aux, 0, (int)a.size());
 }
 
-int main() {
-    vector<int> a = {2, 4, 1, 3, 5};
-    cout << countInversions(a) << endl;
+void test_solution() {
+    assert(countInversions({2, 4, 1, 3, 5}) == 3);
+    assert(countInversions({1, 2, 3, 4, 5}) == 0);
+    assert(countInversions({5, 4, 3, 2, 1}) == 10);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

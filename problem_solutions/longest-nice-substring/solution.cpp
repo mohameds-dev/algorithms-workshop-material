@@ -1,3 +1,4 @@
+#include <cassert>
 #include <bits/stdc++.h>
 using namespace std;
 class Solution {
@@ -37,10 +38,14 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
-    string s = "YazaAay";
-    cout << sol.longestNiceSubstring(s) << endl;
+    assert(sol.longestNiceSubstring("YazaAay") == "aAa");
+    assert(sol.longestNiceSubstring("Bb") == "Bb");
+    assert(sol.longestNiceSubstring("c") == "");
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

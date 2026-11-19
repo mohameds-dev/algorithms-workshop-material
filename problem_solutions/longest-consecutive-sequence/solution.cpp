@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <unordered_set>
 #include <vector>
@@ -27,16 +28,19 @@ public:
     }
 };
 
-int main() {
+void test_solution() {
     Solution sol;
     vector<int> nums1 = {100, 4, 200, 1, 3, 2};
-    cout << sol.longestConsecutive(nums1) << endl; // 4
+    assert(sol.longestConsecutive(nums1) == 4);
 
     vector<int> nums2 = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
-    cout << sol.longestConsecutive(nums2) << endl; // 9
+    assert(sol.longestConsecutive(nums2) == 9);
 
     vector<int> nums3 = {};
-    cout << sol.longestConsecutive(nums3) << endl; // 0
+    assert(sol.longestConsecutive(nums3) == 0);
+}
 
+int main() {
+    test_solution(); // Comment this out to run with custom inputs
     return 0;
 }

@@ -27,7 +27,11 @@ class Solution:
         return answer
 
 
-if __name__ == "__main__":
+def test_solution():
     sol = Solution()
-    print(sol.productExceptSelf([1, 2, 3, 4]))  # [24, 12, 8, 6]
-    print(sol.productExceptSelf([-1, 1, 0, -3, 3]))  # [0, 0, 9, 0, 0]
+    assert sol.productExceptSelf([1, 2, 3, 4]) == [24, 12, 8, 6]
+    assert sol.productExceptSelf([-1, 1, 0, -3, 3]) == [0, 0, 9, 0, 0]
+
+
+if __name__ == "__main__":
+    test_solution()  # Comment this out to run with custom inputs
